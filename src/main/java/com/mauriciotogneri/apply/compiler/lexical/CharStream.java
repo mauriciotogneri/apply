@@ -20,6 +20,12 @@ public class CharStream implements CharProvider
         this(new FileInputStream(file));
     }
 
+    @Override
+    public boolean hasMore() throws IOException
+    {
+        return stream.available() != 0;
+    }
+
     public char get() throws IOException
     {
         return (char) stream.read();

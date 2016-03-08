@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 public class CharStreamTest
 {
     @Test
-    public void test1() throws IOException
+    public void fromFile() throws IOException
     {
         File file = new File("src/test/resources/sample.ply");
         CharStream charStream = new CharStream(file);
