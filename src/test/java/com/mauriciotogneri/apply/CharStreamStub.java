@@ -2,12 +2,12 @@ package com.mauriciotogneri.apply;
 
 import com.mauriciotogneri.apply.compiler.lexical.CharProvider;
 
-public class FakeCharStream implements CharProvider
+public class CharStreamStub implements CharProvider
 {
     private int index = 0;
     private final char[] chars;
 
-    public FakeCharStream(String input)
+    public CharStreamStub(String input)
     {
         this.chars = input.toCharArray();
     }

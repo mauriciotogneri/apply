@@ -1,0 +1,122 @@
++  num num	= num
+-  num num	= num
+*  num num	= num
+/  num num	= num
+++ num		= num
+-- num		= num
+^  num num	= num
+%  num num	= num
+
+<  num num	= bool
+<= num num	= bool
+>  num num	= bool
+>= num num	= bool
+
+& bool bool	= bool
+| bool bool	= bool
+! bool		= bool
+
+? bool A A	= A
+
+=  A A 		= bool
+!= A A		= bool
+
+@ num [A]	= A
+# [A]		= num
+-  num [A]	= [A]
+++ [A] [A]	= [A]
++   A  [A]	= [A]
++  [A]  A	= [A]
+
+----------------------------------------------------------------------------------------------------
+
+fibo(index, limit, list)
+    ? (index >= limit,
+    	list,
+    	? (index = 0,
+    		fibo(1, limit, [1]),
+    		? (index = 1,
+    			fibo(2, limit, [1, 1]),
+    			_ (fist,
+    			    @(index - 1, list),
+    			    _ (second,
+                        @(index - 2, list),
+                        fibo(index + 1, limit, (first + second) + list)
+                    )
+    			)
+    		)
+    	)
+    )
+
+fibo(% index, % limit, [%] list)
+    ? (index >= limit,
+    	list,
+    	? (index = 0,
+    		fibo(1,
+    		     limit,
+    		     [1]),
+    		? (index = 1,
+    			fibo(2,
+    			     limit,
+    			     [1, 1]),
+    			fibo(index + 1,
+    			     limit,
+    			     (list(index - 1) + list(index - 2)) + list)
+    		)
+    	)
+    )
+
+test(list, array)
+	_ (foo,
+		@(0, list),
+		foo + array
+	)
+
+test([A] list, [A] array)
+	_ (foo,
+		@(0, list),
+		foo + array
+	)
+
+test([%] list, [%] array)
+	_ (foo,
+		list(0),
+		foo + array
+	)
+
+createList()
+	list(1, list(2, list(3, list(4))))
+
+factorial(n)
+    ? (n = 0,
+       1,
+       n * factorial(n - 1)
+    )
+
+map(f, a)
+	? (a = [],
+	   [],
+	   f(head(a)) + map(f, tail(a))
+	)
+
+head(a)
+	? (#(a) != 0,
+	   @(0, a),
+	   {ERROR}
+	)
+
+tail(a)
+	? (#(a) != 0,
+	   -(0, a),
+	   {ERROR}
+	)
+
+duplicate(a) = a * 2
+
+----------------------------------------------------------------------------------------------------
+
+factorial(1)
+
+fibo(0, 5, [])
+
+map('duplicate' [1 2 3])

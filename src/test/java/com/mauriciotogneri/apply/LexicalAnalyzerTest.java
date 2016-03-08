@@ -17,7 +17,7 @@ public class LexicalAnalyzerTest
     @Test
     public void testSimpleExpression() throws Exception
     {
-        FakeCharStream charStream = new FakeCharStream("f(3+4,5)");
+        CharStreamStub charStream = new CharStreamStub("f(3+4,5)");
 
         List<Token> validTokens = new ArrayList<>();
         validTokens.add(new Token(TokenType.SYMBOL, "f", new Cursor(0, 0)));
