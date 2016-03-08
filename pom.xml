@@ -5,13 +5,19 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.mauriciotogneri.apply</groupId>
+    <groupId>com.mauriciotogneri</groupId>
     <artifactId>apply</artifactId>
     <version>0.0.1</version>
-
     <packaging>jar</packaging>
     <name>apply</name>
     <url>http://maven.apache.org</url>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://github.com/mauriciotogneri/apply/blob/master/LICENSE.txt</url>
+            <distribution>site</distribution>
+        </license>
+    </licenses>
 
     <build>
         <plugins>
