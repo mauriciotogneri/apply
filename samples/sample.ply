@@ -2,8 +2,6 @@
 -  num num	= num
 *  num num	= num
 /  num num	= num
-++ num		= num
--- num		= num
 ^  num num	= num
 %  num num	= num
 
@@ -21,16 +19,28 @@
 =  A A 		= bool
 != A A		= bool
 
-@ num [A]	= A
-# [A]		= num
--  num [A]	= [A]
-++ [A] [A]	= [A]
-+   A  [A]	= [A]
-+  [A]  A	= [A]
+@  num [A]	= A
+#  [A]		= num
+<< num [A]	= [A]
+>> [A] [A]	= [A]
++>  A  [A]	= [A]
+<+ [A]  A	= [A]
 
 ----------------------------------------------------------------------------------------------------
 
-fibo(index, limit, list)
+\   backslash
+~   tilde
+"   double quote
+;   semi colon
+_	underscore
+,	comma
+‘	apostrophe
+`	grave accent
+{}	curly braces
+
+----------------------------------------------------------------------------------------------------
+
+fibo(index, limit, list) =
     ? (index >= limit,
     	list,
     	? (index = 0,
@@ -48,7 +58,7 @@ fibo(index, limit, list)
     	)
     )
 
-fibo(% index, % limit, [%] list)
+fibo(% index, % limit, [%] list) =
     ? (index >= limit,
     	list,
     	? (index = 0,
@@ -66,54 +76,67 @@ fibo(% index, % limit, [%] list)
     	)
     )
 
-test(list, array)
+test(list, array) =
 	_ (foo,
 		@(0, list),
 		foo + array
 	)
 
-test([A] list, [A] array)
+test([A] list, [A] array) =
 	_ (foo,
 		@(0, list),
 		foo + array
 	)
 
-test([%] list, [%] array)
+test([%] list, [%] array) =
 	_ (foo,
 		list(0),
 		foo + array
 	)
 
-createList()
-	list(1, list(2, list(3, list(4))))
-
-factorial(n)
+factorial(n) =
     ? (n = 0,
        1,
        n * factorial(n - 1)
     )
 
-map(f, a)
+map(f, a) =
 	? (a = [],
 	   [],
 	   f(head(a)) + map(f, tail(a))
 	)
 
-head(a)
-	? (#(a) != 0,
+map((A -> B) f, [A] a -> [B]) =
+	? (a = [],
+	   [],
+	   f(head(a)) + map(f, tail(a))
+	)
+
+head(a) =
+	? (length(a) != 0,
 	   @(0, a),
 	   {ERROR}
 	)
 
-tail(a)
+length(a) = #(a)
+
+tail(a) =
 	? (#(a) != 0,
 	   -(0, a),
 	   {ERROR}
 	)
 
+apply(f a b) = f(a + b)
+
 duplicate(a) = a * 2
 
+even(n) = (n % 2) = 0
+
+odd(n) = (n % 2) != 0
+
 ----------------------------------------------------------------------------------------------------
+
+apply('duplicate' 3 4)
 
 factorial(1)
 
