@@ -58,39 +58,9 @@ fibo(index, limit, list) =
     	)
     )
 
-fibo(% index, % limit, [%] list) =
-    ? (index >= limit,
-    	list,
-    	? (index = 0,
-    		fibo(1,
-    		     limit,
-    		     [1]),
-    		? (index = 1,
-    			fibo(2,
-    			     limit,
-    			     [1, 1]),
-    			fibo(index + 1,
-    			     limit,
-    			     (list(index - 1) + list(index - 2)) + list)
-    		)
-    	)
-    )
-
 test(list, array) =
 	_ (foo,
 		@(0, list),
-		foo + array
-	)
-
-test([A] list, [A] array) =
-	_ (foo,
-		@(0, list),
-		foo + array
-	)
-
-test([%] list, [%] array) =
-	_ (foo,
-		list(0),
 		foo + array
 	)
 
@@ -106,22 +76,16 @@ map(f, a) =
 	   f(head(a)) + map(f, tail(a))
 	)
 
-map((A -> B) f, [A] a -> [B]) =
-	? (a = [],
-	   [],
-	   f(head(a)) + map(f, tail(a))
-	)
+length(a) = #(a)
 
 head(a) =
-	? (length(a) != 0,
+	? (a != [],
 	   @(0, a),
 	   {ERROR}
 	)
 
-length(a) = #(a)
-
 tail(a) =
-	? (#(a) != 0,
+	? (a != [],
 	   -(0, a),
 	   {ERROR}
 	)
@@ -136,10 +100,10 @@ odd(n) = (n % 2) != 0
 
 ----------------------------------------------------------------------------------------------------
 
-apply('duplicate' 3 4)
+apply('duplicate', 3, 4)
 
 factorial(1)
 
 fibo(0, 5, [])
 
-map('duplicate' [1 2 3])
+map('duplicate', [1, 2, 3])

@@ -47,6 +47,7 @@ public class RuntimeTest
         assertEquals($greater.apply(3d, 4d), false);
         assertEquals($greaterEqual.apply(3d, 4d), false);
         assertEquals($equal.apply(3d, 4d), false);
+        assertEquals($equal.apply(new Double[] {1d, 2d, 3d}, new Double[] {1d, 2d, 3d}), true);
         assertEquals($noEqual.apply(3d, 4d), true);
     }
 

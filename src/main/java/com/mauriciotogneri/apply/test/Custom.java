@@ -1,9 +1,14 @@
 package com.mauriciotogneri.apply.test;
 
+import static com.mauriciotogneri.apply.test.Runtime.$appendBeginning;
 import static com.mauriciotogneri.apply.test.Runtime.$f0;
 import static com.mauriciotogneri.apply.test.Runtime.$f1;
 import static com.mauriciotogneri.apply.test.Runtime.$f2;
 import static com.mauriciotogneri.apply.test.Runtime.$f3;
+import static com.mauriciotogneri.apply.test.Runtime.$noEqual;
+import static com.mauriciotogneri.apply.test.Runtime.$equal;
+import static com.mauriciotogneri.apply.test.Runtime.$nth;
+import static com.mauriciotogneri.apply.test.Runtime.$remove;
 
 public class Custom
 {
@@ -24,32 +29,36 @@ public class Custom
         }
     };
 
-    public static final $f2 map = (f, a) -> {
-        Object[] o = (Object[]) a;
-
-        if (o.length == 0)
+    public static final $f1 head = (a) -> {
+        if ((Boolean) $noEqual.apply(a, Runtime.EMPTY_LIST))
         {
-            return new Object[0];
+            return $nth.apply(0d, a);
         }
         else
         {
-            //            Object first = a[0];
-            //
-            //            Object[] rest = new Object[a.length - 1];
-            //            System.arraycopy(a, 1, rest, 0, rest.length);
-            //            Object[] result = Test1.map2.apply(f, rest);
-            //
-            //            Object[] response = new Object[result.length + 1];
-            //            System.arraycopy(result, 0, response, 1, result.length);
-            //            response[0] = f.apply(first);
-
-            return null;
+            throw new RuntimeException();
         }
     };
 
-    //    map(f, a) =
-    //        ? (a = [],
-    //            [],
-    //            f(head(a)) + map(f, tail(a))
-    //        )
+    public static final $f1 tail = (a) -> {
+        if ((Boolean) $noEqual.apply(a, Runtime.EMPTY_LIST))
+        {
+            return $remove.apply(0d, a);
+        }
+        else
+        {
+            throw new RuntimeException();
+        }
+    };
+
+    public static final $f2 map = (f, a) -> {
+        if ((Boolean) $equal.apply(a, Runtime.EMPTY_LIST))
+        {
+            return Runtime.EMPTY_LIST;
+        }
+        else
+        {
+            return $appendBeginning.apply((($f1) f).apply(head.apply(a)), Custom.map.apply(f, tail.apply(a)));
+        }
+    };
 }

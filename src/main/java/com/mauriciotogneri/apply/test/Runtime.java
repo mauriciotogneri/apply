@@ -15,10 +15,38 @@ public class Runtime
     public static final $f2 $lessEqual = (a, b) -> ((Double) a) <= ((Double) b);
     public static final $f2 $greater = (a, b) -> ((Double) a) > ((Double) b);
     public static final $f2 $greaterEqual = (a, b) -> ((Double) a) >= ((Double) b);
-    public static final $f2 $equal = (a, b) -> a == b; // TODO
-    public static final $f2 $noEqual = (a, b) -> a != b; // TODO
+    public static final $f2 $equal = (a, b) -> {
+        if (a.getClass().isArray() && b.getClass().isArray())
+        {
+            Object[] arrayA = (Object[]) a;
+            Object[] arrayB = (Object[]) b;
+
+            if (arrayA.length != arrayB.length)
+            {
+                return false;
+            }
+            else
+            {
+                for (int i = 0; i < arrayA.length; i++)
+                {
+                    if (!(Boolean) Runtime.$equal.apply(arrayA[i], arrayB[i]))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
+        else
+        {
+            return a.equals(b);
+        }
+    };
+    public static final $f2 $noEqual = (a, b) -> !(Boolean) $equal.apply(a, b);
 
     // logic
+    public static final Object[] EMPTY_LIST = new Object[0];
     public static final $f2 $and = (a, b) -> ((Boolean) a) && ((Boolean) b);
     public static final $f2 $or = (a, b) -> ((Boolean) a) || ((Boolean) b);
     public static final $f1 $negate = (a) -> !((Boolean) a);
@@ -30,7 +58,7 @@ public class Runtime
 
         return array[index];
     };
-    public static final $f1 $length = (a) -> (double)((Object[]) a).length;
+    public static final $f1 $length = (a) -> (double) ((Object[]) a).length;
     public static final $f2 $concat = (a, b) -> {
         Object[] arrayA = (Object[]) a;
         Object[] arrayB = (Object[]) b;
