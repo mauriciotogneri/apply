@@ -31,4 +31,31 @@ public class Compiler
             System.err.format("%s, line %d in %s", diagnostic.getMessage(null), diagnostic.getLineNumber(), diagnostic.getSource().getName());
         }
     }
+
+    public void compile(String sourceCode, String canonicalClassName) throws Exception
+    {
+//        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+//        List<JavaSourceFromString> sources = new LinkedList<>();
+//        String className = calculateSimpleClassName(canonicalClassName);
+//        sources.add(new JavaSourceFromString(className, sourceCode));
+//
+//        StringWriter sw = new StringWriter();
+//        MemoryJavaFileManager fm = new MemoryJavaFileManager(compiler.getStandardFileManager(null, null, null));
+//        JavaCompiler.CompilationTask task = compiler.getTask(sw, fm, null, null, null, sources);
+//
+//        Boolean compilationWasSuccessful = task.call();
+//        if (compilationWasSuccessful)
+//        {
+//            ByteClassLoader byteClassLoader = new ByteClassLoader(new URL[0], classLoader, classesByteArraysMap(fm));
+//
+//            Class<?> klass = byteClassLoader.loadClass(canonicalClassName);
+//            byteClassLoader.close();
+//            return klass;
+//        }
+//        else
+//        {
+//            compilerErrorOutput = sw.toString();
+//            return null;
+//        }
+    }
 }
