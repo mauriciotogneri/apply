@@ -43,7 +43,7 @@ public class Runtime
             return a.equals(b);
         }
     };
-    public static final $f2 $noEqual = (a, b) -> !(Boolean) $equal.apply(a, b);
+    public static final $f2 $notEqual = (a, b) -> !(Boolean) $equal.apply(a, b);
 
     // logic
     public static final Object[] EMPTY_LIST = new Object[0];
@@ -58,17 +58,17 @@ public class Runtime
 
         return array[index];
     };
-    public static final $f1 $length = (a) -> (double) ((Object[]) a).length;
-    public static final $f2 $concat = (a, b) -> {
-        Object[] arrayA = (Object[]) a;
-        Object[] arrayB = (Object[]) b;
-
-        Object[] result = new Object[arrayA.length + arrayB.length];
-        System.arraycopy(arrayA, 0, result, 0, arrayA.length);
-        System.arraycopy(arrayB, 0, result, arrayA.length, arrayB.length);
-
-        return result;
-    };
+    //public static final $f1 $length = (a) -> (double) ((Object[]) a).length;
+    //    public static final $f2 $concat = (a, b) -> {
+    //        Object[] arrayA = (Object[]) a;
+    //        Object[] arrayB = (Object[]) b;
+    //
+    //        Object[] result = new Object[arrayA.length + arrayB.length];
+    //        System.arraycopy(arrayA, 0, result, 0, arrayA.length);
+    //        System.arraycopy(arrayB, 0, result, arrayA.length, arrayB.length);
+    //
+    //        return result;
+    //    };
     public static final $f2 $appendBeginning = (a, b) -> {
         Object[] array = (Object[]) b;
 
