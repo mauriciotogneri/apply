@@ -10,14 +10,17 @@
 >  num num	= bool
 >= num num	= bool
 
+=  A A 		= bool
+!= A A		= bool
+
 & bool bool	= bool
 | bool bool	= bool
 ! bool		= bool
 
 ? bool A A	= A
 
-=  A A 		= bool
-!= A A		= bool
+@  [A]	= A         (head)
+#  [A]	= [A]       (tail)
 
 @  num [A]	= A
 #  [A]		= num

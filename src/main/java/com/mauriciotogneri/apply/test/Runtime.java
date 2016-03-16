@@ -46,18 +46,12 @@ public class Runtime
     public static final $f2 $notEqual = (a, b) -> !(Boolean) $equal.apply(a, b);
 
     // logic
-    public static final Object[] EMPTY_LIST = new Object[0];
     public static final $f2 $and = (a, b) -> ((Boolean) a) && ((Boolean) b);
     public static final $f2 $or = (a, b) -> ((Boolean) a) || ((Boolean) b);
     public static final $f1 $negate = (a) -> !((Boolean) a);
 
     // list
-    public static final $f2 $nth = (a, b) -> {
-        int index = ((Double) a).intValue();
-        Object[] array = (Object[]) b;
-
-        return array[index];
-    };
+    public static final Object[] EMPTY_LIST = new Object[0];
     //public static final $f1 $length = (a) -> (double) ((Object[]) a).length;
     //    public static final $f2 $concat = (a, b) -> {
     //        Object[] arrayA = (Object[]) a;
@@ -86,6 +80,12 @@ public class Runtime
         result[result.length - 1] = b;
 
         return result;
+    };
+    public static final $f2 $nth = (a, b) -> {
+        int index = ((Double) a).intValue();
+        Object[] array = (Object[]) b;
+
+        return array[index];
     };
     public static final $f2 $remove = (a, b) -> {
         int index = ((Double) a).intValue();

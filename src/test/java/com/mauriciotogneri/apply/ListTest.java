@@ -4,11 +4,13 @@ import org.junit.Test;
 
 import static com.mauriciotogneri.apply.test.Custom.duplicate;
 import static com.mauriciotogneri.apply.test.stdlib.List.concat;
+import static com.mauriciotogneri.apply.test.stdlib.List.empty;
 import static com.mauriciotogneri.apply.test.stdlib.List.head;
 import static com.mauriciotogneri.apply.test.stdlib.List.init;
 import static com.mauriciotogneri.apply.test.stdlib.List.last;
 import static com.mauriciotogneri.apply.test.stdlib.List.length;
 import static com.mauriciotogneri.apply.test.stdlib.List.map;
+import static com.mauriciotogneri.apply.test.stdlib.List.notEmpty;
 import static com.mauriciotogneri.apply.test.stdlib.List.nth;
 import static com.mauriciotogneri.apply.test.stdlib.List.tail;
 import static org.junit.Assert.assertArrayEquals;
@@ -16,6 +18,52 @@ import static org.junit.Assert.assertEquals;
 
 public class ListTest
 {
+    // ======================================== EMPTY =========================================== \\
+
+    @Test
+    public void emptyOfOne()
+    {
+        Character[] input = {'X'};
+        assertEquals(empty.apply(input), false);
+    }
+
+    @Test
+    public void emptyOfThree()
+    {
+        Double[] input = {1d, 2d, -3d};
+        assertEquals(empty.apply(input), false);
+    }
+
+    @Test
+    public void emptyOfZero()
+    {
+        Boolean[] input = {};
+        assertEquals(empty.apply(input), true);
+    }
+
+    // ====================================== NOT EMPTY ========================================= \\
+
+    @Test
+    public void notEmptyOfOne()
+    {
+        Character[] input = {'X'};
+        assertEquals(notEmpty.apply(input), true);
+    }
+
+    @Test
+    public void notEmptyOfThree()
+    {
+        Double[] input = {1d, 2d, -3d};
+        assertEquals(notEmpty.apply(input), true);
+    }
+
+    @Test
+    public void notEmptyOfZero()
+    {
+        Boolean[] input = {};
+        assertEquals(notEmpty.apply(input), false);
+    }
+    
     // ======================================= LENGTH =========================================== \\
 
     @Test
@@ -35,7 +83,7 @@ public class ListTest
     }
 
     @Test
-    public void lengthOfEmpty()
+    public void lengthOfZero()
     {
         Boolean[] input = {};
         Double output = 0d;
@@ -61,7 +109,7 @@ public class ListTest
     }
 
     @Test(expected = RuntimeException.class)
-    public void headOfEmpty()
+    public void headOfZero()
     {
         Boolean[] input = {};
         head.apply(input);
@@ -86,7 +134,7 @@ public class ListTest
     }
 
     @Test(expected = RuntimeException.class)
-    public void tailOfEmpty()
+    public void tailOfZero()
     {
         Boolean[] input = {};
         tail.apply(input);
@@ -111,7 +159,7 @@ public class ListTest
     }
 
     @Test(expected = RuntimeException.class)
-    public void initOfEmpty()
+    public void initOfZero()
     {
         Boolean[] input = {};
         init.apply(input);
@@ -136,7 +184,7 @@ public class ListTest
     }
 
     @Test(expected = RuntimeException.class)
-    public void lastOfEmpty()
+    public void lastOfZero()
     {
         Boolean[] input = {};
         last.apply(input);
@@ -195,7 +243,7 @@ public class ListTest
     }
 
     @Test(expected = RuntimeException.class)
-    public void nthOfEmpty()
+    public void nthOfZero()
     {
         Double index = 0d;
         Boolean[] input = {};
@@ -263,7 +311,7 @@ public class ListTest
     }
 
     @Test
-    public void mapOfEmpty()
+    public void mapOfZero()
     {
         Double[] input = {};
         Double[] output = {};
