@@ -4,23 +4,22 @@ import org.junit.Test;
 
 import static com.mauriciotogneri.apply.test.Runtime.$add;
 import static com.mauriciotogneri.apply.test.Runtime.$and;
-import static com.mauriciotogneri.apply.test.Runtime.$appendBeginning;
-import static com.mauriciotogneri.apply.test.Runtime.$appendEnd;
+import static com.mauriciotogneri.apply.test.Runtime.$append;
 import static com.mauriciotogneri.apply.test.Runtime.$div;
 import static com.mauriciotogneri.apply.test.Runtime.$equal;
 import static com.mauriciotogneri.apply.test.Runtime.$greater;
 import static com.mauriciotogneri.apply.test.Runtime.$greaterEqual;
+import static com.mauriciotogneri.apply.test.Runtime.$head;
 import static com.mauriciotogneri.apply.test.Runtime.$less;
 import static com.mauriciotogneri.apply.test.Runtime.$lessEqual;
 import static com.mauriciotogneri.apply.test.Runtime.$mod;
 import static com.mauriciotogneri.apply.test.Runtime.$mul;
 import static com.mauriciotogneri.apply.test.Runtime.$negate;
 import static com.mauriciotogneri.apply.test.Runtime.$notEqual;
-import static com.mauriciotogneri.apply.test.Runtime.$nth;
 import static com.mauriciotogneri.apply.test.Runtime.$or;
 import static com.mauriciotogneri.apply.test.Runtime.$pow;
-import static com.mauriciotogneri.apply.test.Runtime.$remove;
 import static com.mauriciotogneri.apply.test.Runtime.$sub;
+import static com.mauriciotogneri.apply.test.Runtime.$tail;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
@@ -114,11 +113,16 @@ public class RuntimeTest
     @Test
     public void testList()
     {
-        Double[] input = new Double[] {1d, 2d, 3d, 4d, 5d};
+        assertArrayEquals((Object[]) $append.apply(1d, new Double[] {}), new Double[] {1d});
+        assertArrayEquals((Object[]) $append.apply(1d, new Double[] {2d}), new Double[] {1d, 2d});
+        assertArrayEquals((Object[]) $append.apply(1d, new Double[] {2d, 3d, 4d}), new Double[] {1d, 2d, 3d, 4d});
 
-        assertEquals($nth.apply(2d, input), 3d);
-        assertArrayEquals((Object[]) $appendBeginning.apply(0d, input), new Double[] {0d, 1d, 2d, 3d, 4d, 5d});
-        assertArrayEquals((Object[]) $appendEnd.apply(input, 6d), new Double[] {1d, 2d, 3d, 4d, 5d, 6d});
-        assertArrayEquals((Object[]) $remove.apply(2d, input), new Double[] {1d, 2d, 4d, 5d});
+        assertEquals($head.apply(new Double[] {}), null);
+        assertEquals($head.apply(new Double[] {1d}), 1d);
+        assertEquals($head.apply(new Double[] {1d, 2d, 3d}), 1d);
+
+        assertArrayEquals((Object[]) $tail.apply(new Double[] {}), null);
+        assertArrayEquals((Object[]) $tail.apply(new Double[] {1d}), new Double[] {});
+        assertArrayEquals((Object[]) $tail.apply(new Double[] {1d, 2d, 3d}), new Double[] {2d, 3d});
     }
 }

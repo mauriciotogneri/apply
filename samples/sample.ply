@@ -19,15 +19,11 @@
 
 ? bool A A	= A
 
-@  [A]	= A         (head)
-#  [A]	= [A]       (tail)
+++  A [A] = [A]
+!# [A]    =  A
+#! [A]    = [A]
 
-@  num [A]	= A
-#  [A]		= num
-<< num [A]	= [A]
->> [A] [A]	= [A]
-+>  A  [A]	= [A]
-<+ [A]  A	= [A]
+@ = Undefined
 
 ----------------------------------------------------------------------------------------------------
 
@@ -43,35 +39,33 @@ _	underscore
 
 ----------------------------------------------------------------------------------------------------
 
-fibo(index, limit, list) =
-    ? (index >= limit,
-    	list,
-    	? (index = 0,
-    		fibo(1, limit, [1]),
-    		? (index = 1,
-    			fibo(2, limit, [1, 1]),
-    			_ (fist,
-    			    @(index - 1, list),
-    			    _ (second,
-                        @(index - 2, list),
-                        fibo(index + 1, limit, (first + second) + list)
-                    )
-    			)
-    		)
-    	)
-    )
+fibonacci(limit) = ? (limit < 0, @
+	                  ? (limit = 0, [],
+	                     ? (limit = 1, [1],
+	                      	? (limit = 2, [1, 1],
+	                      	   fibo(3, limit, [1, 1])
+	                      	)
+	                     )
+	                  )
+	               )
 
-test(list, array) =
-	_ (foo,
-		@(0, list),
-		foo + array
-	)
+fibonacci(limit) = ? (limit < 0, @
+	                  ? (limit = 0, [],
+	                     ? (limit = 1, [1],
+	                      	? (limit = 2, [1, 1],
+	                      	   fibo(3, limit, [1, 1])))))
 
-factorial(n) =
-    ? (n = 0,
-       1,
-       n * factorial(n - 1)
-    )
+fibonacci(limit) = ? (limit < 0, @
+	               ? (limit = 0, [],
+	               ? (limit = 1, [1],
+	               ? (limit = 2, [1, 1],
+	               fibo(3, limit, [1, 1])))))
+
+fibo(index, limit, list) = ? (index > limit, list,
+                              fibo(index + 1, limit, (nth(index - 1, list) + nth(index - 2, list)) ++ list))
+
+factorial(n) = ? (n = 0, 1,
+	              n * factorial(n - 1))
 
 map(f, a) =
 	? (a = [],

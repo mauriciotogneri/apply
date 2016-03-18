@@ -16,6 +16,7 @@ import static com.mauriciotogneri.apply.test.stdlib.List.tail;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("ConstantConditions")
 public class ListTest
 {
     // ======================================== EMPTY =========================================== \\
@@ -63,7 +64,7 @@ public class ListTest
         Boolean[] input = {};
         assertEquals(notEmpty.apply(input), false);
     }
-    
+
     // ======================================= LENGTH =========================================== \\
 
     @Test
@@ -108,11 +109,12 @@ public class ListTest
         assertEquals(head.apply(input), output);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void headOfZero()
     {
         Boolean[] input = {};
-        head.apply(input);
+        Object output = null;
+        assertEquals(head.apply(input), output);
     }
 
     // ======================================== TAIL ============================================ \\
@@ -133,11 +135,12 @@ public class ListTest
         assertArrayEquals((Object[]) tail.apply(input), output);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void tailOfZero()
     {
         Boolean[] input = {};
-        tail.apply(input);
+        Object output = null;
+        assertEquals(tail.apply(input), output);
     }
 
     // ======================================== INIT ============================================ \\
@@ -158,11 +161,12 @@ public class ListTest
         assertArrayEquals((Object[]) init.apply(input), output);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void initOfZero()
     {
         Boolean[] input = {};
-        init.apply(input);
+        Object output = null;
+        assertEquals(init.apply(input), output);
     }
 
     // ======================================== LAST ============================================ \\
@@ -183,11 +187,12 @@ public class ListTest
         assertEquals(last.apply(input), output);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void lastOfZero()
     {
         Boolean[] input = {};
-        last.apply(input);
+        Object output = null;
+        assertEquals(last.apply(input), output);
     }
 
     // ========================================= NTH ============================================ \\
@@ -201,20 +206,22 @@ public class ListTest
         assertEquals(nth.apply(index, input), output);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void nthOfOneUnder()
     {
         Double index = -1d;
         Character[] input = {'X'};
-        nth.apply(index, input);
+        Object output = null;
+        assertEquals(nth.apply(index, input), output);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void nthOfOneOver()
     {
         Double index = 1d;
         Character[] input = {'X'};
-        nth.apply(index, input);
+        Object output = null;
+        assertEquals(nth.apply(index, input), output);
     }
 
     @Test
@@ -226,31 +233,34 @@ public class ListTest
         assertEquals(nth.apply(index, input), output);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void nthOfThreeUnder()
     {
         Double index = -1d;
         Double[] input = {1d, 2d, -3d};
-        nth.apply(index, input);
+        Object output = null;
+        assertEquals(nth.apply(index, input), output);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void nthOfThreeOver()
     {
         Double index = 3d;
         Double[] input = {1d, 2d, -3d};
-        nth.apply(index, input);
+        Object output = null;
+        assertEquals(nth.apply(index, input), output);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void nthOfZero()
     {
         Double index = 0d;
         Boolean[] input = {};
-        nth.apply(index, input);
+        Object output = null;
+        assertEquals(nth.apply(index, input), output);
     }
 
-    // ======================================== LAST ============================================ \\
+    // ======================================= CONCAT =========================================== \\
 
     @Test
     public void concatEmptyEmpty()

@@ -52,18 +52,8 @@ public class Runtime
 
     // list
     public static final Object[] EMPTY_LIST = new Object[0];
-    //public static final $f1 $length = (a) -> (double) ((Object[]) a).length;
-    //    public static final $f2 $concat = (a, b) -> {
-    //        Object[] arrayA = (Object[]) a;
-    //        Object[] arrayB = (Object[]) b;
-    //
-    //        Object[] result = new Object[arrayA.length + arrayB.length];
-    //        System.arraycopy(arrayA, 0, result, 0, arrayA.length);
-    //        System.arraycopy(arrayB, 0, result, arrayA.length, arrayB.length);
-    //
-    //        return result;
-    //    };
-    public static final $f2 $appendBeginning = (a, b) -> {
+
+    public static final $f2 $append = (a, b) -> {
         Object[] array = (Object[]) b;
 
         Object[] result = new Object[array.length + 1];
@@ -72,30 +62,25 @@ public class Runtime
 
         return result;
     };
-    public static final $f2 $appendEnd = (a, b) -> {
+    public static final $f1 $head = (a) -> {
         Object[] array = (Object[]) a;
 
-        Object[] result = new Object[array.length + 1];
-        System.arraycopy(array, 0, result, 0, array.length);
-        result[result.length - 1] = b;
-
-        return result;
+        return (array.length > 0) ? array[0] : null;
     };
-    public static final $f2 $nth = (a, b) -> {
-        int index = ((Double) a).intValue();
-        Object[] array = (Object[]) b;
+    public static final $f1 $tail = (a) -> {
+        Object[] array = (Object[]) a;
 
-        return array[index];
-    };
-    public static final $f2 $remove = (a, b) -> {
-        int index = ((Double) a).intValue();
-        Object[] array = (Object[]) b;
+        if (array.length > 0)
+        {
+            Object[] result = new Object[array.length - 1];
+            System.arraycopy(array, 1, result, 0, array.length - 1);
 
-        Object[] result = new Object[array.length - 1];
-        System.arraycopy(array, 0, result, 0, index);
-        System.arraycopy(array, index + 1, result, index, array.length - index - 1);
-
-        return result;
+            return result;
+        }
+        else
+        {
+            return null;
+        }
     };
 
     public interface $f0

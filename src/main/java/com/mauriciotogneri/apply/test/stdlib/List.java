@@ -4,12 +4,12 @@ import com.mauriciotogneri.apply.test.Runtime;
 import com.mauriciotogneri.apply.test.Runtime.$f1;
 import com.mauriciotogneri.apply.test.Runtime.$f2;
 
-import static com.mauriciotogneri.apply.test.Runtime.$appendBeginning;
+import static com.mauriciotogneri.apply.test.Runtime.$append;
 import static com.mauriciotogneri.apply.test.Runtime.$equal;
 import static com.mauriciotogneri.apply.test.Runtime.$greater;
+import static com.mauriciotogneri.apply.test.Runtime.$head;
 import static com.mauriciotogneri.apply.test.Runtime.$notEqual;
-import static com.mauriciotogneri.apply.test.Runtime.$nth;
-import static com.mauriciotogneri.apply.test.Runtime.$remove;
+import static com.mauriciotogneri.apply.test.Runtime.$tail;
 
 public class List
 {
@@ -32,28 +32,10 @@ public class List
     };
 
     // [a] -> a
-    public static final $f1 head = (a) -> {
-        if ((Boolean) notEmpty.apply(a))
-        {
-            return $nth.apply(0d, a);
-        }
-        else
-        {
-            throw new RuntimeException();
-        }
-    };
+    public static final $f1 head = (a) -> $head.apply(a);
 
     // [a] -> [a]
-    public static final $f1 tail = (a) -> {
-        if ((Boolean) notEmpty.apply(a))
-        {
-            return $remove.apply(0d, a);
-        }
-        else
-        {
-            throw new RuntimeException();
-        }
-    };
+    public static final $f1 tail = (a) -> $tail.apply(a);
 
     // [a] -> a
     public static final $f1 last = (a) -> {
@@ -67,7 +49,7 @@ public class List
         }
         else
         {
-            throw new RuntimeException();
+            return null;
         }
     };
 
@@ -79,27 +61,27 @@ public class List
         }
         else if ((Boolean) notEmpty.apply(a))
         {
-            return $appendBeginning.apply(List.head.apply(a), List.init.apply(List.tail.apply(a)));
+            return $append.apply(List.head.apply(a), List.init.apply(List.tail.apply(a)));
         }
         else
         {
-            throw new RuntimeException();
+            return null;
         }
     };
 
     // Num -> [a] -> a
     public static final $f2 nth = (a, b) -> {
-        if (((Boolean) $equal.apply(a, 0d)) && ((Boolean) notEmpty.apply(a)))
+        if ((Boolean) $equal.apply(a, 0d))
         {
             return List.head.apply(b);
         }
-        else if (((Boolean) $greater.apply(a, 0d)) && ((Boolean) notEmpty.apply(a)))
+        else if ((Boolean) $greater.apply(a, 0d))
         {
             return List.nth.apply((Double) a - 1, tail.apply(b));
         }
         else
         {
-            throw new RuntimeException();
+            return null;
         }
     };
 
@@ -124,11 +106,11 @@ public class List
         }
         else if ((Boolean) notEmpty.apply(a))
         {
-            return $appendBeginning.apply(List.head.apply(a), List.concat.apply(List.tail.apply(a), b));
+            return $append.apply(List.head.apply(a), List.concat.apply(List.tail.apply(a), b));
         }
         else
         {
-            return $appendBeginning.apply(List.head.apply(b), List.concat.apply(a, List.tail.apply(b)));
+            return $append.apply(List.head.apply(b), List.concat.apply(a, List.tail.apply(b)));
         }
     };
 
@@ -139,7 +121,7 @@ public class List
         }
         else
         {
-            return $appendBeginning.apply((($f1) f).apply(List.head.apply(a)), List.map.apply(f, List.tail.apply(a)));
+            return $append.apply((($f1) f).apply(List.head.apply(a)), List.map.apply(f, List.tail.apply(a)));
         }
     };
 }
