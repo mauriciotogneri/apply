@@ -1,6 +1,5 @@
 package com.mauriciotogneri.apply.test;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import javax.tools.Diagnostic;
@@ -13,7 +12,7 @@ import javax.tools.ToolProvider;
 
 public class Compiler
 {
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws Exception
     {
         String filePath = "src/com/mauriciotogneri/apply/Test.java";
         String outputPath = "./output";
@@ -43,7 +42,7 @@ public class Compiler
 //        MemoryJavaFileManager fm = new MemoryJavaFileManager(compiler.getStandardFileManager(null, null, null));
 //        JavaCompiler.CompilationTask task = compiler.getTask(sw, fm, null, null, null, sources);
 //
-//        Boolean compilationWasSuccessful = task.call();
+//        boolean compilationWasSuccessful = task.call();
 //        if (compilationWasSuccessful)
 //        {
 //            ByteClassLoader byteClassLoader = new ByteClassLoader(new URL[0], classLoader, classesByteArraysMap(fm));
