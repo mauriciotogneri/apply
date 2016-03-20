@@ -39,21 +39,4 @@ public class FileCursor implements Position, Cursor
             return new FileCursor(line, column + 1);
         }
     }
-
-    @Override
-    public boolean equals(Object o)
-    {
-        if (this == o)
-        {
-            return true;
-        }
-        else if ((o == null) || (getClass() != o.getClass()))
-        {
-            return false;
-        }
-
-        FileCursor fileCursor = (FileCursor) o;
-
-        return (line == fileCursor.line) && (column == fileCursor.column);
-    }
 }

@@ -1,8 +1,7 @@
 package com.mauriciotogneri.apply;
 
-import com.mauriciotogneri.apply.compiler.frontend.lexical.Character;
 import com.mauriciotogneri.apply.compiler.frontend.lexical.Characters;
-import com.mauriciotogneri.apply.compiler.types.CharacterType;
+import com.mauriciotogneri.apply.compiler.frontend.lexical.ReadCharacter;
 
 public class FakeCharacters implements Characters
 {
@@ -21,10 +20,10 @@ public class FakeCharacters implements Characters
     }
 
     @Override
-    public Character next() throws Exception
+    public ReadCharacter next() throws Exception
     {
         FakePosition position = new FakePosition(1, index);
 
-        return new Character(CharacterType.fromChar(chars[index++], position), position);
+        return new ReadCharacter(chars[index++], position);
     }
 }

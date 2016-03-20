@@ -20,8 +20,8 @@ public class TokenizedSource implements Tokens
     @Override
     public Token next() throws Exception
     {
-        Character character = characters.next();
+        Character readCharacter = characters.next();
 
-        return new Token(TokenType.ANONYMOUS_FUNCTION, character); // TODO
+        return new Token(TokenType.ANONYMOUS_FUNCTION, readCharacter); // TODO
     }
 }
