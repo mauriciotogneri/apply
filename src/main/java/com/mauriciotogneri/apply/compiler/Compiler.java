@@ -1,7 +1,9 @@
 package com.mauriciotogneri.apply.compiler;
 
-import com.mauriciotogneri.apply.compiler.frontend.lexical.ParsedSource;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.TokenizedSource;
+import com.mauriciotogneri.apply.compiler.frontend.lexical.Characters;
+import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultCharacters;
+import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultTokens;
+import com.mauriciotogneri.apply.compiler.frontend.lexical.Tokens;
 
 import java.io.File;
 
@@ -10,7 +12,7 @@ public class Compiler
     public void compile(String filePath) throws Exception
     {
         File file = new File(filePath);
-        ParsedSource parsedSource = new ParsedSource(file);
-        TokenizedSource tokenizedSource = new TokenizedSource(parsedSource);
+        Characters characters = new DefaultCharacters(file);
+        Tokens tokens = new DefaultTokens(characters);
     }
 }

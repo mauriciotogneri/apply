@@ -3,7 +3,7 @@ package com.mauriciotogneri.apply.compiler.frontend.lexical;
 import com.mauriciotogneri.apply.compiler.types.TokenType;
 import com.mauriciotogneri.apply.exceptions.LexicalException;
 
-public class ReadCharacter implements Character
+public class DefaultCharacter implements Character
 {
     private final char character;
     private final Position position;
@@ -110,7 +110,7 @@ public class ReadCharacter implements Character
     private static final char y = 'y'; // 121
     private static final char z = 'z'; // 122
 
-    public ReadCharacter(char character, Position position)
+    public DefaultCharacter(char character, Position position)
     {
         this.character = character;
         this.position = position;

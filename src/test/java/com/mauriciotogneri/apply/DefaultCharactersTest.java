@@ -2,7 +2,7 @@ package com.mauriciotogneri.apply;
 
 import com.mauriciotogneri.apply.compiler.frontend.lexical.Character;
 import com.mauriciotogneri.apply.compiler.frontend.lexical.Characters;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.ParsedSource;
+import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultCharacters;
 
 import org.junit.Test;
 
@@ -10,13 +10,13 @@ import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 
-public class ParsedSourceTest
+public class DefaultCharactersTest
 {
     @Test
     public void fromFile() throws Exception
     {
         File file = new File("src/test/resources/sample.ply");
-        Characters characters = new ParsedSource(file);
+        Characters characters = new DefaultCharacters(file);
 
         Character characterLetterF = characters.next();
         assertEquals(characterLetterF.digit(), false);

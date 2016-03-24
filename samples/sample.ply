@@ -73,6 +73,12 @@ map(f, a) =
 	   f(head(a)) + map(f, tail(a))
 	)
 
+letExample(n) = _(positive, n > 0,
+				  prime, prime(n),
+				  even, n % 2 = 0,
+				  positive & prime & even
+				)
+
 length(a) = #(a)
 
 head(a) =

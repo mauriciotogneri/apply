@@ -2,11 +2,11 @@ package com.mauriciotogneri.apply.compiler.frontend.lexical;
 
 import com.mauriciotogneri.apply.compiler.types.TokenType;
 
-public class TokenizedSource implements Tokens
+public class DefaultTokens implements Tokens
 {
     private final Characters characters;
 
-    public TokenizedSource(Characters characters)
+    public DefaultTokens(Characters characters)
     {
         this.characters = characters;
     }
@@ -18,10 +18,10 @@ public class TokenizedSource implements Tokens
     }
 
     @Override
-    public Token next() throws Exception
+    public DefaultToken next() throws Exception
     {
         Character readCharacter = characters.next();
 
-        return new Token(TokenType.ANONYMOUS_FUNCTION, readCharacter); // TODO
+        return new DefaultToken(TokenType.ANONYMOUS_FUNCTION, readCharacter); // TODO
     }
 }

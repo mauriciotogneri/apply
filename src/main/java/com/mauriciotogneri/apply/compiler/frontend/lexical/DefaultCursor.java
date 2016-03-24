@@ -1,11 +1,11 @@
 package com.mauriciotogneri.apply.compiler.frontend.lexical;
 
-public class FileCursor implements Position, Cursor
+public class DefaultCursor implements Position, Cursor
 {
     private final int line;
     private final int column;
 
-    public FileCursor(int line, int column)
+    public DefaultCursor(int line, int column)
     {
         this.line = line;
         this.column = column;
@@ -24,19 +24,19 @@ public class FileCursor implements Position, Cursor
     }
 
     @Override
-    public FileCursor advance(char character)
+    public Cursor advance(char character)
     {
         if (character == '\n')
         {
-            return new FileCursor(line + 1, 1);
+            return new DefaultCursor(line + 1, 1);
         }
         else if (character == '\t')
         {
-            return new FileCursor(line, column + 4);
+            return new DefaultCursor(line, column + 4);
         }
         else
         {
-            return new FileCursor(line, column + 1);
+            return new DefaultCursor(line, column + 1);
         }
     }
 }
