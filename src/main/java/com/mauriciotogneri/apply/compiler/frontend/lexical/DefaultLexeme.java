@@ -5,15 +5,10 @@ public class DefaultLexeme implements Lexeme
     private final String value;
     private final Position position;
 
-    private DefaultLexeme(String value, Position position)
+    public DefaultLexeme(String value, Position position)
     {
         this.value = value;
         this.position = position;
-    }
-
-    public DefaultLexeme(Character character)
-    {
-        this(character.toString(), character);
     }
 
     @Override

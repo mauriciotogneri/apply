@@ -1,7 +1,7 @@
 package com.mauriciotogneri.apply;
 
 import com.mauriciotogneri.apply.compiler.frontend.lexical.Characters;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultCharacter;
+import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultLexeme;
 import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultToken;
 import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultTokens;
 import com.mauriciotogneri.apply.compiler.frontend.lexical.Token;
@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class DefaultTokensTest
 {
@@ -24,25 +23,26 @@ public class DefaultTokensTest
         Characters characters = new FakeCharacters("f(3+4,5)");
 
         List<Token> expectedTokens = new ArrayList<>();
-        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultCharacter('f', new FakePosition(1, 1))));
-        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultCharacter('(', new FakePosition(1, 2))));
-        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultCharacter('3', new FakePosition(1, 3))));
-        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultCharacter('+', new FakePosition(1, 4))));
-        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultCharacter('4', new FakePosition(1, 5))));
-        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultCharacter(',', new FakePosition(1, 6))));
-        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultCharacter('5', new FakePosition(1, 7))));
-        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultCharacter(')', new FakePosition(1, 8))));
+        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultLexeme("f", new FakePosition(1, 1))));
+        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultLexeme("(", new FakePosition(1, 2))));
+        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultLexeme("3", new FakePosition(1, 3))));
+        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultLexeme("+", new FakePosition(1, 4))));
+        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultLexeme("4", new FakePosition(1, 5))));
+        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultLexeme(",", new FakePosition(1, 6))));
+        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultLexeme("5", new FakePosition(1, 7))));
+        expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultLexeme(")", new FakePosition(1, 8))));
 
         Tokens tokens = new DefaultTokens(characters);
+        List<Token> actualTokens = tokens.tokens();
 
-        for (Token expected : expectedTokens)
+        assertEquals(expectedTokens.size(), actualTokens.size());
+
+        for (int i = 0; i < actualTokens.size(); i++)
         {
-            Token actual = tokens.next();
+            Token actual = actualTokens.get(i);
+            Token expected = expectedTokens.get(i);
 
-            //assertEquals(actual.type(), validToken.type());
             assertEquals(actual.toString(), expected.toString());
         }
-
-        assertTrue(tokens.empty());
     }
 }

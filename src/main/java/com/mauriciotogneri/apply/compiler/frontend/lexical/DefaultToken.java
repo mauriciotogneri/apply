@@ -13,11 +13,6 @@ public class DefaultToken implements Token
         this.type = type;
     }
 
-    public DefaultToken(TokenType type, Character character)
-    {
-        this(type, new DefaultLexeme(character));
-    }
-
     @Override
     public boolean separator()
     {
@@ -40,9 +35,7 @@ public class DefaultToken implements Token
                 (type == TokenType.ARITHMETIC_MULTIPLICATION) || //
                 (type == TokenType.ARITHMETIC_DIVISION) || //
                 (type == TokenType.ARITHMETIC_POWER) || //
-                (type == TokenType.ARITHMETIC_MODULE) || //
-                (type == TokenType.ARITHMETIC_INCREMENT) || //
-                (type == TokenType.ARITHMETIC_DECREMENT);
+                (type == TokenType.ARITHMETIC_MODULE);
     }
 
     private boolean logic()
@@ -60,7 +53,7 @@ public class DefaultToken implements Token
 
     private boolean conditional()
     {
-        return (type == TokenType.CONDITIONAL_IF);
+        return (type == TokenType.IF);
     }
 
     private boolean array()

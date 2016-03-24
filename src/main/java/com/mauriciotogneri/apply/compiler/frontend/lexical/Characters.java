@@ -1,8 +1,8 @@
 package com.mauriciotogneri.apply.compiler.frontend.lexical;
 
+import java.util.List;
+
 public interface Characters
 {
-    boolean empty() throws Exception;
-
-    Character next() throws Exception;
+    List<Character> characters() throws Exception;
 }

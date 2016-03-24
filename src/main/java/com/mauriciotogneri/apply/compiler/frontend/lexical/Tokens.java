@@ -1,8 +1,8 @@
 package com.mauriciotogneri.apply.compiler.frontend.lexical;
 
+import java.util.List;
+
 public interface Tokens
 {
-    boolean empty() throws Exception;
-
-    Token next() throws Exception;
+    List<Token> tokens() throws Exception;
 }

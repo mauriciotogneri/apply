@@ -7,6 +7,7 @@ import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultCharacters;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,57 +18,60 @@ public class DefaultCharactersTest
     {
         File file = new File("src/test/resources/sample.ply");
         Characters characters = new DefaultCharacters(file);
+        List<Character> characterList = characters.characters();
 
-        Character characterLetterF = characters.next();
+        assertEquals(characterList.size(), 8);
+
+        Character characterLetterF = characterList.get(0);
         assertEquals(characterLetterF.digit(), false);
         assertEquals(characterLetterF.delimiter(), false);
         assertEquals(characterLetterF.letter(), true);
         assertEquals(characterLetterF.line(), 1);
         assertEquals(characterLetterF.column(), 1);
 
-        Character characterOpenParenthesis = characters.next();
+        Character characterOpenParenthesis = characterList.get(1);
         assertEquals(characterOpenParenthesis.digit(), false);
         assertEquals(characterOpenParenthesis.delimiter(), false);
         assertEquals(characterOpenParenthesis.letter(), false);
         assertEquals(characterOpenParenthesis.line(), 1);
         assertEquals(characterOpenParenthesis.column(), 2);
 
-        Character characterDigit3 = characters.next();
+        Character characterDigit3 = characterList.get(2);
         assertEquals(characterDigit3.digit(), true);
         assertEquals(characterDigit3.delimiter(), false);
         assertEquals(characterDigit3.letter(), false);
         assertEquals(characterDigit3.line(), 1);
         assertEquals(characterDigit3.column(), 3);
 
-        Character characterPlus = characters.next();
+        Character characterPlus = characterList.get(3);
         assertEquals(characterPlus.digit(), false);
         assertEquals(characterPlus.delimiter(), false);
         assertEquals(characterPlus.letter(), false);
         assertEquals(characterPlus.line(), 1);
         assertEquals(characterPlus.column(), 4);
 
-        Character characterDigit4 = characters.next();
+        Character characterDigit4 = characterList.get(4);
         assertEquals(characterDigit4.digit(), true);
         assertEquals(characterDigit4.delimiter(), false);
         assertEquals(characterDigit4.letter(), false);
         assertEquals(characterDigit4.line(), 1);
         assertEquals(characterDigit4.column(), 5);
 
-        Character characterComma = characters.next();
+        Character characterComma = characterList.get(5);
         assertEquals(characterComma.digit(), false);
         assertEquals(characterComma.delimiter(), false);
         assertEquals(characterComma.letter(), false);
         assertEquals(characterComma.line(), 1);
         assertEquals(characterComma.column(), 6);
 
-        Character characterDigit5 = characters.next();
+        Character characterDigit5 = characterList.get(6);
         assertEquals(characterDigit5.digit(), true);
         assertEquals(characterDigit5.delimiter(), false);
         assertEquals(characterDigit5.letter(), false);
         assertEquals(characterDigit5.line(), 1);
         assertEquals(characterDigit5.column(), 7);
 
-        Character characterCloseParenthesis = characters.next();
+        Character characterCloseParenthesis = characterList.get(7);
         assertEquals(characterCloseParenthesis.digit(), false);
         assertEquals(characterCloseParenthesis.delimiter(), false);
         assertEquals(characterCloseParenthesis.letter(), false);

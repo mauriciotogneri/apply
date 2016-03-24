@@ -1,31 +1,37 @@
 package com.mauriciotogneri.apply.compiler.frontend.lexical;
 
 import java.io.File;
-import java.io.RandomAccessFile;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DefaultCharacters implements Characters
 {
-    private final RandomAccessFile randomAccessFile;
-    private Cursor cursor;
+    private final InputStream inputStream;
 
     public DefaultCharacters(File file) throws Exception
     {
-        this.randomAccessFile = new RandomAccessFile(file, "r");
-        this.cursor = new DefaultCursor(1, 1);
+        this.inputStream = new FileInputStream(file);
     }
 
     @Override
-    public boolean empty() throws Exception
+    public List<Character> characters() throws Exception
     {
-        return randomAccessFile.getFilePointer() < randomAccessFile.length();
-    }
+        List<Character> characters = new ArrayList<>();
 
-    public Character next() throws Exception
-    {
-        Position position = cursor;
-        char character = (char) randomAccessFile.readByte();
-        this.cursor = cursor.advance(character);
+        Cursor cursor = new DefaultCursor(1, 1);
 
-        return new DefaultCharacter(character, position);
+        int content;
+
+        while ((content = inputStream.read()) != -1)
+        {
+            char character = (char) content;
+            characters.add(new DefaultCharacter(character, cursor));
+
+            cursor = cursor.advance(character);
+        }
+
+        return characters;
     }
 }

@@ -3,56 +3,65 @@ package com.mauriciotogneri.apply.compiler.types;
 public enum TokenType
 {
     // general
-    SYMBOL, //
-    IMPORT, //
-    ANONYMOUS_FUNCTION, //
+    SYMBOL("[a-zA-Z]\\w*"), //
+    IMPORT("$"), //
 
     // delimiters
-    SPACE, //
-    TAB, //
-    NEW_LINE, //
-    COMMA, //
+    SPACE(" "), //
+    TAB("\\t"), //
+    NEW_LINE("\\n"), //
+    COMMA(","), //
 
     // literals
-    INTEGER, //
-    FLOAT, //
-    STRING, //
-    BOOLEAN, //
+    INTEGER("-?\\d{1,}"),
+    FLOAT("-?\\d{1,}\\.?\\d{0,}"),
+    STRING("\"[^\"]*\""), // TODO
+    BOOLEAN(""), // TODO
 
     // arithmetic
-    ARITHMETIC_ADDITION, //
-    ARITHMETIC_SUBTRACTION, //
-    ARITHMETIC_MULTIPLICATION, //
-    ARITHMETIC_DIVISION, //
-    ARITHMETIC_POWER, //
-    ARITHMETIC_MODULE, //
-    ARITHMETIC_INCREMENT, //
-    ARITHMETIC_DECREMENT, //
+    ARITHMETIC_ADDITION("\\+"), //
+    ARITHMETIC_SUBTRACTION("-"), //
+    ARITHMETIC_MULTIPLICATION("\\*"), //
+    ARITHMETIC_DIVISION("/"), //
+    ARITHMETIC_POWER("^"), //
+    ARITHMETIC_MODULE("%"), //
 
     // logic
-    LOGIC_EQUAL, //
-    LOGIC_NOT_EQUAL, //
-    LOGIC_GREATER, //
-    LOGIC_GREATER_EQUAL, //
-    LOGIC_LESS, //
-    LOGIC_LESS_EQUAL, //
-    LOGIC_AND, //
-    LOGIC_OR, //
-    LOGIC_NEGATION, //
+    LOGIC_EQUAL("="), //
+    LOGIC_NOT_EQUAL("!="), //
+    LOGIC_GREATER(">"), //
+    LOGIC_GREATER_EQUAL(">="), //
+    LOGIC_LESS("<"), //
+    LOGIC_LESS_EQUAL("<="), //
+    LOGIC_AND("&"), //
+    LOGIC_OR("|"), //
+    LOGIC_NEGATION("!"), //
 
     // conditional
-    CONDITIONAL_IF, //
+    IF("\\?"), //
 
     // arrays (lists and strings)
-    ARRAY_INDEX, //
-    ARRAY_REMOVE, //
-    ARRAY_LENGTH, //
+    ARRAY_INDEX(""), // TODO
+    ARRAY_REMOVE(""), // TODO
+    ARRAY_LENGTH(""), // TODO
 
     // parenthesis
-    PARENTHESIS_OPEN, //
-    PARENTHESIS_CLOSE, //
+    PARENTHESIS_OPEN("\\("), //
+    PARENTHESIS_CLOSE("\\)"), //
 
     // lists
-    LIST_OPEN, //
-    LIST_CLOSE
+    LIST_OPEN("\\["), //
+    LIST_CLOSE("\\]");
+
+    private final String pattern;
+
+    TokenType(String pattern)
+    {
+        this.pattern = pattern;
+    }
+
+    public String pattern()
+    {
+        return pattern;
+    }
 }

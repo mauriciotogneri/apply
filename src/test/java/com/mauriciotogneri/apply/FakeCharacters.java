@@ -4,27 +4,30 @@ import com.mauriciotogneri.apply.compiler.frontend.lexical.Character;
 import com.mauriciotogneri.apply.compiler.frontend.lexical.Characters;
 import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultCharacter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FakeCharacters implements Characters
 {
-    private int index = 0;
-    private final char[] chars;
+    private final List<Character> characters;
 
     public FakeCharacters(String input)
     {
-        this.chars = input.toCharArray();
+        this.characters = new ArrayList<>();
+
+        char[] chars = input.toCharArray();
+
+        for (int i = 0; i < chars.length; i++)
+        {
+            FakePosition position = new FakePosition(1, i);
+
+            this.characters.add(new DefaultCharacter(chars[i], position));
+        }
     }
 
     @Override
-    public boolean empty() throws Exception
+    public List<Character> characters() throws Exception
     {
-        return (index >= chars.length);
-    }
-
-    @Override
-    public Character next() throws Exception
-    {
-        FakePosition position = new FakePosition(1, index);
-
-        return new DefaultCharacter(chars[index++], position);
+        return characters;
     }
 }

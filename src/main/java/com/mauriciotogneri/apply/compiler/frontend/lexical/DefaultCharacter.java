@@ -1,7 +1,7 @@
 package com.mauriciotogneri.apply.compiler.frontend.lexical;
 
 import com.mauriciotogneri.apply.compiler.types.TokenType;
-import com.mauriciotogneri.apply.exceptions.LexicalException;
+import com.mauriciotogneri.apply.exceptions.lexical.InvalidCharacterException;
 
 public class DefaultCharacter implements Character
 {
@@ -227,7 +227,7 @@ public class DefaultCharacter implements Character
             return TokenType.NEW_LINE;
         }
 
-        throw new LexicalException(this);
+        throw new InvalidCharacterException(this);
     }
 
     public TokenType operatorType()
@@ -288,12 +288,8 @@ public class DefaultCharacter implements Character
         {
             return TokenType.BOOLEAN;
         }
-        else if (character == BACK_SLASH)
-        {
-            return TokenType.ANONYMOUS_FUNCTION;
-        }
 
-        throw new LexicalException(this);
+        throw new InvalidCharacterException(this);
     }
 
     @Override
