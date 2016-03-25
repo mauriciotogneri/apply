@@ -23,89 +23,89 @@
 !# [A]    =  A
 #! [A]    = [A]
 
-@ = Undefined
+# = Undefined
 
 ----------------------------------------------------------------------------------------------------
 
-\   backslash
-~   tilde
-"   double quote
-;   semi colon
-_	underscore
-,	comma
-‘	apostrophe
-`	grave accent
-{}	curly braces
+~ Num       = %
+~ Bool      = ?
+~ Char      = @
+~ Undefined = #
+~ String    = [Char]
 
 ----------------------------------------------------------------------------------------------------
 
-fibonacci(limit) = ? (limit < 0, @
-	                  ? (limit = 0, [],
-	                     ? (limit = 1, [1],
-	                      	? (limit = 2, [1, 1],
-	                      	   fibo(3, limit, [1, 1])
-	                      	)
-	                     )
-	                  )
-	               )
+Person
+{
+	name:String,
+	age:Num,
+	weight:Num
+}
 
-fibonacci(limit) = ? (limit < 0, @
-	                  ? (limit = 0, [],
-	                     ? (limit = 1, [1],
-	                      	? (limit = 2, [1, 1],
-	                      	   fibo(3, limit, [1, 1])))))
+----------------------------------------------------------------------------------------------------
 
-fibonacci(limit) = ? (limit < 0, @
-	               ? (limit = 0, [],
-	               ? (limit = 1, [1],
-	               ? (limit = 2, [1, 1],
-	               fibo(3, limit, [1, 1])))))
+fibonacci(limit:Num):[Num] = ? (limit < 0, @
+	                         ? (limit = 0, [],
+	                         ? (limit = 1, [1],
+	                         ? (limit = 2, [1, 1],
+	                         fibo(3, limit, [1, 1])))))
 
-fibo(index, limit, list) = ? (index > limit, list,
-                              fibo(index + 1, limit, (nth(index - 1, list) + nth(index - 2, list)) ++ list))
+fibo(index:Num, limit:Num, list:[Num]) = ? (index > limit, list,
+                                            fibo(index + 1, limit, (nth(index - 1, list) + nth(index - 2, list)) ++ list))
 
-factorial(n) = ? (n = 0, 1,
-	              n * factorial(n - 1))
+factorial(n:Num):Num = ? (n = 0, 1,
+	                      n * factorial(n - 1))
 
-map(f, a) =
-	? (a = [],
-	   [],
-	   f(head(a)) + map(f, tail(a))
-	)
+map(f:(A : B), l:[A]):[B] = if (l = [],
+                                [],
+								f(head(l)) :: map(f, tail(l))
+						    )
 
-letExample(n) = _(positive, n > 0,
-				  prime, prime(n),
-				  even, n % 2 = 0,
-				  positive & prime & even
-				)
+letExample(n:Num):Bool = _(positive, n > 0,
+				           prime, prime(n),
+				           even, n % 2 = 0,
+				           positive & prime & even
+				          )
 
-length(a) = #(a)
-
-head(a) =
+head(a:[A]):A =
 	? (a != [],
 	   @(0, a),
 	   {ERROR}
 	)
 
-tail(a) =
+tail(a:[A]):[A] =
 	? (a != [],
 	   -(0, a),
 	   {ERROR}
 	)
 
-apply(f a b) = f(a + b)
+apply(f:(Num:Num), a:Num, b:Num):Num = f(a + b)
 
-duplicate(a) = a * 2
+duplicate(a:Num):Num = a * 2
 
-even(n) = (n % 2) = 0
+even(n:Num):Bool = (n % 2) = 0
 
-odd(n) = (n % 2) != 0
+odd(n:Num):Bool = (n % 2) != 0
+
+mergePersons(p1:Person, p2:Person):Person = Person(p1.name + p2.name, p1.age + p2.age, p1.weight + p2.weight)
+
+personId(p:Person):String = p.name ++ p.age ++ p.weight
+
+mergeLists(l1:[A], l2:[A]):[A] = l1 ++ l2
+
+if(c:Bool, a:A, b:B) = ?(c, a, b)
+
+pi : Num = 3.14
+
+true : Bool = >>
+
+false : Bool = <<
 
 ----------------------------------------------------------------------------------------------------
 
 apply('duplicate', 3, 4)
 
-factorial(1)
+factorial(5)
 
 fibo(0, 5, [])
 

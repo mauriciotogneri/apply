@@ -1,4 +1,4 @@
-package com.mauriciotogneri.apply;
+package com.mauriciotogneri.apply.lexical;
 
 import com.mauriciotogneri.apply.compiler.frontend.lexical.Position;
 

@@ -1,4 +1,4 @@
-package com.mauriciotogneri.apply;
+package com.mauriciotogneri.apply.runtime;
 
 import org.junit.Test;
 
