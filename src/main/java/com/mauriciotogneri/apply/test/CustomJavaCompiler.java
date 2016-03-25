@@ -10,7 +10,7 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
-public class Compiler
+public class CustomJavaCompiler
 {
     public static void main(String[] args) throws Exception
     {

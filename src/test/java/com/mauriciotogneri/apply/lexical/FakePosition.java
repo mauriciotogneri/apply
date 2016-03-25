@@ -1,6 +1,6 @@
 package com.mauriciotogneri.apply.lexical;
 
-import com.mauriciotogneri.apply.compiler.frontend.lexical.Position;
+import com.mauriciotogneri.apply.compiler.lexical.Position;
 
 public class FakePosition implements Position
 {

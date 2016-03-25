@@ -1,4 +1,4 @@
-package com.mauriciotogneri.apply.compiler.frontend.lexical;
+package com.mauriciotogneri.apply.compiler.lexical;
 
 import com.mauriciotogneri.apply.compiler.types.TokenType;
 import com.mauriciotogneri.apply.exceptions.lexical.InvalidTokenException;
@@ -6,11 +6,11 @@ import com.mauriciotogneri.apply.exceptions.lexical.InvalidTokenException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultTokens implements Tokens
+public class DefaultTokenList implements TokenList
 {
-    private final Characters characters;
+    private final CharacterList characters;
 
-    public DefaultTokens(Characters characters)
+    public DefaultTokenList(CharacterList characters)
     {
         this.characters = characters;
     }

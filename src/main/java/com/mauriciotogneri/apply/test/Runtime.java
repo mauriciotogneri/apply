@@ -1,5 +1,8 @@
 package com.mauriciotogneri.apply.test;
 
+import com.mauriciotogneri.apply.test.FunctionHeaders.$f1;
+import com.mauriciotogneri.apply.test.FunctionHeaders.$f2;
+
 public class Runtime
 {
     // arithmetic
@@ -82,24 +85,4 @@ public class Runtime
             return null;
         }
     };
-
-    public interface $f0
-    {
-        Object apply();
-    }
-
-    public interface $f1
-    {
-        Object apply(Object a);
-    }
-
-    public interface $f2
-    {
-        Object apply(Object a, Object b);
-    }
-
-    public interface $f3
-    {
-        Object apply(Object a, Object b, Object c);
-    }
 }

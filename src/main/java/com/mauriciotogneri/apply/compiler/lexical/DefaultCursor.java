@@ -1,4 +1,4 @@
-package com.mauriciotogneri.apply.compiler.frontend.lexical;
+package com.mauriciotogneri.apply.compiler.lexical;
 
 public class DefaultCursor implements Position, Cursor
 {

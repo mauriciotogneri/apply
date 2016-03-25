@@ -1,4 +1,4 @@
-package com.mauriciotogneri.apply.compiler.frontend.lexical;
+package com.mauriciotogneri.apply.compiler.lexical;
 
 import com.mauriciotogneri.apply.compiler.types.TokenType;
 import com.mauriciotogneri.apply.exceptions.lexical.InvalidCharacterException;

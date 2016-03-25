@@ -19,18 +19,16 @@
 
 ? bool A A	= A
 
-++  A [A] = [A]
-!# [A]    =  A
-#! [A]    = [A]
-
-# = Undefined
+::  A  [A] = [A]
+++ [A] [A] = [A]
+!# [A]     =  A
+#! [A]     = [A]
 
 ----------------------------------------------------------------------------------------------------
 
 ~ Num       = %
 ~ Bool      = ?
 ~ Char      = @
-~ Undefined = #
 ~ String    = [Char]
 
 ----------------------------------------------------------------------------------------------------
@@ -53,8 +51,9 @@ fibonacci(limit:Num):[Num] = ? (limit < 0, @
 fibo(index:Num, limit:Num, list:[Num]) = ? (index > limit, list,
                                             fibo(index + 1, limit, (nth(index - 1, list) + nth(index - 2, list)) ++ list))
 
-factorial(n:Num):Num = ? (n = 0, 1,
-	                      n * factorial(n - 1))
+factorial(n:Num):Num = if (n = 0,
+                           1,
+	                       n * factorial(n - 1))
 
 map(f:(A : B), l:[A]):[B] = if (l = [],
                                 [],

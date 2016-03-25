@@ -1,13 +1,13 @@
 package com.mauriciotogneri.apply.lexical;
 
-import com.mauriciotogneri.apply.compiler.frontend.lexical.Character;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.Characters;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultCharacter;
+import com.mauriciotogneri.apply.compiler.lexical.Character;
+import com.mauriciotogneri.apply.compiler.lexical.CharacterList;
+import com.mauriciotogneri.apply.compiler.lexical.DefaultCharacter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakeCharacters implements Characters
+public class FakeCharacters implements CharacterList
 {
     private final List<Character> characters;
 

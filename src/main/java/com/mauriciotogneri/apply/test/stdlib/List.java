@@ -1,8 +1,8 @@
 package com.mauriciotogneri.apply.test.stdlib;
 
+import com.mauriciotogneri.apply.test.FunctionHeaders.$f1;
+import com.mauriciotogneri.apply.test.FunctionHeaders.$f2;
 import com.mauriciotogneri.apply.test.Runtime;
-import com.mauriciotogneri.apply.test.Runtime.$f1;
-import com.mauriciotogneri.apply.test.Runtime.$f2;
 
 import static com.mauriciotogneri.apply.test.Runtime.$append;
 import static com.mauriciotogneri.apply.test.Runtime.$equal;

@@ -1,6 +1,6 @@
 package com.mauriciotogneri.apply.exceptions.lexical;
 
-import com.mauriciotogneri.apply.compiler.frontend.lexical.Character;
+import com.mauriciotogneri.apply.compiler.lexical.Character;
 
 public class InvalidCharacterException extends RuntimeException
 {

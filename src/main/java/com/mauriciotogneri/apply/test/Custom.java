@@ -1,8 +1,8 @@
 package com.mauriciotogneri.apply.test;
 
-import static com.mauriciotogneri.apply.test.Runtime.$f0;
-import static com.mauriciotogneri.apply.test.Runtime.$f1;
-import static com.mauriciotogneri.apply.test.Runtime.$f3;
+import com.mauriciotogneri.apply.test.FunctionHeaders.$f0;
+import com.mauriciotogneri.apply.test.FunctionHeaders.$f1;
+import com.mauriciotogneri.apply.test.FunctionHeaders.$f3;
 
 public class Custom
 {

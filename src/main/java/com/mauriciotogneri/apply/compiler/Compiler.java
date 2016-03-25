@@ -1,9 +1,9 @@
 package com.mauriciotogneri.apply.compiler;
 
-import com.mauriciotogneri.apply.compiler.frontend.lexical.Characters;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultCharacters;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultTokens;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.Tokens;
+import com.mauriciotogneri.apply.compiler.lexical.CharacterList;
+import com.mauriciotogneri.apply.compiler.lexical.DefaultCharacterList;
+import com.mauriciotogneri.apply.compiler.lexical.DefaultTokenList;
+import com.mauriciotogneri.apply.compiler.lexical.TokenList;
 
 import java.io.File;
 
@@ -12,7 +12,7 @@ public class Compiler
     public void compile(String filePath) throws Exception
     {
         File file = new File(filePath);
-        Characters characters = new DefaultCharacters(file);
-        Tokens tokens = new DefaultTokens(characters);
+        CharacterList characters = new DefaultCharacterList(file);
+        TokenList tokens = new DefaultTokenList(characters);
     }
 }

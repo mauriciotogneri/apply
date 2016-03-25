@@ -1,8 +1,8 @@
 package com.mauriciotogneri.apply.lexical;
 
-import com.mauriciotogneri.apply.compiler.frontend.lexical.Character;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.Characters;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultCharacters;
+import com.mauriciotogneri.apply.compiler.lexical.Character;
+import com.mauriciotogneri.apply.compiler.lexical.CharacterList;
+import com.mauriciotogneri.apply.compiler.lexical.DefaultCharacterList;
 
 import org.junit.Test;
 
@@ -11,13 +11,13 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class DefaultCharactersTest
+public class DefaultCharacterListTest
 {
     @Test
     public void fromFile() throws Exception
     {
         File file = new File("src/test/resources/sample.ply");
-        Characters characters = new DefaultCharacters(file);
+        CharacterList characters = new DefaultCharacterList(file);
         List<Character> characterList = characters.characters();
 
         assertEquals(characterList.size(), 8);

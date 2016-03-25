@@ -1,5 +1,7 @@
 package com.mauriciotogneri.apply.test;
 
+import com.mauriciotogneri.apply.test.FunctionHeaders.$f1;
+import com.mauriciotogneri.apply.test.FunctionHeaders.$f2;
 import com.mauriciotogneri.apply.test.types.BasicType;
 import com.mauriciotogneri.apply.test.types.Bool;
 import com.mauriciotogneri.apply.test.types.List;
@@ -37,24 +39,4 @@ public class RuntimeTyped
     public static final $f2 $concat = (a, b) -> List.class.cast(a).concat(List.class.cast(b));
     public static final $f1 $head = (a) -> List.class.cast(a).head();
     public static final $f1 $tail = (a) -> List.class.cast(a).tail();
-
-    public interface $f0
-    {
-        Object apply();
-    }
-
-    public interface $f1
-    {
-        Object apply(Object a);
-    }
-
-    public interface $f2
-    {
-        Object apply(Object a, Object b);
-    }
-
-    public interface $f3
-    {
-        Object apply(Object a, Object b, Object c);
-    }
 }

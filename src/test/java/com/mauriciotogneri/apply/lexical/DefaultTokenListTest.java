@@ -1,11 +1,11 @@
 package com.mauriciotogneri.apply.lexical;
 
-import com.mauriciotogneri.apply.compiler.frontend.lexical.Characters;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultLexeme;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultToken;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.DefaultTokens;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.Token;
-import com.mauriciotogneri.apply.compiler.frontend.lexical.Tokens;
+import com.mauriciotogneri.apply.compiler.lexical.CharacterList;
+import com.mauriciotogneri.apply.compiler.lexical.DefaultLexeme;
+import com.mauriciotogneri.apply.compiler.lexical.DefaultToken;
+import com.mauriciotogneri.apply.compiler.lexical.DefaultTokenList;
+import com.mauriciotogneri.apply.compiler.lexical.Token;
+import com.mauriciotogneri.apply.compiler.lexical.TokenList;
 import com.mauriciotogneri.apply.compiler.types.TokenType;
 
 import org.junit.Test;
@@ -15,12 +15,12 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class DefaultTokensTest
+public class DefaultTokenListTest
 {
     @Test
     public void testSimpleExpression() throws Exception
     {
-        Characters characters = new FakeCharacters("f(3+4,5)");
+        CharacterList characters = new FakeCharacters("f(3+4,5)");
 
         List<Token> expectedTokens = new ArrayList<>();
         expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultLexeme("f", new FakePosition(1, 1))));
@@ -32,7 +32,7 @@ public class DefaultTokensTest
         expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultLexeme("5", new FakePosition(1, 7))));
         expectedTokens.add(new DefaultToken(TokenType.SYMBOL, new DefaultLexeme(")", new FakePosition(1, 8))));
 
-        Tokens tokens = new DefaultTokens(characters);
+        TokenList tokens = new DefaultTokenList(characters);
         List<Token> actualTokens = tokens.tokens();
 
         assertEquals(expectedTokens.size(), actualTokens.size());

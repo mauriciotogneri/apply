@@ -1,4 +1,4 @@
-package com.mauriciotogneri.apply.compiler.frontend.lexical;
+package com.mauriciotogneri.apply.compiler.lexical;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,11 +6,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultCharacters implements Characters
+public class DefaultCharacterList implements CharacterList
 {
     private final InputStream inputStream;
 
-    public DefaultCharacters(File file) throws Exception
+    public DefaultCharacterList(File file) throws Exception
     {
         this.inputStream = new FileInputStream(file);
     }
