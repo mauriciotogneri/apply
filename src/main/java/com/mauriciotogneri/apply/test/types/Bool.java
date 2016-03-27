@@ -54,4 +54,10 @@ public class Bool implements BaseType<Bool>
     {
         return equal(Bool.class.cast(o)).value();
     }
+
+    @Override
+    public String toString()
+    {
+        return String.valueOf(value);
+    }
 }

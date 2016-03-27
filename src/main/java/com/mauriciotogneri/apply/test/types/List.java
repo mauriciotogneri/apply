@@ -5,10 +5,7 @@ public class List<T extends BaseType> implements BaseType<List<T>>
 {
     private final Object[] value;
 
-    public List()
-    {
-        this.value = new Object[0];
-    }
+    public static final List EMPTY = new List();
 
     public List(Object... value)
     {
@@ -190,5 +187,27 @@ public class List<T extends BaseType> implements BaseType<List<T>>
     public boolean equals(Object o)
     {
         return equal(List.class.cast(o)).value();
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[");
+
+        for (int i = 0; i < value.length; i++)
+        {
+            if (i != 0)
+            {
+                builder.append(", ");
+            }
+
+            BaseType element = (BaseType) value[i];
+            builder.append(element.toString());
+        }
+
+        builder.append("]");
+
+        return builder.toString();
     }
 }

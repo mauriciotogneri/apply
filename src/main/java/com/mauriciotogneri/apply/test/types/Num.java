@@ -96,4 +96,10 @@ public class Num implements BaseType<Num>
     {
         return equal(Num.class.cast(o)).value();
     }
+
+    @Override
+    public String toString()
+    {
+        return String.valueOf(value);
+    }
 }

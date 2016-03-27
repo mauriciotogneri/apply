@@ -31,4 +31,10 @@ public class Char implements BaseType<Char>
     {
         return equal(Char.class.cast(o)).value();
     }
+
+    @Override
+    public String toString()
+    {
+        return String.valueOf(value);
+    }
 }
