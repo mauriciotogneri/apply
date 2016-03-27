@@ -1,6 +1,6 @@
 package com.mauriciotogneri.apply.test.types;
 
-public interface BasicType<T>
+public interface BaseType<T>
 {
     Bool equal(T value);
 

@@ -31,6 +31,9 @@
 ~ Char      = @
 ~ String    = [Char]
 
+~ if        = ?
+~ let       = _
+
 ----------------------------------------------------------------------------------------------------
 
 Person
@@ -42,11 +45,29 @@ Person
 
 ----------------------------------------------------------------------------------------------------
 
-fibonacci(limit:Num):[Num] = ? (limit < 0, @
-	                         ? (limit = 0, [],
-	                         ? (limit = 1, [1],
-	                         ? (limit = 2, [1, 1],
+fibonacci(limit:Num):[Num] = if (limit < 0, @
+	                         if (limit = 0, [],
+	                         if (limit = 1, [1],
+	                         if (limit = 2, [1, 1],
 	                         fibo(3, limit, [1, 1])))))
+
+fibonacci(limit:Num):[Num] = if (
+                                 limit < 0,
+                                 @
+	                             if (
+	                                 limit = 0,
+	                                 [],
+	                                 if (
+	                                     limit = 1,
+	                                     [1],
+	                                     if (
+	                                         limit = 2,
+	                                         [1, 1],
+	                                         fibo(3, limit, [1, 1])
+	                                     )
+	                                 )
+	                             )
+	                         )
 
 fibo(index:Num, limit:Num, list:[Num]) = ? (index > limit, list,
                                             fibo(index + 1, limit, (nth(index - 1, list) + nth(index - 2, list)) ++ list))

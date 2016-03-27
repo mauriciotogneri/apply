@@ -1,6 +1,6 @@
 package com.mauriciotogneri.apply.test.types;
 
-public class Num implements BasicType<Num>
+public class Num implements BaseType<Num>
 {
     private final double value;
 

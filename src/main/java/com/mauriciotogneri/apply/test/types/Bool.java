@@ -1,6 +1,6 @@
 package com.mauriciotogneri.apply.test.types;
 
-public class Bool implements BasicType<Bool>
+public class Bool implements BaseType<Bool>
 {
     private final boolean value;
 

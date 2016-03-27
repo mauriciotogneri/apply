@@ -1,6 +1,6 @@
 package com.mauriciotogneri.apply.test.types;
 
-public class Char implements BasicType<Char>
+public class Char implements BaseType<Char>
 {
     private final char value;
 

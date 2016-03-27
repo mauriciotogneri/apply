@@ -1,7 +1,7 @@
 package com.mauriciotogneri.apply.test.types;
 
 @SuppressWarnings("unchecked")
-public class List<T extends BasicType> implements BasicType<List<T>>
+public class List<T extends BaseType> implements BaseType<List<T>>
 {
     private final Object[] value;
 
@@ -43,7 +43,11 @@ public class List<T extends BasicType> implements BasicType<List<T>>
     {
         Object[] result = new Object[value.length + 1];
         result[0] = element;
-        System.arraycopy(value, 0, result, 1, value.length);
+
+        if (value.length > 0)
+        {
+            System.arraycopy(value, 0, result, 1, value.length);
+        }
 
         return new List(result);
     }
@@ -51,11 +55,44 @@ public class List<T extends BasicType> implements BasicType<List<T>>
     public List concat(List list)
     {
         Object[] result = new Object[value.length + list.value.length];
-        System.arraycopy(value, 0, result, 0, value.length);
-        System.arraycopy(list.value, 0, result, value.length, list.value.length);
+
+        if (value.length > 0)
+        {
+            System.arraycopy(value, 0, result, 0, value.length);
+        }
+
+        if (list.value.length > 0)
+        {
+            System.arraycopy(list.value, 0, result, value.length, list.value.length);
+        }
 
         return new List(result);
     }
+
+    // drop
+    // reverse
+    // take
+    // filter
+    // and
+    // or
+    // any
+    // all
+    // take n xs
+    // empty xs
+    // zip xs [0..]
+    // foldl
+    // foldr
+
+    //    public static final $f2 map = (f, a) -> {
+    //        if ((Boolean) empty.apply(a))
+    //        {
+    //            return Runtime.EMPTY_LIST;
+    //        }
+    //        else
+    //        {
+    //            return $append.apply((($f1) f).apply(List.head.apply(a)), List.map.apply(f, List.tail.apply(a)));
+    //        }
+    //    };
 
     public T head()
     {
@@ -69,12 +106,47 @@ public class List<T extends BasicType> implements BasicType<List<T>>
         }
     }
 
+    public T last()
+    {
+        if (value.length > 0)
+        {
+            return (T) value[value.length - 1];
+        }
+        else
+        {
+            throw new RuntimeException();
+        }
+    }
+
+    public List init()
+    {
+        if (value.length > 0)
+        {
+            Object[] result = new Object[value.length - 1];
+
+            if (result.length > 0)
+            {
+                System.arraycopy(value, 0, result, 0, value.length - 1);
+            }
+
+            return new List(result);
+        }
+        else
+        {
+            throw new RuntimeException();
+        }
+    }
+
     public List tail()
     {
         if (value.length > 0)
         {
             Object[] result = new Object[value.length - 1];
-            System.arraycopy(value, 1, result, 0, value.length - 1);
+
+            if (result.length > 0)
+            {
+                System.arraycopy(value, 1, result, 0, value.length - 1);
+            }
 
             return new List(result);
         }
