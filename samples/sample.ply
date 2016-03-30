@@ -45,6 +45,27 @@ Person
 
 ----------------------------------------------------------------------------------------------------
 
+fibonacci(limit:Num):[Num] = if (limit < 0),
+                                 {"Limit < 0"}
+                                 fibo(limit, [])
+                                )
+
+fibo(limit:Num, list[Num]):[Num] = if (limit > length(list),
+                                       if (length(list) = 0,
+                                           fibo(limit, [1]),
+                                           if (length(list) = 1
+                                               fibo(limit, [1,1])
+                                               let(last1, nth(length(list) - 1, list),
+                                                   last2, nth(length(list) - 2, list),
+                                                   fibo(limit [last1 + last2] ++ list)
+                                               )
+                                           )
+                                       )
+                                       list
+                                   )
+
+----------------------------------------------------------------------------------------------------
+
 fibonacci(limit:Num):[Num] = if (limit < 0, @
 	                         if (limit = 0, [],
 	                         if (limit = 1, [1],

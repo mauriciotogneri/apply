@@ -33,7 +33,8 @@ public class RuntimeTypedSpecial
     public static final $F1<List, Bool> $empty = List::empty;
     public static final $F1<List, Num> $length = List::length;
     public static final $F2<List, Num, BaseType> $element = List::element;
-    public static final $F2<List, BaseType, List> $append = List::append;
+    public static final $F2<List, BaseType, List> $appendFirst = List::appendFirst;
+    public static final $F2<List, BaseType, List> $appendLast = List::appendLast;
     public static final $F2<List, List, List> $concat = List::concat;
     public static final $F1<List, BaseType> $head = List::head;
     public static final $F1<List, List> $tail = List::tail;

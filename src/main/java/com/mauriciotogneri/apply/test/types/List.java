@@ -5,7 +5,7 @@ public class List<T extends BaseType> implements BaseType<List<T>>
 {
     private final Object[] value;
 
-    public static final List EMPTY = new List();
+    public static final List EMPTY = new List<>();
 
     public List(Object... value)
     {
@@ -36,7 +36,7 @@ public class List<T extends BaseType> implements BaseType<List<T>>
         }
     }
 
-    public List append(T element)
+    public List appendFirst(T element)
     {
         Object[] result = new Object[value.length + 1];
         result[0] = element;
@@ -45,6 +45,20 @@ public class List<T extends BaseType> implements BaseType<List<T>>
         {
             System.arraycopy(value, 0, result, 1, value.length);
         }
+
+        return new List(result);
+    }
+
+    public List appendLast(T element)
+    {
+        Object[] result = new Object[value.length + 1];
+
+        if (value.length > 0)
+        {
+            System.arraycopy(value, 0, result, 0, value.length);
+        }
+
+        result[result.length - 1] = element;
 
         return new List(result);
     }

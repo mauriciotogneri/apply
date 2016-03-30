@@ -9,7 +9,8 @@ import org.junit.Test;
 
 import static com.mauriciotogneri.apply.test.RuntimeTypedSpecial.$add;
 import static com.mauriciotogneri.apply.test.RuntimeTypedSpecial.$and;
-import static com.mauriciotogneri.apply.test.RuntimeTypedSpecial.$append;
+import static com.mauriciotogneri.apply.test.RuntimeTypedSpecial.$appendFirst;
+import static com.mauriciotogneri.apply.test.RuntimeTypedSpecial.$appendLast;
 import static com.mauriciotogneri.apply.test.RuntimeTypedSpecial.$concat;
 import static com.mauriciotogneri.apply.test.RuntimeTypedSpecial.$div;
 import static com.mauriciotogneri.apply.test.RuntimeTypedSpecial.$element;
@@ -133,9 +134,13 @@ public class RuntimeTest
         assertEquals($element.apply(new List(new Num(1)), new Num(0)), new Num(1));
         assertEquals($element.apply(new List(new Num(1), new Num(2), new Num(3)), new Num(2)), new Num(3));
 
-        assertEquals($append.apply(new List(), new Num(1)), new List(new Num(1)));
-        assertEquals($append.apply(new List(new Char('B')), new Char('A')), new List(new Char('A'), new Char('B')));
-        assertEquals($append.apply(new List(new Char('Y'), new Char('Z')), new Char('X')), new List(new Char('X'), new Char('Y'), new Char('Z')));
+        assertEquals($appendFirst.apply(new List(), new Num(1)), new List(new Num(1)));
+        assertEquals($appendFirst.apply(new List(new Char('B')), new Char('A')), new List(new Char('A'), new Char('B')));
+        assertEquals($appendFirst.apply(new List(new Char('Y'), new Char('Z')), new Char('X')), new List(new Char('X'), new Char('Y'), new Char('Z')));
+
+        assertEquals($appendLast.apply(new List(), new Num(1)), new List(new Num(1)));
+        assertEquals($appendLast.apply(new List(new Char('B')), new Char('A')), new List(new Char('B'), new Char('A')));
+        assertEquals($appendLast.apply(new List(new Char('Y'), new Char('Z')), new Char('X')), new List(new Char('Y'), new Char('Z'), new Char('X')));
 
         assertEquals($concat.apply(new List(), new List()), new List());
         assertEquals($concat.apply(new List(new Num(1)), new List()), new List(new Num(1)));

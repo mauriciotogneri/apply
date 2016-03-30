@@ -5,7 +5,7 @@ public class Bool implements BaseType<Bool>
     private final boolean value;
 
     public static final Bool TRUE = new Bool(true);
-    public static final Bool FALSE = new Bool(true);
+    public static final Bool FALSE = new Bool(false);
 
     public Bool(boolean value)
     {
