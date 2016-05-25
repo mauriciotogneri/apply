@@ -1,6 +1,22 @@
 package com.mauriciotogneri.apply.experiment;
 
+import com.mauriciotogneri.apply.experiment.Functions.Function1;
+import com.mauriciotogneri.apply.experiment.Functions.Function3;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import static com.mauriciotogneri.apply.experiment.Any.equal;
+import static com.mauriciotogneri.apply.experiment.ListOperations.appendLast;
+import static com.mauriciotogneri.apply.experiment.ListOperations.element;
+import static com.mauriciotogneri.apply.experiment.ListOperations.listOf;
+import static com.mauriciotogneri.apply.experiment.ListOperations.map;
+import static com.mauriciotogneri.apply.experiment.NumberOperations.add;
+import static com.mauriciotogneri.apply.experiment.NumberOperations.greaterEqual;
+import static com.mauriciotogneri.apply.experiment.NumberOperations.less;
+import static com.mauriciotogneri.apply.experiment.NumberOperations.mul;
+import static com.mauriciotogneri.apply.experiment.NumberOperations.sub;
 
 @SuppressWarnings("ALL")
 public class Experiment
@@ -12,7 +28,7 @@ public class Experiment
         }
         else
         {
-            return Optional.of(new Num(n.doubleValue() * 2));
+            return Optional.of(mul(n, 2));
         }
     };
 
@@ -24,7 +40,7 @@ public class Experiment
     private static Function1<Optional<Number>, Number> optionExample2 = o -> {
         if (o.isPresent())
         {
-            return new Num(o.get().doubleValue() * 2);
+            return mul(o.get(), 2);
         }
         else
         {
@@ -38,25 +54,25 @@ public class Experiment
     }
 
     private static Function1<Number, Optional<List<Number>>> fibonacci = limit -> {
-        if (limit.doubleValue() < 0)
+        if (less(limit, 0))
         {
             return Optional.empty();
         }
-        else if (limit.doubleValue() == 0)
+        else if (equal(limit, 0))
         {
-            return Optional.of(new List());
+            return Optional.of(listOf());
         }
-        else if (limit.doubleValue() == 1)
+        else if (equal(limit, 1))
         {
-            return Optional.of(new List(new Num(1)));
+            return Optional.of(listOf(1));
         }
-        else if (limit.doubleValue() == 2)
+        else if (equal(limit, 2))
         {
-            return Optional.of(new List(new Num(1), new Num(1)));
+            return Optional.of(listOf(1, 1));
         }
         else
         {
-            return Optional.of(Experiment.fibo.apply(new Num(2), limit, new List(new Num(1), new Num(1))));
+            return Optional.of(Experiment.fibo.apply(2, limit, listOf(1, 1)));
         }
     };
 
@@ -66,17 +82,17 @@ public class Experiment
     }
 
     private static Function3<Number, Number, List<Number>, List<Number>> fibo = (index, limit, list) -> {
-        if (index.doubleValue() >= limit.doubleValue())
+        if (greaterEqual(index, limit))
         {
             return list;
         }
         else
         {
-            Number first = list.element(new Num(index.doubleValue() - 1));
-            Number second = list.element(new Num(index.doubleValue() - 2));
-            Number sum = new Num(first.doubleValue() + second.doubleValue());
+            Optional<Number> first = element(list, sub(index, 1));
+            Optional<Number> second = element(list, sub(index, 2));
+            Number sum = add(first.get(), second.get());
 
-            return Experiment.fibo.apply(new Num(index.doubleValue() + 1), limit, list.appendLast(sum));
+            return Experiment.fibo.apply(add(index, 1), limit, appendLast(list, sum));
         }
     };
 
@@ -85,14 +101,13 @@ public class Experiment
         return fibo.apply(index, limit, list);
     }
 
-    public interface Function1<A, B>
-    {
-        B apply(A a);
-    }
+    private static Function1<Number, Number> duplicate = n -> {
+        return mul(n, 2);
+    };
 
-    public interface Function3<A, B, C, D>
+    private static Number duplicate(Number n)
     {
-        D apply(A a, B b, C c);
+        return duplicate.apply(n);
     }
 
     public class Person
@@ -111,7 +126,21 @@ public class Experiment
 
     public static void main(String[] args)
     {
-        Optional<List<Number>> result = fibonacci(new Num(10));
-        System.out.println(result);
+        List<Integer> a = new ArrayList<>();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+
+        List<Double> b = new ArrayList<>();
+        b.add(1d);
+        b.add(2d);
+        b.add(3d);
+
+        System.out.println(equal(a, b));
+
+        Optional<List<Number>> result = fibonacci(10);
+        System.out.println(result.get());
+
+        System.out.println(map(result.get(), duplicate));
     }
 }
