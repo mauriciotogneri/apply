@@ -18,13 +18,8 @@ public class BooleanOperations
         return !a;
     }
 
-    //    public static Boolean equal(Boolean a, Boolean b)
-    //    {
-    //        return a == b;
-    //    }
-    //
-    //    public static Boolean notEqual(Boolean a, Boolean b)
-    //    {
-    //        return a != b;
-    //    }
+    public static Boolean equal(Boolean a, Boolean b)
+    {
+        return a.equals(b);
+    }
 }

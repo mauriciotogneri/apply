@@ -58,13 +58,8 @@ public class NumberOperations
         return a.doubleValue() >= b.doubleValue();
     }
 
-    //    public static Boolean equal(Number a, Number b)
-    //    {
-    //        return Double.compare(a.doubleValue(), b.doubleValue()) == 0;
-    //    }
-    //
-    //    public static Boolean notEqual(Number a, Number b)
-    //    {
-    //        return Double.compare(a.doubleValue(), b.doubleValue()) != 0;
-    //    }
+    public static Boolean equal(Number a, Number b)
+    {
+        return Double.compare(a.doubleValue(), b.doubleValue()) == 0;
+    }
 }

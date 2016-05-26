@@ -1,37 +1,3 @@
-String
-{
-	empty(): Bool
-
-	length(): Num
-
-	concat(s: String): String
-
-	element(n: Num): String
-
-	contains(s: String): Bool
-
-	startsWith(s: String): Bool
-
-	endsWith(s: String): Bool
-
-	trim(): String
-
-	toLowerCase(): String
-
-	toUpperCase(): String
-}
-
-Option<T>
-{
-	get(): T
-
-	isPresent(): Bool
-
-	orElse(t: T): T
-}
-
-----------------------------------------------------------------------------------------------------
-
 Person
 {
 	name: String,

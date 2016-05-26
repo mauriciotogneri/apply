@@ -115,27 +115,6 @@ public class ListOperations
         }
     }
 
-    public static String toString(List<?> list)
-    {
-        StringBuilder builder = new StringBuilder();
-        builder.append("[");
-
-        for (int i = 0; i < list.size(); i++)
-        {
-            if (i != 0)
-            {
-                builder.append(", ");
-            }
-
-            Object element = list.get(i);
-            builder.append(element.toString());
-        }
-
-        builder.append("]");
-
-        return builder.toString();
-    }
-
     public static <A, B> List<B> map(List<A> list, Function1<A, B> function)
     {
         List<B> result = listOf();
@@ -146,6 +125,49 @@ public class ListOperations
         }
 
         return result;
+    }
+
+    public static Boolean equal(List<?> a, List<?> b)
+    {
+        int size1 = a.size();
+        int size2 = b.size();
+
+        if (size1 == size2)
+        {
+            for (int i = 0; i < size1; i++)
+            {
+                if (Any.notEqual(a.get(i), b.get(i)))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public static String toString(List<?> list)
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[");
+
+        int size = list.size();
+
+        for (int i = 0; i < size; i++)
+        {
+            if (i != 0)
+            {
+                builder.append(", ");
+            }
+
+            builder.append(Any.toString(list.get(i)));
+        }
+
+        builder.append("]");
+
+        return builder.toString();
     }
 
     // TODO

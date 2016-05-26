@@ -9,38 +9,19 @@ public class Any
     {
         if ((a instanceof Number) && (b instanceof Number))
         {
-            return Double.compare(Number.class.cast(a).doubleValue(), Number.class.cast(b).doubleValue()) == 0;
+            return NumberOperations.equal(Number.class.cast(a), Number.class.cast(b));
         }
         else if ((a instanceof Boolean) && (b instanceof Boolean))
         {
-            return Boolean.class.cast(a).equals(Boolean.class.cast(b));
+            return BooleanOperations.equal(Boolean.class.cast(a), Boolean.class.cast(b));
         }
         else if ((a instanceof String) && (b instanceof String))
         {
-            return String.class.cast(a).equals(String.class.cast(b));
+            return StringOperations.equal(String.class.cast(a), String.class.cast(b));
         }
         else if ((a instanceof List) && (b instanceof List))
         {
-            List<?> list1 = List.class.cast(a);
-            List<?> list2 = List.class.cast(b);
-
-            int size1 = list1.size();
-            int size2 = list2.size();
-
-            if (size1 == size2)
-            {
-                for (int i = 0; i < size1; i++)
-                {
-                    if (notEqual(list1.get(i), list2.get(i)))
-                    {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-
-            return false;
+            return ListOperations.equal(List.class.cast(a), List.class.cast(b));
         }
         else
         {
@@ -61,25 +42,7 @@ public class Any
         }
         else if (obj instanceof List)
         {
-            StringBuilder builder = new StringBuilder();
-            builder.append("[");
-
-            List<?> list = List.class.cast(obj);
-            int size = list.size();
-
-            for (int i = 0; i < size; i++)
-            {
-                if (i != 0)
-                {
-                    builder.append(", ");
-                }
-
-                builder.append(toString(list.get(i)));
-            }
-
-            builder.append("]");
-
-            return builder.toString();
+            return ListOperations.toString(List.class.cast(obj));
         }
         else
         {
