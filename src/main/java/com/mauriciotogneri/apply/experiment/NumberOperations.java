@@ -8,34 +8,46 @@ public class NumberOperations
         return n;
     }
 
+    private static Number normalize(Number n)
+    {
+        if (Double.compare(n.doubleValue(), n.intValue()) == 0)
+        {
+            return n.longValue();
+        }
+        else
+        {
+            return n.doubleValue();
+        }
+    }
+
     public static Number add(Number a, Number b)
     {
-        return a.doubleValue() + b.doubleValue();
+        return normalize(a.doubleValue() + b.doubleValue());
     }
 
     public static Number sub(Number a, Number b)
     {
-        return a.doubleValue() - b.doubleValue();
+        return normalize(a.doubleValue() - b.doubleValue());
     }
 
     public static Number mul(Number a, Number b)
     {
-        return a.doubleValue() * b.doubleValue();
+        return normalize(a.doubleValue() * b.doubleValue());
     }
 
     public static Number div(Number a, Number b)
     {
-        return a.doubleValue() / b.doubleValue();
-    }
-
-    public static Number pow(Number a, Number b)
-    {
-        return Math.pow(a.doubleValue(), b.doubleValue());
+        return normalize(a.doubleValue() / b.doubleValue());
     }
 
     public static Number mod(Number a, Number b)
     {
-        return a.doubleValue() % b.doubleValue();
+        return normalize(a.doubleValue() % b.doubleValue());
+    }
+
+    public static Number pow(Number a, Number b)
+    {
+        return normalize(Math.pow(a.doubleValue(), b.doubleValue()));
     }
 
     public static Boolean less(Number a, Number b)

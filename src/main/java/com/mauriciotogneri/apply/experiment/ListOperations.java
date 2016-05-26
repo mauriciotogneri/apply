@@ -30,7 +30,16 @@ public class ListOperations
 
     public static <T> Optional<T> element(List<T> list, Number index)
     {
-        return Optional.of(list.get(index.intValue()));
+        int position = index.intValue();
+
+        if ((position >= 0) && (position < list.size()))
+        {
+            return Optional.of(list.get(position));
+        }
+        else
+        {
+            return Optional.empty();
+        }
     }
 
     public static <T> List<T> appendFirst(List<T> list, T element)
@@ -85,7 +94,7 @@ public class ListOperations
 
     public static <T> Optional<List<T>> init(List<T> list)
     {
-        if (list.isEmpty())
+        if (list.size() <= 1)
         {
             return Optional.empty();
         }
@@ -101,7 +110,7 @@ public class ListOperations
 
     public static <T> Optional<List<T>> tail(List<T> list)
     {
-        if (list.isEmpty())
+        if (list.size() <= 1)
         {
             return Optional.empty();
         }

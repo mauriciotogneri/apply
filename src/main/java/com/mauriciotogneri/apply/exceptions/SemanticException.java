@@ -2,7 +2,7 @@ package com.mauriciotogneri.apply.exceptions;
 
 import com.mauriciotogneri.apply.compiler.lexical.Token;
 
-public class SemanticException extends RuntimeException
+public class SemanticException extends CompilationException
 {
     public SemanticException(String message, Token token)
     {

@@ -2,7 +2,7 @@ package com.mauriciotogneri.apply.exceptions;
 
 import com.mauriciotogneri.apply.compiler.lexical.Token;
 
-public class SyntacticException extends RuntimeException
+public class SyntacticException extends CompilationException
 {
     public SyntacticException(String message, Token token)
     {

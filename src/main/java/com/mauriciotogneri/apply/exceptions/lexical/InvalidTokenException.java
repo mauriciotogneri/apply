@@ -1,8 +1,9 @@
 package com.mauriciotogneri.apply.exceptions.lexical;
 
 import com.mauriciotogneri.apply.compiler.lexical.Token;
+import com.mauriciotogneri.apply.exceptions.CompilationException;
 
-public class InvalidTokenException extends RuntimeException
+public class InvalidTokenException extends CompilationException
 {
     public InvalidTokenException(Token token)
     {
