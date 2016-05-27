@@ -1,7 +1,8 @@
 package com.mauriciotogneri.apply.experiment;
 
-import com.mauriciotogneri.apply.experiment.Functions.Function1;
-import com.mauriciotogneri.apply.experiment.Functions.Function3;
+
+import com.mauriciotogneri.apply.experiment.Runtime.Functions.Function1;
+import com.mauriciotogneri.apply.experiment.Runtime.Functions.Function3;
 
 import java.util.ArrayList;
 import java.util.List;

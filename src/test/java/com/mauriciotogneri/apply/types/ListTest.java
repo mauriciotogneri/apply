@@ -7,6 +7,8 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Optional;
 
+import static com.mauriciotogneri.apply.experiment.ListOperations.appendFirst;
+import static com.mauriciotogneri.apply.experiment.ListOperations.appendLast;
 import static com.mauriciotogneri.apply.experiment.ListOperations.concat;
 import static com.mauriciotogneri.apply.experiment.ListOperations.empty;
 import static com.mauriciotogneri.apply.experiment.ListOperations.head;
@@ -63,6 +65,70 @@ public class ListTest
     {
         List input = listOf();
         assertEquals(length(input), 0);
+    }
+
+    // ==================================== APPEND FIRST ======================================== \\
+
+    @Test
+    public void appendFirstOfOne()
+    {
+        List<Integer> inputA = listOf(2);
+        Integer inputB = 1;
+        List<Integer> output = listOf(1, 2);
+
+        assertEquals(appendFirst(inputA, inputB), output);
+    }
+
+    @Test
+    public void appendFirstOfThree()
+    {
+        List<Integer> inputA = listOf(2, 3, 4);
+        Integer inputB = 1;
+        List<Integer> output = listOf(1, 2, 3, 4);
+
+        assertEquals(appendFirst(inputA, inputB), output);
+    }
+
+    @Test
+    public void appendFirstOfZero()
+    {
+        List<Integer> inputA = listOf();
+        Integer inputB = 1;
+        List<Integer> output = listOf(1);
+
+        assertEquals(appendFirst(inputA, inputB), output);
+    }
+
+    // ===================================== APPEND LAST ======================================== \\
+
+    @Test
+    public void appendLastOfOne()
+    {
+        List<Integer> inputA = listOf(1);
+        Integer inputB = 2;
+        List<Integer> output = listOf(1, 2);
+
+        assertEquals(appendLast(inputA, inputB), output);
+    }
+
+    @Test
+    public void appendLastOfThree()
+    {
+        List<Integer> inputA = listOf(1, 2, 3);
+        Integer inputB = 4;
+        List<Integer> output = listOf(1, 2, 3, 4);
+
+        assertEquals(appendLast(inputA, inputB), output);
+    }
+
+    @Test
+    public void appendLastOfZero()
+    {
+        List<Integer> inputA = listOf();
+        Integer inputB = 1;
+        List<Integer> output = listOf(1);
+
+        assertEquals(appendLast(inputA, inputB), output);
     }
 
     // ======================================== HEAD ============================================ \\

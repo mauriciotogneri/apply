@@ -1,5 +1,7 @@
 package com.mauriciotogneri.apply.experiment;
 
+import com.mauriciotogneri.apply.experiment.Runtime.BooleanOperations;
+
 import java.util.List;
 
 @SuppressWarnings("ALL")
@@ -13,7 +15,7 @@ public class Any
         }
         else if ((a instanceof Boolean) && (b instanceof Boolean))
         {
-            return BooleanOperations.equal(Boolean.class.cast(a), Boolean.class.cast(b));
+            return BooleanOperations.$equal(Boolean.class.cast(a), Boolean.class.cast(b));
         }
         else if ((a instanceof String) && (b instanceof String))
         {
