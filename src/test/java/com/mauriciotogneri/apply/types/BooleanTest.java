@@ -7,7 +7,7 @@ import static com.mauriciotogneri.apply.experiment.Runtime.BooleanOperations.not
 import static com.mauriciotogneri.apply.experiment.Runtime.BooleanOperations.or;
 import static org.junit.Assert.assertEquals;
 
-public class LogicTest
+public class BooleanTest
 {
     @Test
     public void testAnd()

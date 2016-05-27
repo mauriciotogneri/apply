@@ -1,6 +1,5 @@
 package com.mauriciotogneri.apply.experiment;
 
-
 import com.mauriciotogneri.apply.experiment.Runtime.Functions.Function1;
 import com.mauriciotogneri.apply.experiment.Runtime.Functions.Function3;
 
@@ -8,16 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mauriciotogneri.apply.experiment.Runtime.AnyOperations.*;
-import static com.mauriciotogneri.apply.experiment.ListOperations.appendLast;
-import static com.mauriciotogneri.apply.experiment.ListOperations.element;
-import static com.mauriciotogneri.apply.experiment.ListOperations.listOf;
-import static com.mauriciotogneri.apply.experiment.ListOperations.map;
+import static com.mauriciotogneri.apply.experiment.Runtime.AnyOperations.equal;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.appendLast;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.element;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.equal;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.listOf;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.map;
 import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.add;
+import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.greaterEqual;
 import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.less;
 import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.mul;
 import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.sub;
-import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.greaterEqual;
 
 @SuppressWarnings("ALL")
 public class Experiment

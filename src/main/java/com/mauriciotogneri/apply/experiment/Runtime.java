@@ -3,6 +3,8 @@ package com.mauriciotogneri.apply.experiment;
 import com.mauriciotogneri.apply.experiment.Runtime.Functions.Function1;
 import com.mauriciotogneri.apply.experiment.Runtime.Functions.Function2;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -236,6 +238,34 @@ public class Runtime
             return equal.apply(a, b);
         }
 
+        public static Function1<Number, Number> toInt = a -> a.intValue();
+
+        public static Number toInt(Number a)
+        {
+            return toInt.apply(a);
+        }
+
+        public static Function1<Number, Number> toLong = a -> a.longValue();
+
+        public static Number toLong(Number a)
+        {
+            return toLong.apply(a);
+        }
+
+        public static Function1<Number, Number> toFloat = a -> a.floatValue();
+
+        public static Number toFloat(Number a)
+        {
+            return toFloat.apply(a);
+        }
+
+        public static Function1<Number, Number> toDouble = a -> a.doubleValue();
+
+        public static Number toDouble(Number a)
+        {
+            return toDouble.apply(a);
+        }
+
         private static Number normalize(Number n)
         {
             if (Double.compare(n.doubleValue(), n.intValue()) == 0)
@@ -247,6 +277,240 @@ public class Runtime
                 return n.doubleValue();
             }
         }
+    }
+
+    // ========================================== LIST ========================================== \\
+
+    public static class ListOperations
+    {
+        public static <T> List<T> listOf(T... values)
+        {
+            List<T> result = new ArrayList<>();
+            Collections.addAll(result, values);
+
+            return result;
+        }
+
+        public static Function1<List, Boolean> empty = a -> a.isEmpty();
+
+        public static Boolean empty(List a)
+        {
+            return empty.apply(a);
+        }
+
+        public static Function1<List, Number> length = a -> a.size();
+
+        public static Number length(List a)
+        {
+            return length.apply(a);
+        }
+
+        public static Function2<List, Number, Optional> element = (list, index) -> {
+            int position = index.intValue();
+
+            if ((position >= 0) && (position < list.size()))
+            {
+                return Optional.of(list.get(position));
+            }
+            else
+            {
+                return Optional.empty();
+            }
+        };
+
+        public static <T> Optional<T> element(List<T> list, Number index)
+        {
+            return element.apply(list, index);
+        }
+
+        public static Function2<List, Object, List> appendFirst = (list, element) -> {
+            List result = listOf(element);
+            result.addAll(list);
+
+            return result;
+        };
+
+        public static <T> List<T> appendFirst(List<T> list, T element)
+        {
+            return (List<T>) appendFirst.apply(list, element);
+        }
+
+        public static Function2<List, Object, List> appendLast = (list, element) -> {
+            List result = listOf();
+            result.addAll(list);
+            result.add(element);
+
+            return result;
+        };
+
+        public static <T> List<T> appendLast(List<T> list, T element)
+        {
+            return appendLast.apply(list, element);
+        }
+
+        public static Function2<List, List, List> concat = (list1, list2) -> {
+            List result = listOf();
+            result.addAll(list1);
+            result.addAll(list2);
+
+            return result;
+        };
+
+        public static <T> List<T> concat(List<T> list1, List<T> list2)
+        {
+            return concat.apply(list1, list2);
+        }
+
+        public static Function1<List, Optional> head = a -> {
+            if (a.isEmpty())
+            {
+                return Optional.empty();
+            }
+            else
+            {
+                return Optional.of(a.get(0));
+            }
+        };
+
+        public static <T> Optional<T> head(List<T> a)
+        {
+            return head.apply(a);
+        }
+
+        public static Function1<List, Optional> last = a -> {
+            if (a.isEmpty())
+            {
+                return Optional.empty();
+            }
+            else
+            {
+                return Optional.of(a.get(a.size() - 1));
+            }
+        };
+
+        public static <T> Optional<T> last(List<T> a)
+        {
+            return last.apply(a);
+        }
+
+        public static Function1<List, Optional> init = a -> {
+            if (a.size() <= 1)
+            {
+                return Optional.empty();
+            }
+            else
+            {
+                List result = listOf();
+                result.addAll(a);
+                result.remove(result.size() - 1);
+
+                return Optional.of(result);
+            }
+        };
+
+        public static <T> Optional<List<T>> init(List<T> a)
+        {
+            return init.apply(a);
+        }
+
+        public static Function1<List, Optional> tail = a -> {
+            if (a.size() <= 1)
+            {
+                return Optional.empty();
+            }
+            else
+            {
+                List result = listOf();
+                result.addAll(a);
+                result.remove(0);
+
+                return Optional.of(result);
+            }
+        };
+
+        public static <T> Optional<List<T>> tail(List<T> a)
+        {
+            return tail.apply(a);
+        }
+
+        public static Function2<List, Function1, List> map = (list, function) -> {
+            List result = listOf();
+
+            for (Object element : list)
+            {
+                result.add(function.apply(element));
+            }
+
+            return result;
+        };
+
+        public static <A, B> List<B> map(List<A> list, Function1<A, B> function)
+        {
+            return map.apply(list, function);
+        }
+
+        public static Function2<List, List, Boolean> equal = (a, b) -> {
+            int size1 = a.size();
+            int size2 = b.size();
+
+            if (size1 == size2)
+            {
+                for (int i = 0; i < size1; i++)
+                {
+                    if (AnyOperations.notEqual(a.get(i), b.get(i)))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
+        };
+
+        public static Boolean equal(List a, List b)
+        {
+            return equal.apply(a, b);
+        }
+
+        // TODO: for testing purposes
+        public static String toString(List list)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.append("[");
+
+            int size = list.size();
+
+            for (int i = 0; i < size; i++)
+            {
+                if (i != 0)
+                {
+                    builder.append(", ");
+                }
+
+                builder.append(AnyOperations.toString(list.get(i)));
+            }
+
+            builder.append("]");
+
+            return builder.toString();
+        }
+
+        // TODO
+        // take
+        // drop
+        // reverse
+        // filter
+        // and
+        // or
+        // any
+        // all
+        // take n xs
+        // empty xs
+        // zip xs [0..]
+        // foldl
+        // foldr
     }
 
     // ========================================== ANY =========================================== \\

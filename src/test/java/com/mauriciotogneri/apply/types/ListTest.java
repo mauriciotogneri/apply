@@ -1,22 +1,22 @@
 package com.mauriciotogneri.apply.types;
 
-import com.mauriciotogneri.apply.experiment.ListOperations;
-
 import org.junit.Test;
 
 import java.util.List;
 import java.util.Optional;
 
-import static com.mauriciotogneri.apply.experiment.ListOperations.appendFirst;
-import static com.mauriciotogneri.apply.experiment.ListOperations.appendLast;
-import static com.mauriciotogneri.apply.experiment.ListOperations.concat;
-import static com.mauriciotogneri.apply.experiment.ListOperations.empty;
-import static com.mauriciotogneri.apply.experiment.ListOperations.head;
-import static com.mauriciotogneri.apply.experiment.ListOperations.init;
-import static com.mauriciotogneri.apply.experiment.ListOperations.last;
-import static com.mauriciotogneri.apply.experiment.ListOperations.length;
-import static com.mauriciotogneri.apply.experiment.ListOperations.listOf;
-import static com.mauriciotogneri.apply.experiment.ListOperations.tail;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.appendFirst;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.appendLast;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.concat;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.element;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.empty;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.head;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.init;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.last;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.length;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.listOf;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.map;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.tail;
 import static org.junit.Assert.assertEquals;
 
 public class ListTest
@@ -229,49 +229,49 @@ public class ListTest
     public void elementOfOneCorrect()
     {
         List input = listOf("X");
-        assertEquals(ListOperations.element(input, 0), Optional.of("X"));
+        assertEquals(element(input, 0), Optional.of("X"));
     }
 
     @Test
     public void elementOfOneUnder()
     {
         List input = listOf("X");
-        assertEquals(ListOperations.element(input, -1), Optional.empty());
+        assertEquals(element(input, -1), Optional.empty());
     }
 
     @Test
     public void elementOfOneOver()
     {
         List input = listOf("X");
-        assertEquals(ListOperations.element(input, 1), Optional.empty());
+        assertEquals(element(input, 1), Optional.empty());
     }
 
     @Test
     public void elementOfThreeCorrect()
     {
         List input = listOf(1, 2, 3);
-        assertEquals(ListOperations.element(input, 0), Optional.of(1));
+        assertEquals(element(input, 0), Optional.of(1));
     }
 
     @Test
     public void elementOfThreeUnder()
     {
         List input = listOf(1, 2, 3);
-        assertEquals(ListOperations.element(input, -1), Optional.empty());
+        assertEquals(element(input, -1), Optional.empty());
     }
 
     @Test
     public void elementOfThreeOver()
     {
         List input = listOf(1, 2, 3);
-        assertEquals(ListOperations.element(input, 3), Optional.empty());
+        assertEquals(element(input, 3), Optional.empty());
     }
 
     @Test
     public void elementOfZero()
     {
         List input = listOf();
-        assertEquals(ListOperations.element(input, 0), Optional.empty());
+        assertEquals(element(input, 0), Optional.empty());
     }
 
     // ======================================= CONCAT =========================================== \\
@@ -323,7 +323,7 @@ public class ListTest
     {
         List<Integer> input = listOf(1);
         List<Integer> output = listOf(2);
-        assertEquals(ListOperations.map(input, n -> n * 2), output);
+        assertEquals(map(input, n -> n * 2), output);
     }
 
     @Test
@@ -331,7 +331,7 @@ public class ListTest
     {
         List<Integer> input = listOf(1, 2, -3);
         List<Integer> output = listOf(2, 4, -6);
-        assertEquals(ListOperations.map(input, n -> n * 2), output);
+        assertEquals(map(input, n -> n * 2), output);
     }
 
     @Test
@@ -339,6 +339,6 @@ public class ListTest
     {
         List<Integer> input = listOf();
         List<Integer> output = listOf();
-        assertEquals(ListOperations.map(input, n -> n * 2), output);
+        assertEquals(map(input, n -> n * 2), output);
     }
 }

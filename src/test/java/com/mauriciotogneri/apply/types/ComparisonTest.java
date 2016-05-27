@@ -6,10 +6,10 @@ import org.junit.Test;
 
 import static com.mauriciotogneri.apply.experiment.Runtime.AnyOperations.equal;
 import static com.mauriciotogneri.apply.experiment.Runtime.AnyOperations.notEqual;
-import static com.mauriciotogneri.apply.experiment.ListOperations.listOf;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.listOf;
+import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.greaterEqual;
 import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.less;
 import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.lessEqual;
-import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.greaterEqual;
 import static org.junit.Assert.assertEquals;
 
 public class ComparisonTest
