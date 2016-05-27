@@ -1,5 +1,6 @@
 package com.mauriciotogneri.apply.experiment;
 
+import com.mauriciotogneri.apply.experiment.Runtime.AnyOperations;
 import com.mauriciotogneri.apply.experiment.Runtime.Functions.Function1;
 
 import java.util.ArrayList;
@@ -145,7 +146,7 @@ public class ListOperations
         {
             for (int i = 0; i < size1; i++)
             {
-                if (Any.notEqual(a.get(i), b.get(i)))
+                if (AnyOperations.notEqual(a.get(i), b.get(i)))
                 {
                     return false;
                 }
@@ -171,7 +172,7 @@ public class ListOperations
                 builder.append(", ");
             }
 
-            builder.append(Any.toString(list.get(i)));
+            builder.append(AnyOperations.toString(list.get(i)));
         }
 
         builder.append("]");
