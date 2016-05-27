@@ -1,6 +1,7 @@
 package com.mauriciotogneri.apply.experiment;
 
 import com.mauriciotogneri.apply.experiment.Runtime.BooleanOperations;
+import com.mauriciotogneri.apply.experiment.Runtime.StringOperations;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class Any
         }
         else if ((a instanceof String) && (b instanceof String))
         {
-            return StringOperations.equal(String.class.cast(a), String.class.cast(b));
+            return StringOperations.$equal(String.class.cast(a), String.class.cast(b));
         }
         else if ((a instanceof List) && (b instanceof List))
         {
