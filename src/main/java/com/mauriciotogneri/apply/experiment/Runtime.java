@@ -37,26 +37,26 @@ public class Runtime
     {
         public static Function2<Boolean, Boolean, Boolean> and = (a, b) -> a && b;
 
+        public static Function2<Boolean, Boolean, Boolean> or = (a, b) -> a || b;
+
+        public static Function1<Boolean, Boolean> not = a -> !a;
+
+        public static Function2<Boolean, Boolean, Boolean> equal = (a, b) -> a.equals(b);
+
         public static Boolean and(Boolean a, Boolean b)
         {
             return and.apply(a, b);
         }
-
-        public static Function2<Boolean, Boolean, Boolean> or = (a, b) -> a || b;
 
         public static Boolean or(Boolean a, Boolean b)
         {
             return or.apply(a, b);
         }
 
-        public static Function1<Boolean, Boolean> not = a -> !a;
-
         public static Boolean not(Boolean a)
         {
             return not.apply(a);
         }
-
-        public static Function2<Boolean, Boolean, Boolean> equal = (a, b) -> a.equals(b);
 
         public static Boolean equal(Boolean a, Boolean b)
         {
@@ -70,24 +70,9 @@ public class Runtime
     {
         public static Function1<String, Boolean> empty = a -> a.isEmpty();
 
-        public static Boolean empty(String a)
-        {
-            return empty.apply(a);
-        }
-
         public static Function1<String, Number> length = a -> a.length();
 
-        public static Number length(String a)
-        {
-            return length.apply(a);
-        }
-
         public static Function2<String, String, String> concat = (a, b) -> a + b;
-
-        public static String concat(String a, String b)
-        {
-            return concat.apply(a, b);
-        }
 
         public static Function2<String, Number, Optional<String>> element = (str, index) -> {
             int position = index.intValue();
@@ -102,26 +87,47 @@ public class Runtime
             }
         };
 
+        public static Function2<String, String, Boolean> contains = (a, b) -> a.contains(b);
+
+        public static Function2<String, String, Boolean> startsWith = (a, b) -> a.startsWith(b);
+
+        public static Function2<String, String, Boolean> endsWith = (a, b) -> a.endsWith(b);
+
+        public static Function1<String, String> toLowerCase = a -> a.toLowerCase();
+
+        public static Function1<String, String> toUpperCase = a -> a.toUpperCase();
+
+        public static Function2<String, String, Boolean> equal = (a, b) -> a.equals(b);
+
+        public static Boolean empty(String a)
+        {
+            return empty.apply(a);
+        }
+
+        public static Number length(String a)
+        {
+            return length.apply(a);
+        }
+
+        public static String concat(String a, String b)
+        {
+            return concat.apply(a, b);
+        }
+
         public static Optional<String> element(String str, Number index)
         {
             return element.apply(str, index);
         }
-
-        public static Function2<String, String, Boolean> contains = (a, b) -> a.contains(b);
 
         public static Boolean contains(String a, String b)
         {
             return contains.apply(a, b);
         }
 
-        public static Function2<String, String, Boolean> startsWith = (a, b) -> a.startsWith(b);
-
         public static Boolean startsWith(String a, String b)
         {
             return startsWith.apply(a, b);
         }
-
-        public static Function2<String, String, Boolean> endsWith = (a, b) -> a.endsWith(b);
 
         public static Boolean endsWith(String a, String b)
         {
@@ -135,21 +141,15 @@ public class Runtime
             return trim.apply(a);
         }
 
-        public static Function1<String, String> toLowerCase = a -> a.toLowerCase();
-
         public static String toLowerCase(String a)
         {
             return toLowerCase.apply(a);
         }
 
-        public static Function1<String, String> toUpperCase = a -> a.toUpperCase();
-
         public static String toUpperCase(String a)
         {
             return toUpperCase.apply(a);
         }
-
-        public static Function2<String, String, Boolean> equal = (a, b) -> a.equals(b);
 
         public static Boolean equal(String a, String b)
         {
@@ -163,103 +163,103 @@ public class Runtime
     {
         public static Function2<Number, Number, Number> add = (a, b) -> normalize(a.doubleValue() + b.doubleValue());
 
+        public static Function2<Number, Number, Number> sub = (a, b) -> normalize(a.doubleValue() - b.doubleValue());
+
+        public static Function2<Number, Number, Number> mul = (a, b) -> normalize(a.doubleValue() * b.doubleValue());
+
+        public static Function2<Number, Number, Number> div = (a, b) -> normalize(a.doubleValue() / b.doubleValue());
+
+        public static Function2<Number, Number, Number> mod = (a, b) -> normalize(a.doubleValue() % b.doubleValue());
+
+        public static Function2<Number, Number, Number> pow = (a, b) -> normalize(Math.pow(a.doubleValue(), b.doubleValue()));
+
+        public static Function2<Number, Number, Boolean> less = (a, b) -> a.doubleValue() < b.doubleValue();
+
+        public static Function2<Number, Number, Boolean> lessEqual = (a, b) -> a.doubleValue() <= b.doubleValue();
+
+        public static Function2<Number, Number, Boolean> greater = (a, b) -> a.doubleValue() > b.doubleValue();
+
+        public static Function2<Number, Number, Boolean> greaterEqual = (a, b) -> a.doubleValue() >= b.doubleValue();
+
+        public static Function2<Number, Number, Boolean> equal = (a, b) -> Double.compare(a.doubleValue(), b.doubleValue()) == 0;
+
+        public static Function1<Number, Number> toInt = a -> a.intValue();
+
+        public static Function1<Number, Number> toLong = a -> a.longValue();
+
+        public static Function1<Number, Number> toFloat = a -> a.floatValue();
+
+        public static Function1<Number, Number> toDouble = a -> a.doubleValue();
+
         public static Number add(Number a, Number b)
         {
             return add.apply(a, b);
         }
-
-        public static Function2<Number, Number, Number> sub = (a, b) -> normalize(a.doubleValue() - b.doubleValue());
 
         public static Number sub(Number a, Number b)
         {
             return sub.apply(a, b);
         }
 
-        public static Function2<Number, Number, Number> mul = (a, b) -> normalize(a.doubleValue() * b.doubleValue());
-
         public static Number mul(Number a, Number b)
         {
             return mul.apply(a, b);
         }
-
-        public static Function2<Number, Number, Number> div = (a, b) -> normalize(a.doubleValue() / b.doubleValue());
 
         public static Number div(Number a, Number b)
         {
             return div.apply(a, b);
         }
 
-        public static Function2<Number, Number, Number> mod = (a, b) -> normalize(a.doubleValue() % b.doubleValue());
-
         public static Number mod(Number a, Number b)
         {
             return mod.apply(a, b);
         }
-
-        public static Function2<Number, Number, Number> pow = (a, b) -> normalize(Math.pow(a.doubleValue(), b.doubleValue()));
 
         public static Number pow(Number a, Number b)
         {
             return pow.apply(a, b);
         }
 
-        public static Function2<Number, Number, Boolean> less = (a, b) -> a.doubleValue() < b.doubleValue();
-
         public static Boolean less(Number a, Number b)
         {
             return less.apply(a, b);
         }
-
-        public static Function2<Number, Number, Boolean> lessEqual = (a, b) -> a.doubleValue() <= b.doubleValue();
 
         public static Boolean lessEqual(Number a, Number b)
         {
             return lessEqual.apply(a, b);
         }
 
-        public static Function2<Number, Number, Boolean> greater = (a, b) -> a.doubleValue() > b.doubleValue();
-
         public static Boolean greater(Number a, Number b)
         {
             return greater.apply(a, b);
         }
-
-        public static Function2<Number, Number, Boolean> greaterEqual = (a, b) -> a.doubleValue() >= b.doubleValue();
 
         public static Boolean greaterEqual(Number a, Number b)
         {
             return greaterEqual.apply(a, b);
         }
 
-        public static Function2<Number, Number, Boolean> equal = (a, b) -> Double.compare(a.doubleValue(), b.doubleValue()) == 0;
-
         public static Boolean equal(Number a, Number b)
         {
             return equal.apply(a, b);
         }
-
-        public static Function1<Number, Number> toInt = a -> a.intValue();
 
         public static Number toInt(Number a)
         {
             return toInt.apply(a);
         }
 
-        public static Function1<Number, Number> toLong = a -> a.longValue();
-
         public static Number toLong(Number a)
         {
             return toLong.apply(a);
         }
 
-        public static Function1<Number, Number> toFloat = a -> a.floatValue();
-
         public static Number toFloat(Number a)
         {
             return toFloat.apply(a);
         }
-
-        public static Function1<Number, Number> toDouble = a -> a.doubleValue();
 
         public static Number toDouble(Number a)
         {
@@ -283,27 +283,9 @@ public class Runtime
 
     public static class ListOperations
     {
-        public static <T> List<T> listOf(T... values)
-        {
-            List<T> result = new ArrayList<>();
-            Collections.addAll(result, values);
-
-            return result;
-        }
-
         public static Function1<List, Boolean> empty = a -> a.isEmpty();
 
-        public static Boolean empty(List a)
-        {
-            return empty.apply(a);
-        }
-
         public static Function1<List, Number> length = a -> a.size();
-
-        public static Number length(List a)
-        {
-            return length.apply(a);
-        }
 
         public static Function2<List, Number, Optional> element = (list, index) -> {
             int position = index.intValue();
@@ -318,22 +300,12 @@ public class Runtime
             }
         };
 
-        public static <T> Optional<T> element(List<T> list, Number index)
-        {
-            return element.apply(list, index);
-        }
-
         public static Function2<List, Object, List> appendFirst = (list, element) -> {
             List result = listOf(element);
             result.addAll(list);
 
             return result;
         };
-
-        public static <T> List<T> appendFirst(List<T> list, T element)
-        {
-            return (List<T>) appendFirst.apply(list, element);
-        }
 
         public static Function2<List, Object, List> appendLast = (list, element) -> {
             List result = listOf();
@@ -343,11 +315,6 @@ public class Runtime
             return result;
         };
 
-        public static <T> List<T> appendLast(List<T> list, T element)
-        {
-            return appendLast.apply(list, element);
-        }
-
         public static Function2<List, List, List> concat = (list1, list2) -> {
             List result = listOf();
             result.addAll(list1);
@@ -355,11 +322,6 @@ public class Runtime
 
             return result;
         };
-
-        public static <T> List<T> concat(List<T> list1, List<T> list2)
-        {
-            return concat.apply(list1, list2);
-        }
 
         public static Function1<List, Optional> head = a -> {
             if (a.isEmpty())
@@ -372,11 +334,6 @@ public class Runtime
             }
         };
 
-        public static <T> Optional<T> head(List<T> a)
-        {
-            return head.apply(a);
-        }
-
         public static Function1<List, Optional> last = a -> {
             if (a.isEmpty())
             {
@@ -387,11 +344,6 @@ public class Runtime
                 return Optional.of(a.get(a.size() - 1));
             }
         };
-
-        public static <T> Optional<T> last(List<T> a)
-        {
-            return last.apply(a);
-        }
 
         public static Function1<List, Optional> init = a -> {
             if (a.size() <= 1)
@@ -408,11 +360,6 @@ public class Runtime
             }
         };
 
-        public static <T> Optional<List<T>> init(List<T> a)
-        {
-            return init.apply(a);
-        }
-
         public static Function1<List, Optional> tail = a -> {
             if (a.size() <= 1)
             {
@@ -428,11 +375,6 @@ public class Runtime
             }
         };
 
-        public static <T> Optional<List<T>> tail(List<T> a)
-        {
-            return tail.apply(a);
-        }
-
         public static Function2<List, Function1, List> map = (list, function) -> {
             List result = listOf();
 
@@ -443,11 +385,6 @@ public class Runtime
 
             return result;
         };
-
-        public static <A, B> List<B> map(List<A> list, Function1<A, B> function)
-        {
-            return map.apply(list, function);
-        }
 
         public static Function2<List, List, Boolean> equal = (a, b) -> {
             int size1 = a.size();
@@ -468,6 +405,84 @@ public class Runtime
 
             return false;
         };
+
+        public static <T> List<T> listOf(T... values)
+        {
+            List<T> result = new ArrayList<>();
+            Collections.addAll(result, values);
+
+            return result;
+        }
+
+        public static Boolean empty(List a)
+        {
+            return empty.apply(a);
+        }
+
+        public static Number length(List a)
+        {
+            return length.apply(a);
+        }
+
+        public static <T> Optional<T> element(List<T> list, Number index)
+        {
+            return element.apply(list, index);
+        }
+
+        public static <T> List<T> appendFirst(List<T> list, T element)
+        {
+            return (List<T>) appendFirst.apply(list, element);
+        }
+
+        public static <T> List<T> appendLast(List<T> list, T element)
+        {
+            return appendLast.apply(list, element);
+        }
+
+        public static <T> List<T> concat(List<T> list1, List<T> list2)
+        {
+            return concat.apply(list1, list2);
+        }
+
+        public static <T> Optional<T> head(List<T> a)
+        {
+            return head.apply(a);
+        }
+
+        public static <T> Optional<T> last(List<T> a)
+        {
+            return last.apply(a);
+        }
+
+        public static <T> Optional<List<T>> init(List<T> a)
+        {
+            return init.apply(a);
+        }
+
+        public static <T> Optional<List<T>> tail(List<T> a)
+        {
+            return tail.apply(a);
+        }
+
+        public static <A, B> List<B> map(List<A> list, Function1<A, B> function)
+        {
+            return map.apply(list, function);
+        }
+
+        // TODO
+        // take
+        // drop
+        // reverse
+        // filter
+        // and
+        // or
+        // any
+        // all
+        // take n xs
+        // empty xs
+        // zip xs [0..]
+        // foldl
+        // foldr
 
         public static Boolean equal(List a, List b)
         {
@@ -496,21 +511,6 @@ public class Runtime
 
             return builder.toString();
         }
-
-        // TODO
-        // take
-        // drop
-        // reverse
-        // filter
-        // and
-        // or
-        // any
-        // all
-        // take n xs
-        // empty xs
-        // zip xs [0..]
-        // foldl
-        // foldr
     }
 
     // ========================================== ANY =========================================== \\
