@@ -11,7 +11,7 @@ import static com.mauriciotogneri.apply.experiment.Runtime.AnyOperations.equal;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.appendLast;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.element;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.equal;
-import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.foldl;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.filter;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.listOf;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.map;
 import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.add;
@@ -143,8 +143,8 @@ public class Experiment
         Optional<List<Number>> result = fibonacci(10);
         System.out.println(result.get());
 
-        System.out.println(map(result.get(), duplicate));
+        System.out.println(map(duplicate, result.get()));
 
-        System.out.println(foldl((x, y) -> 2 * x + y, 4, listOf(1, 2, 3)));
+        System.out.println(filter(x -> x > 5, listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)));
     }
 }

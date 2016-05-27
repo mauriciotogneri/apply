@@ -387,12 +387,26 @@ public class Runtime
             }
         };
 
-        public static Function2<List, Function1, List> map = (list, function) -> {
+        public static Function2<Function1, List, List> map = (function, list) -> {
             List result = listOf();
 
             for (Object element : list)
             {
                 result.add(function.apply(element));
+            }
+
+            return result;
+        };
+
+        public static Function2<Function1<Object, Boolean>, List, List> filter = (function, list) -> {
+            List result = listOf();
+
+            for (Object element : list)
+            {
+                if (function.apply(element))
+                {
+                    result.add(element);
+                }
             }
 
             return result;
@@ -518,9 +532,14 @@ public class Runtime
             return tail.apply(a);
         }
 
-        public static <A, B> List<B> map(List<A> list, Function1<A, B> function)
+        public static <A, B> List<B> map(Function1<A, B> function, List<A> list)
         {
-            return map.apply(list, function);
+            return map.apply(function, list);
+        }
+
+        public static <A> List<A> filter(Function1<A, Boolean> function, List<A> list)
+        {
+            return filter.apply((Function1<Object, Boolean>) function, list);
         }
 
         public static <A, B> B foldr(Function2<A, B, B> function, B initial, List<A> list)
@@ -536,12 +555,10 @@ public class Runtime
         // TODO
         // take
         // drop
-        // filter
         // and
         // or
         // any
         // all
-        // take n xs
         // zip xs [0..]
 
         public static Boolean equal(List a, List b)

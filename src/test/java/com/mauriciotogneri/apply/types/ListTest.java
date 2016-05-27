@@ -323,7 +323,7 @@ public class ListTest
     {
         List<Integer> input = listOf(1);
         List<Integer> output = listOf(2);
-        assertEquals(map(input, n -> n * 2), output);
+        assertEquals(map(n -> n * 2, input), output);
     }
 
     @Test
@@ -331,7 +331,7 @@ public class ListTest
     {
         List<Integer> input = listOf(1, 2, -3);
         List<Integer> output = listOf(2, 4, -6);
-        assertEquals(map(input, n -> n * 2), output);
+        assertEquals(map(n -> n * 2, input), output);
     }
 
     @Test
@@ -339,6 +339,6 @@ public class ListTest
     {
         List<Integer> input = listOf();
         List<Integer> output = listOf();
-        assertEquals(map(input, n -> n * 2), output);
+        assertEquals(map(n -> n * 2, input), output);
     }
 }
