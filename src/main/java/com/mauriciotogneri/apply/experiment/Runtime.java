@@ -2,6 +2,7 @@ package com.mauriciotogneri.apply.experiment;
 
 import com.mauriciotogneri.apply.experiment.Runtime.Functions.Function1;
 import com.mauriciotogneri.apply.experiment.Runtime.Functions.Function2;
+import com.mauriciotogneri.apply.experiment.Runtime.Functions.Function3;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -323,6 +324,17 @@ public class Runtime
             return result;
         };
 
+        public static Function1<List, List> reverse = a -> {
+            List result = listOf();
+
+            for (Object element : a)
+            {
+                result.add(0, element);
+            }
+
+            return result;
+        };
+
         public static Function1<List, Optional> head = a -> {
             if (a.isEmpty())
             {
@@ -386,6 +398,43 @@ public class Runtime
             return result;
         };
 
+        public static Function3<Function2, Object, List, Object> foldr = (function, initial, list) -> {
+            if (list.isEmpty())
+            {
+                return initial;
+            }
+            else
+            {
+                Object result = initial;
+                List reverseList = reverse.apply(list);
+
+                for (Object element : reverseList)
+                {
+                    result = function.apply(element, result);
+                }
+
+                return result;
+            }
+        };
+
+        public static Function3<Function2, Object, List, Object> foldl = (function, initial, list) -> {
+            if (list.isEmpty())
+            {
+                return initial;
+            }
+            else
+            {
+                Object result = initial;
+
+                for (Object element : list)
+                {
+                    result = function.apply(result, element);
+                }
+
+                return result;
+            }
+        };
+
         public static Function2<List, List, Boolean> equal = (a, b) -> {
             int size1 = a.size();
             int size2 = b.size();
@@ -431,7 +480,7 @@ public class Runtime
 
         public static <T> List<T> appendFirst(List<T> list, T element)
         {
-            return (List<T>) appendFirst.apply(list, element);
+            return appendFirst.apply(list, element);
         }
 
         public static <T> List<T> appendLast(List<T> list, T element)
@@ -442,6 +491,11 @@ public class Runtime
         public static <T> List<T> concat(List<T> list1, List<T> list2)
         {
             return concat.apply(list1, list2);
+        }
+
+        public static <T> List<T> reverse(List<T> a)
+        {
+            return reverse.apply(a);
         }
 
         public static <T> Optional<T> head(List<T> a)
@@ -469,20 +523,26 @@ public class Runtime
             return map.apply(list, function);
         }
 
+        public static <A, B> B foldr(Function2<A, B, B> function, B initial, List<A> list)
+        {
+            return (B) foldr.apply(function, initial, list);
+        }
+
+        public static <A, B> B foldl(Function2<A, B, B> function, B initial, List<A> list)
+        {
+            return (B) foldl.apply(function, initial, list);
+        }
+
         // TODO
         // take
         // drop
-        // reverse
         // filter
         // and
         // or
         // any
         // all
         // take n xs
-        // empty xs
         // zip xs [0..]
-        // foldl
-        // foldr
 
         public static Boolean equal(List a, List b)
         {
