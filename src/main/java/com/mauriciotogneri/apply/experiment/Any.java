@@ -2,6 +2,7 @@ package com.mauriciotogneri.apply.experiment;
 
 import com.mauriciotogneri.apply.experiment.Runtime.BooleanOperations;
 import com.mauriciotogneri.apply.experiment.Runtime.StringOperations;
+import com.mauriciotogneri.apply.experiment.Runtime.NumberOperations;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Any
     {
         if ((a instanceof Number) && (b instanceof Number))
         {
-            return NumberOperations.equal(Number.class.cast(a), Number.class.cast(b));
+            return NumberOperations.$equal(Number.class.cast(a), Number.class.cast(b));
         }
         else if ((a instanceof Boolean) && (b instanceof Boolean))
         {

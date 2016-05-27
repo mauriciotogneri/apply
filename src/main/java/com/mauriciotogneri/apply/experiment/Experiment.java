@@ -13,11 +13,11 @@ import static com.mauriciotogneri.apply.experiment.ListOperations.appendLast;
 import static com.mauriciotogneri.apply.experiment.ListOperations.element;
 import static com.mauriciotogneri.apply.experiment.ListOperations.listOf;
 import static com.mauriciotogneri.apply.experiment.ListOperations.map;
-import static com.mauriciotogneri.apply.experiment.NumberOperations.add;
-import static com.mauriciotogneri.apply.experiment.NumberOperations.greaterEqual;
-import static com.mauriciotogneri.apply.experiment.NumberOperations.less;
-import static com.mauriciotogneri.apply.experiment.NumberOperations.mul;
-import static com.mauriciotogneri.apply.experiment.NumberOperations.sub;
+import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.$add;
+import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.$greaterEqual;
+import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.$less;
+import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.$mul;
+import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.$sub;
 
 @SuppressWarnings("ALL")
 public class Experiment
@@ -29,7 +29,7 @@ public class Experiment
         }
         else
         {
-            return Optional.of(mul(n, 2));
+            return Optional.of($mul(n, 2));
         }
     };
 
@@ -41,7 +41,7 @@ public class Experiment
     private static Function1<Optional<Number>, Number> optionExample2 = o -> {
         if (o.isPresent())
         {
-            return mul(o.get(), 2);
+            return $mul(o.get(), 2);
         }
         else
         {
@@ -55,7 +55,7 @@ public class Experiment
     }
 
     private static Function1<Number, Optional<List<Number>>> fibonacci = limit -> {
-        if (less(limit, 0))
+        if ($less(limit, 0))
         {
             return Optional.empty();
         }
@@ -83,17 +83,17 @@ public class Experiment
     }
 
     private static Function3<Number, Number, List<Number>, List<Number>> fibo = (index, limit, list) -> {
-        if (greaterEqual(index, limit))
+        if ($greaterEqual(index, limit))
         {
             return list;
         }
         else
         {
-            Optional<Number> first = element(list, sub(index, 1));
-            Optional<Number> second = element(list, sub(index, 2));
-            Number sum = add(first.get(), second.get());
+            Optional<Number> first = element(list, $sub(index, 1));
+            Optional<Number> second = element(list, $sub(index, 2));
+            Number sum = $add(first.get(), second.get());
 
-            return Experiment.fibo.apply(add(index, 1), limit, appendLast(list, sum));
+            return Experiment.fibo.apply($add(index, 1), limit, appendLast(list, sum));
         }
     };
 
@@ -103,7 +103,7 @@ public class Experiment
     }
 
     private static Function1<Number, Number> duplicate = n -> {
-        return mul(n, 2);
+        return $mul(n, 2);
     };
 
     private static Number duplicate(Number n)

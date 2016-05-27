@@ -61,7 +61,7 @@ public class Runtime
         }
     }
 
-    // ====================================)=== STRING ========================================== \\
+    // ======================================== STRING ========================================== \\
 
     public static class StringOperations
     {
@@ -151,6 +151,100 @@ public class Runtime
         public static Boolean $equal(String a, String b)
         {
             return $equal.apply(a, b);
+        }
+    }
+
+    // ======================================== NUMBER ========================================== \\
+
+    public static class NumberOperations
+    {
+        public static Function2<Number, Number, Number> $add = (a, b) -> normalize(a.doubleValue() + b.doubleValue());
+
+        public static Number $add(Number a, Number b)
+        {
+            return $add.apply(a, b);
+        }
+
+        public static Function2<Number, Number, Number> $sub = (a, b) -> normalize(a.doubleValue() - b.doubleValue());
+
+        public static Number $sub(Number a, Number b)
+        {
+            return $sub.apply(a, b);
+        }
+
+        public static Function2<Number, Number, Number> $mul = (a, b) -> normalize(a.doubleValue() * b.doubleValue());
+
+        public static Number $mul(Number a, Number b)
+        {
+            return $mul.apply(a, b);
+        }
+
+        public static Function2<Number, Number, Number> $div = (a, b) -> normalize(a.doubleValue() / b.doubleValue());
+
+        public static Number $div(Number a, Number b)
+        {
+            return $div.apply(a, b);
+        }
+
+        public static Function2<Number, Number, Number> $mod = (a, b) -> normalize(a.doubleValue() % b.doubleValue());
+
+        public static Number $mod(Number a, Number b)
+        {
+            return $mod.apply(a, b);
+        }
+
+        public static Function2<Number, Number, Number> $pow = (a, b) -> normalize(Math.pow(a.doubleValue(), b.doubleValue()));
+
+        public static Number $pow(Number a, Number b)
+        {
+            return $pow.apply(a, b);
+        }
+
+        public static Function2<Number, Number, Boolean> $less = (a, b) -> a.doubleValue() < b.doubleValue();
+
+        public static Boolean $less(Number a, Number b)
+        {
+            return $less.apply(a, b);
+        }
+
+        public static Function2<Number, Number, Boolean> $lessEqual = (a, b) -> a.doubleValue() <= b.doubleValue();
+
+        public static Boolean $lessEqual(Number a, Number b)
+        {
+            return $lessEqual.apply(a, b);
+        }
+
+        public static Function2<Number, Number, Boolean> $greater = (a, b) -> a.doubleValue() > b.doubleValue();
+
+        public static Boolean $greater(Number a, Number b)
+        {
+            return $greater.apply(a, b);
+        }
+
+        public static Function2<Number, Number, Boolean> $greaterEqual = (a, b) -> a.doubleValue() >= b.doubleValue();
+
+        public static Boolean $greaterEqual(Number a, Number b)
+        {
+            return $greaterEqual.apply(a, b);
+        }
+
+        public static Function2<Number, Number, Boolean> $equal = (a, b) -> Double.compare(a.doubleValue(), b.doubleValue()) == 0;
+
+        public static Boolean $equal(Number a, Number b)
+        {
+            return $equal.apply(a, b);
+        }
+
+        private static Number normalize(Number n)
+        {
+            if (Double.compare(n.doubleValue(), n.intValue()) == 0)
+            {
+                return n.longValue();
+            }
+            else
+            {
+                return n.doubleValue();
+            }
         }
     }
 }
