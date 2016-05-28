@@ -57,7 +57,7 @@ letExample(n: Num) =
 	positive & prime & even
 }
 
-apply(f: Function1<Num, Bool>, a: Num, b: Num): Bool = f(a + b)
+apply(f: Function<Num, Bool>, a: Num, b: Num): Bool = f(a + b)
 
 duplicate(n: Num): Num = n * 2
 

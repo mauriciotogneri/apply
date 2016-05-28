@@ -412,6 +412,46 @@ public class Runtime
             return result;
         };
 
+        public static Function2<Function1<Object, Boolean>, List, Boolean> exists = (function, list) -> {
+            for (Object element : list)
+            {
+                if (function.apply(element))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        };
+
+        public static Function2<Function1<Object, Boolean>, List, Optional> find = (function, list) -> {
+            for (Object element : list)
+            {
+                if (function.apply(element))
+                {
+                    return Optional.of(element);
+                }
+            }
+
+            return Optional.empty();
+        };
+
+        public static Function2<String, List, String> join = (separator, list) -> {
+            StringBuilder builder = new StringBuilder();
+
+            for (Object element : list)
+            {
+                if (builder.length() != 0)
+                {
+                    builder.append(separator);
+                }
+
+                builder.append(AnyOperations.toString(element));
+            }
+
+            return builder.toString();
+        };
+
         public static Function3<Function2, Object, List, Object> foldr = (function, initial, list) -> {
             if (list.isEmpty())
             {
@@ -540,6 +580,21 @@ public class Runtime
         public static <A> List<A> filter(Function1<A, Boolean> function, List<A> list)
         {
             return filter.apply((Function1<Object, Boolean>) function, list);
+        }
+
+        public static <A> Boolean exists(Function1<A, Boolean> function, List<A> list)
+        {
+            return exists.apply((Function1<Object, Boolean>) function, list);
+        }
+
+        public static <A> Optional<A> find(Function1<A, Boolean> function, List<A> list)
+        {
+            return find.apply((Function1<Object, Boolean>) function, list);
+        }
+
+        public static <A> String join(String separator, List<A> list)
+        {
+            return join.apply(separator, list);
         }
 
         public static <A, B> B foldr(Function2<A, B, B> function, B initial, List<A> list)

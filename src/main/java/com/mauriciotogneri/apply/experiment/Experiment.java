@@ -11,7 +11,10 @@ import static com.mauriciotogneri.apply.experiment.Runtime.AnyOperations.equal;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.appendLast;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.element;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.equal;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.exists;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.filter;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.find;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.join;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.listOf;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.map;
 import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.add;
@@ -146,5 +149,11 @@ public class Experiment
         System.out.println(map(duplicate, result.get()));
 
         System.out.println(filter(x -> x > 5, listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)));
+
+        System.out.println(exists(x -> x > 5, listOf(1, 2, 3, 4, 5)));
+
+        System.out.println(find(x -> x > 5, listOf(1, 2, 3, 4, 5, 9)));
+
+        System.out.println(join(",", listOf(1, 2, 3, 4, 5)));
     }
 }
