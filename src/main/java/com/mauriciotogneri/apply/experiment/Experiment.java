@@ -1,17 +1,15 @@
 package com.mauriciotogneri.apply.experiment;
 
-import com.mauriciotogneri.apply.experiment.Runtime.Functions.Function1;
-import com.mauriciotogneri.apply.experiment.Runtime.Functions.Function3;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static com.mauriciotogneri.apply.experiment.Runtime.AnyOperations.equal;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.any;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.appendLast;
+import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.drop;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.element;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.equal;
-import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.exists;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.filter;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.find;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.join;
@@ -26,7 +24,8 @@ import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.sub;
 @SuppressWarnings("ALL")
 public class Experiment
 {
-    private static Function1<Number, Optional<Number>> optionExample = n -> {
+    public static Optional<Number> optionExample(Number n)
+    {
         if (n.equals(0))
         {
             return Optional.empty();
@@ -35,14 +34,10 @@ public class Experiment
         {
             return Optional.of(mul(n, 2));
         }
-    };
-
-    public static Optional<Number> optionExample(Number n)
-    {
-        return optionExample.apply(n);
     }
 
-    private static Function1<Optional<Number>, Number> optionExample2 = o -> {
+    public static Number optionExample2(Optional<Number> o)
+    {
         if (o.isPresent())
         {
             return mul(o.get(), 2);
@@ -51,14 +46,10 @@ public class Experiment
         {
             return -1;
         }
-    };
-
-    public static Number optionExample2(Optional<Number> o)
-    {
-        return optionExample2.apply(o);
     }
 
-    private static Function1<Number, Optional<List<Number>>> fibonacci = limit -> {
+    private static Optional<List<Number>> fibonacci(Number limit)
+    {
         if (less(limit, 0))
         {
             return Optional.empty();
@@ -77,16 +68,12 @@ public class Experiment
         }
         else
         {
-            return Optional.of(Experiment.fibo.apply(2, limit, listOf(1, 1)));
+            return Optional.of(fibo(2, limit, listOf(1, 1)));
         }
-    };
-
-    private static Optional<List<Number>> fibonacci(Number limit)
-    {
-        return fibonacci.apply(limit);
     }
 
-    private static Function3<Number, Number, List<Number>, List<Number>> fibo = (index, limit, list) -> {
+    private static List<Number> fibo(Number index, Number limit, List<Number> list)
+    {
         if (greaterEqual(index, limit))
         {
             return list;
@@ -97,22 +84,13 @@ public class Experiment
             Optional<Number> second = element(list, sub(index, 2));
             Number sum = add(first.get(), second.get());
 
-            return Experiment.fibo.apply(add(index, 1), limit, appendLast(list, sum));
+            return fibo(add(index, 1), limit, appendLast(list, sum));
         }
-    };
-
-    private static List<Number> fibo(Number index, Number limit, List<Number> list)
-    {
-        return fibo.apply(index, limit, list);
     }
-
-    private static Function1<Number, Number> duplicate = n -> {
-        return mul(n, 2);
-    };
 
     private static Number duplicate(Number n)
     {
-        return duplicate.apply(n);
+        return mul(n, 2);
     }
 
     public class Person
@@ -146,14 +124,16 @@ public class Experiment
         Optional<List<Number>> result = fibonacci(10);
         System.out.println(result.get());
 
-        System.out.println(map(duplicate, result.get()));
+        System.out.println(map(Experiment::duplicate, result.get()));
 
         System.out.println(filter(x -> x > 5, listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)));
 
-        System.out.println(exists(x -> x > 5, listOf(1, 2, 3, 4, 5)));
+        System.out.println(any(x -> x > 5, listOf(1, 2, 3, 4, 5)));
 
         System.out.println(find(x -> x > 5, listOf(1, 2, 3, 4, 5, 9)));
 
         System.out.println(join(",", listOf(1, 2, 3, 4, 5)));
+
+        System.out.println(drop(-1, listOf(1, 2, 3)));
     }
 }
