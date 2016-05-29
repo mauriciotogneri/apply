@@ -26,6 +26,9 @@ public enum TokenType
     ARITHMETIC_POWER("^"), //
     ARITHMETIC_MODULE("%"), //
 
+    // special
+    MEMBER_ACCESS("."), //
+
     // logic
     LOGIC_EQUAL("="), //
     LOGIC_NOT_EQUAL("!="), //

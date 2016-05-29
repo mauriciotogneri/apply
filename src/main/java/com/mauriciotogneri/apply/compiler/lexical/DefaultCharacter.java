@@ -19,7 +19,7 @@ public class DefaultCharacter implements Character
     private static final char PERCENT = '%'; // 37
     private static final char AMPERSAND = '&'; // 38
     private static final char APOSTROPHE = '\''; // 39
-    private static final char OPEN_PARENTHESES = '='; // 40
+    private static final char OPEN_PARENTHESES = '('; // 40
     private static final char CLOSE_PARENTHESES = ')'; // 41
     private static final char STAR = '*'; // 42
     private static final char PLUS = '+'; // 43
