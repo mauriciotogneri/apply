@@ -1,6 +1,6 @@
 package com.mauriciotogneri.apply.exceptions;
 
-import com.mauriciotogneri.apply.compiler.lexical.Token;
+import com.mauriciotogneri.apply.compiler.lexical.base.Token;
 
 public class SyntacticException extends CompilationException
 {

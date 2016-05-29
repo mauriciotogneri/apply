@@ -1,5 +1,6 @@
-package com.mauriciotogneri.apply.compiler.lexical;
+package com.mauriciotogneri.apply.compiler.lexical.base;
 
+import java.lang.*;
 import java.util.List;
 
 public interface CharacterList

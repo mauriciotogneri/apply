@@ -4,7 +4,7 @@ public enum TokenType
 {
     // general
     SYMBOL("[a-zA-Z]\\w*"), //
-    IMPORT("$"), //
+    IMPORT("\\$"), //
 
     // delimiters
     SPACE(" "), //
@@ -16,7 +16,7 @@ public enum TokenType
     INTEGER("-?\\d{1,}"),
     FLOAT("-?\\d{1,}\\.?\\d{0,}"),
     STRING("\"[^\"]*\""), // TODO
-    BOOLEAN(""), // TODO
+    BOOLEAN("true|false"), // TODO
 
     // arithmetic
     ARITHMETIC_ADDITION("\\+"), //
@@ -27,7 +27,7 @@ public enum TokenType
     ARITHMETIC_MODULE("%"), //
 
     // special
-    MEMBER_ACCESS("."), //
+    MEMBER_ACCESS("\\."), //
 
     // logic
     LOGIC_EQUAL("="), //

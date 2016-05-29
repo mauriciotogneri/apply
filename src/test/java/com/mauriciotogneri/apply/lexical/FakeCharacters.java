@@ -1,7 +1,7 @@
 package com.mauriciotogneri.apply.lexical;
 
-import com.mauriciotogneri.apply.compiler.lexical.Character;
-import com.mauriciotogneri.apply.compiler.lexical.CharacterList;
+import com.mauriciotogneri.apply.compiler.lexical.base.Character;
+import com.mauriciotogneri.apply.compiler.lexical.base.CharacterList;
 import com.mauriciotogneri.apply.compiler.lexical.DefaultCharacter;
 
 import java.util.ArrayList;

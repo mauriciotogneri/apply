@@ -1,5 +1,7 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
+import com.mauriciotogneri.apply.compiler.lexical.base.Character;
+import com.mauriciotogneri.apply.compiler.lexical.base.Position;
 import com.mauriciotogneri.apply.compiler.types.TokenType;
 import com.mauriciotogneri.apply.exceptions.lexical.InvalidCharacterException;
 
@@ -116,8 +118,7 @@ public class DefaultCharacter implements Character
         this.position = position;
     }
 
-    @Override
-    public boolean delimiter()
+    private boolean delimiter()
     {
         return (character == SPACE) || //
                 (character == TAB) || //
@@ -125,8 +126,7 @@ public class DefaultCharacter implements Character
                 (character == NEW_LINE);
     }
 
-    @Override
-    public boolean digit()
+    private boolean digit()
     {
         return (character == DIGIT_0) || //
                 (character == DIGIT_1) || //
@@ -146,8 +146,7 @@ public class DefaultCharacter implements Character
                 (character == NEW_LINE);
     }
 
-    @Override
-    public boolean letter()
+    private boolean letter()
     {
         return (lowercaseLetter() || uppercaseLetter());
     }
@@ -302,6 +301,12 @@ public class DefaultCharacter implements Character
     public int column()
     {
         return position.column();
+    }
+
+    @Override
+    public char value()
+    {
+        return character;
     }
 
     @Override

@@ -1,5 +1,9 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
+import com.mauriciotogneri.apply.compiler.lexical.base.Character;
+import com.mauriciotogneri.apply.compiler.lexical.base.CharacterList;
+import com.mauriciotogneri.apply.compiler.lexical.base.Cursor;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;

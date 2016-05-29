@@ -1,5 +1,8 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
+import com.mauriciotogneri.apply.compiler.lexical.base.Cursor;
+import com.mauriciotogneri.apply.compiler.lexical.base.Position;
+
 public class DefaultCursor implements Position, Cursor
 {
     private final int line;

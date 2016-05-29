@@ -1,10 +1,15 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
+import com.mauriciotogneri.apply.compiler.lexical.base.Character;
+import com.mauriciotogneri.apply.compiler.lexical.base.CharacterList;
+import com.mauriciotogneri.apply.compiler.lexical.base.Token;
+import com.mauriciotogneri.apply.compiler.lexical.base.TokenList;
 import com.mauriciotogneri.apply.compiler.types.TokenType;
-import com.mauriciotogneri.apply.exceptions.lexical.InvalidTokenException;
+import com.mauriciotogneri.apply.exceptions.lexical.InvalidCharacterException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DefaultTokenList implements TokenList
 {
@@ -39,16 +44,23 @@ public class DefaultTokenList implements TokenList
 
     private static class CharacterBuffer extends ArrayList<Character>
     {
-        public void check(List<Token> tokens)
+        private void check(List<Token> tokens)
         {
-            if (!matchesPattern())
+            if (!matchesPattern() && (size() > 1))
             {
-                if (size() > 1)
-                {
-                    TokenType tokenType = tokenType();
-                    Lexeme lexeme = new DefaultLexeme(content(1), get(0));
+                Optional<TokenType> tokenType = tokenType(1);
 
-                    tokens.add(new DefaultToken(tokenType, lexeme));
+                if (tokenType.isPresent())
+                {
+                    tokens.add(
+                            new DefaultToken(
+                                    tokenType.get(),
+                                    new DefaultLexeme(
+                                            content(1),
+                                            get(0)
+                                    )
+                            )
+                    );
 
                     Character lastCharacter = get(size() - 1);
                     clear();
@@ -56,54 +68,55 @@ public class DefaultTokenList implements TokenList
                 }
                 else
                 {
-                    throw new InvalidTokenException(null); // TODO
+                    throw new InvalidCharacterException(get(size() - 1));
                 }
-            }
-        }
-
-        public void checkRemaining(List<Token> tokens)
-        {
-            if (matchesPattern())
-            {
-                TokenType tokenType = tokenType();
-                Lexeme lexeme = new DefaultLexeme(content(0), get(0));
-
-                tokens.add(new DefaultToken(tokenType, lexeme));
-            }
-            else
-            {
-                throw new InvalidTokenException(null); // TODO
             }
         }
 
         private boolean matchesPattern()
         {
-            String content = content(0);
-
-            for (TokenType tokenType : TokenType.values())
-            {
-                if (content.matches(tokenType.pattern()))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return tokenType(0).isPresent();
         }
 
-        private TokenType tokenType()
+        private void checkRemaining(List<Token> tokens)
         {
-            String content = content(1);
+            if (matchesPattern())
+            {
+                Optional<TokenType> tokenType = tokenType(0);
+
+                if (tokenType.isPresent())
+                {
+                    tokens.add(
+                            new DefaultToken(
+                                    tokenType.get(),
+                                    new DefaultLexeme(content(0), get(0))
+                            )
+                    );
+                }
+                else
+                {
+                    throw new InvalidCharacterException(get(size() - 1));
+                }
+            }
+            else
+            {
+                throw new InvalidCharacterException(get(0));
+            }
+        }
+
+        private Optional<TokenType> tokenType(int remove)
+        {
+            String content = content(remove);
 
             for (TokenType tokenType : TokenType.values())
             {
                 if (content.matches(tokenType.pattern()))
                 {
-                    return tokenType;
+                    return Optional.of(tokenType);
                 }
             }
 
-            throw new InvalidTokenException(null); // TODO
+            return Optional.empty();
         }
 
         private String content(int remove)
@@ -116,7 +129,7 @@ public class DefaultTokenList implements TokenList
             {
                 Character character = get(i);
 
-                builder.append(character.toString());
+                builder.append(character.value());
             }
 
             return builder.toString();

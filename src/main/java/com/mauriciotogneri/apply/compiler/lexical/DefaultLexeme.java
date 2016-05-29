@@ -1,5 +1,9 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
+import com.mauriciotogneri.apply.compiler.lexical.base.Character;
+import com.mauriciotogneri.apply.compiler.lexical.base.Lexeme;
+import com.mauriciotogneri.apply.compiler.lexical.base.Position;
+
 public class DefaultLexeme implements Lexeme
 {
     private final String value;

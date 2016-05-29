@@ -1,5 +1,7 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
+import com.mauriciotogneri.apply.compiler.lexical.base.Lexeme;
+import com.mauriciotogneri.apply.compiler.lexical.base.Token;
 import com.mauriciotogneri.apply.compiler.types.TokenType;
 
 public class DefaultToken implements Token
@@ -14,7 +16,61 @@ public class DefaultToken implements Token
     }
 
     @Override
-    public boolean separator()
+    public boolean isSymbol()
+    {
+        return (type == TokenType.SYMBOL);
+    }
+
+    @Override
+    public boolean isOpenParenthesis()
+    {
+        return (type == TokenType.PARENTHESIS_OPEN);
+    }
+
+    @Override
+    public boolean isCloseParenthesis()
+    {
+        return (type == TokenType.PARENTHESIS_CLOSE);
+    }
+
+    @Override
+    public boolean isNumber()
+    {
+        return (type == TokenType.INTEGER) ||
+                (type == TokenType.FLOAT);
+    }
+
+    @Override
+    public boolean isArithmetic()
+    {
+        return (type == TokenType.ARITHMETIC_ADDITION) ||
+                (type == TokenType.ARITHMETIC_SUBTRACTION) ||
+                (type == TokenType.ARITHMETIC_MULTIPLICATION) ||
+                (type == TokenType.ARITHMETIC_DIVISION) ||
+                (type == TokenType.ARITHMETIC_POWER) ||
+                (type == TokenType.ARITHMETIC_MODULE);
+    }
+
+    @Override
+    public boolean isOperator()
+    {
+        return isArithmetic() ||
+                (type == TokenType.MEMBER_ACCESS);
+    }
+
+    @Override
+    public boolean isComma()
+    {
+        return (type == TokenType.COMMA);
+    }
+
+    @Override
+    public String lexeme()
+    {
+        return lexeme.toString();
+    }
+
+    private boolean separator()
     {
         return (type == TokenType.SPACE) || //
                 (type == TokenType.TAB);
@@ -69,8 +125,7 @@ public class DefaultToken implements Token
                 (type == TokenType.LIST_CLOSE);
     }
 
-    @Override
-    public boolean primitive()
+    private boolean primitive()
     {
         return conditional() || //
                 arithmetic() || //
@@ -79,8 +134,7 @@ public class DefaultToken implements Token
                 list();
     }
 
-    @Override
-    public boolean expression()
+    private boolean expression()
     {
         return (type == TokenType.SYMBOL) || //
                 conditional() || //

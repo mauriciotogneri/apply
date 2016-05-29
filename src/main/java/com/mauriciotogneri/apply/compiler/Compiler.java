@@ -1,9 +1,9 @@
 package com.mauriciotogneri.apply.compiler;
 
-import com.mauriciotogneri.apply.compiler.lexical.CharacterList;
+import com.mauriciotogneri.apply.compiler.lexical.base.CharacterList;
 import com.mauriciotogneri.apply.compiler.lexical.DefaultCharacterList;
 import com.mauriciotogneri.apply.compiler.lexical.DefaultTokenList;
-import com.mauriciotogneri.apply.compiler.lexical.TokenList;
+import com.mauriciotogneri.apply.compiler.lexical.base.TokenList;
 
 import java.io.File;
 

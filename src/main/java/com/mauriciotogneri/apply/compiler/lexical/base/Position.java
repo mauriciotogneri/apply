@@ -1,4 +1,4 @@
-package com.mauriciotogneri.apply.compiler.lexical;
+package com.mauriciotogneri.apply.compiler.lexical.base;
 
 public interface Position
 {
