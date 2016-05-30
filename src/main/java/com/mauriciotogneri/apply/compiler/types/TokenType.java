@@ -20,9 +20,9 @@ public enum TokenType
 
     // arithmetic
     ARITHMETIC_ADDITION("\\+"), //
-    ARITHMETIC_SUBTRACTION("-"), //
+    ARITHMETIC_SUBTRACTION("\\-"), //
     ARITHMETIC_MULTIPLICATION("\\*"), //
-    ARITHMETIC_DIVISION("/"), //
+    ARITHMETIC_DIVISION("\\/"), //
     ARITHMETIC_POWER("^"), //
     ARITHMETIC_MODULE("%"), //
 
