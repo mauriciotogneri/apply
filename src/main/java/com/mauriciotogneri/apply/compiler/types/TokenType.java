@@ -14,7 +14,7 @@ public enum TokenType
 
     // literals
     INTEGER("-?\\d{1,}"),
-    FLOAT("-?\\d{1,}\\.?\\d{0,}"),
+    FLOAT("-?\\d{1,}\\.?\\d{0,}"), // TODO: fuse both into ^[-+]?\d*\.?\d+$
     STRING("\"[^\"]*\""), // TODO
     BOOLEAN("true|false"), // TODO
 
