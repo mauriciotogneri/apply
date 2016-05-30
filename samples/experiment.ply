@@ -57,6 +57,11 @@ letExample(n: Num) =
 	positive & prime & even
 }
 
+multiplyBy(n: Num): Function<Num, Num> =
+{
+    \(a: Num): Num = a + n
+}
+
 apply(f: Function<Num, Bool>, a: Num, b: Num): Bool = f(a + b)
 
 duplicate(n: Num): Num = n * 2

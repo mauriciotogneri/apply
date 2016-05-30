@@ -1,8 +1,11 @@
 package com.mauriciotogneri.apply.experiment;
 
+import com.mauriciotogneri.apply.experiment.Runtime.Functions.Function1;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static com.mauriciotogneri.apply.experiment.Runtime.AnyOperations.equal;
 import static com.mauriciotogneri.apply.experiment.Runtime.ListOperations.any;
@@ -93,6 +96,23 @@ public class Experiment
         return mul(n, 2);
     }
 
+    private static Object apply(Function<Number, Object> f, Number a, Number b)
+    {
+        return f.apply(add(a, b));
+    }
+
+    public static Function1<Number, Number> mutiplyBy(Number n)
+    {
+        return new Function1<Number, Number>()
+        {
+            @Override
+            public Number apply(Number a)
+            {
+                return mul(a, n);
+            }
+        };
+    }
+
     public class Person
     {
         public final String name;
@@ -118,6 +138,8 @@ public class Experiment
         b.add(1d);
         b.add(2d);
         b.add(3d);
+
+        System.out.println(apply(x -> greaterEqual(x, 0), 4, -5));
 
         System.out.println(equal(a, b));
 
