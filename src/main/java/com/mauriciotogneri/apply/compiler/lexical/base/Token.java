@@ -16,5 +16,7 @@ public interface Token extends Position
 
     boolean isComma();
 
+    boolean isSeparator();
+
     String lexeme();
 }

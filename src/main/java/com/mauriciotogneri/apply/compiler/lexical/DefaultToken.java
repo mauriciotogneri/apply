@@ -18,7 +18,8 @@ public class DefaultToken implements Token
     @Override
     public boolean isSymbol()
     {
-        return (type == TokenType.SYMBOL);
+        return (type == TokenType.SYMBOL) ||
+                (type == TokenType.IF);
     }
 
     @Override
@@ -55,7 +56,8 @@ public class DefaultToken implements Token
     public boolean isOperator()
     {
         return isArithmetic() ||
-                (type == TokenType.MEMBER_ACCESS);
+                (type == TokenType.MEMBER_ACCESS) ||
+                (type == TokenType.ELSE);
     }
 
     @Override
@@ -70,7 +72,8 @@ public class DefaultToken implements Token
         return lexeme.toString();
     }
 
-    private boolean separator()
+    @Override
+    public boolean isSeparator()
     {
         return (type == TokenType.SPACE) || //
                 (type == TokenType.TAB);

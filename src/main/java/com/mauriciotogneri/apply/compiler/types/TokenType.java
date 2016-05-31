@@ -2,11 +2,7 @@ package com.mauriciotogneri.apply.compiler.types;
 
 public enum TokenType
 {
-    // general
-    SYMBOL("[a-zA-Z]\\w*"), //
-    IMPORT("\\$"), //
-
-    // delimiters
+        // delimiters
     SPACE(" "), //
     TAB("\\t"), //
     NEW_LINE("\\n"), //
@@ -41,7 +37,8 @@ public enum TokenType
     LOGIC_NEGATION("!"), //
 
     // conditional
-    IF("\\?"), //
+    IF("if"), //
+    ELSE("else"), //
 
     // arrays (lists and strings)
     ARRAY_INDEX(""), // TODO
@@ -54,7 +51,11 @@ public enum TokenType
 
     // lists
     LIST_OPEN("\\["), //
-    LIST_CLOSE("\\]");
+    LIST_CLOSE("\\]"), //
+
+    // general
+    SYMBOL("[a-zA-Z]\\w*"), //
+    IMPORT("\\$");
 
     private final String pattern;
 

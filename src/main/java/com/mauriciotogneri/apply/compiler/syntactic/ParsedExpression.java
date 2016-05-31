@@ -25,6 +25,7 @@ public class ParsedExpression
         put("*", 3);
         put("/", 4);
         put(".", 5);
+        put("e", 6);
     }};
 
     private boolean isHigherPrecedence(String op, String sub)
@@ -62,14 +63,14 @@ public class ParsedExpression
 
                 stack.pop();
 
-                if (stack.peek().isSymbol())
+                if (!stack.isEmpty() && stack.peek().isSymbol())
                 {
                     output.add(stack.pop());
                 }
             }
             else if (token.isComma())
             {
-                while (!stack.peek().isOpenParenthesis())
+                while (!stack.isEmpty() && !stack.peek().isOpenParenthesis())
                 {
                     output.add(stack.pop());
                 }
@@ -80,9 +81,7 @@ public class ParsedExpression
             }
             else if (token.isSymbol())
             {
-                Token nextToken = expression.get(i + 1);
-
-                if (nextToken.isOpenParenthesis())
+                if ((i < (expression.size() - 1)) && (expression.get(i + 1).isOpenParenthesis()))
                 {
                     stack.push(token);
                 }
@@ -90,6 +89,10 @@ public class ParsedExpression
                 {
                     output.add(token);
                 }
+            }
+            else if (token.isSeparator())
+            {
+                // do nothing
             }
             else
             {
@@ -103,28 +106,5 @@ public class ParsedExpression
         }
 
         return output;
-    }
-
-    private boolean isSymbol(String value)
-    {
-        return Character.isLetter(value.charAt(0));
-    }
-
-    private boolean isOperator(String value)
-    {
-        return value.equals(".") || value.equals("+") || value.equals("-") || value.equals("*") || value.equals("/");
-    }
-
-    private boolean isNumber(String value)
-    {
-        try
-        {
-            Integer.parseInt(value);
-            return true;
-        }
-        catch (Exception e)
-        {
-            return false;
-        }
     }
 }

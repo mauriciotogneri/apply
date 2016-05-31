@@ -49,6 +49,18 @@ factorial(n: Num): Num =
 	else
 		n * factorial(n - 1)
 
+if a
+    if c
+        d
+    else
+        e
+else
+    b
+
+b e d c if a if
+
+1 n n 1 - factorial * n 0 == ?
+
 letExample(n: Num) =
 {
 	let positive: Bool = n > 0
@@ -56,6 +68,20 @@ letExample(n: Num) =
 	let even: Bool = n % 2 == 0
 	positive & prime & even
 }
+
+"zero" "not zero" n 0 == ?
+
+1 + (3 + 4) :: 5 :: []
+1 3 4 + 5 [] :: :: +
+1 7 5 [] :: :: +
+1 7 [5] :: +
+1 [7, 5] +
+
+1 + [2, 3, 4]
+1 2 3 4 3 []
+
+1 + List(3 + 4)
+1 3 4 + List +
 
 multiplyBy(n: Num): Function<Num, Num> =
 {
