@@ -51,7 +51,7 @@ public class Experiment
         }
     }
 
-    private static Optional<List<Number>> fibonacci(Number limit)
+    public static Optional<List<Number>> fibonacci(Number limit)
     {
         if (less(limit, 0))
         {
@@ -75,7 +75,7 @@ public class Experiment
         }
     }
 
-    private static List<Number> fibo(Number index, Number limit, List<Number> list)
+    public static List<Number> fibo(Number index, Number limit, List<Number> list)
     {
         if (greaterEqual(index, limit))
         {
@@ -91,12 +91,12 @@ public class Experiment
         }
     }
 
-    private static Number duplicate(Number n)
+    public static Number duplicate(Number n)
     {
         return mul(n, 2);
     }
 
-    private static Object apply(Function<Number, Object> f, Number a, Number b)
+    public static Object apply(Function<Number, Object> f, Number a, Number b)
     {
         return f.apply(add(a, b));
     }
