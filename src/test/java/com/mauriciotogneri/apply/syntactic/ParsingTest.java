@@ -45,7 +45,7 @@ public class ParsingTest
         //        tokens.add(new DefaultToken(TokenType.PARENTHESIS_CLOSE, new DefaultLexeme(")", new FakePosition(1, 19))));
 
         //CharacterList characters = new FakeCharacters("m(3+4,a.b(1)-f(c,d*2))");
-        CharacterList characters = new FakeCharacters("if(a) b else c");
+        CharacterList characters = new FakeCharacters("if(if(x) y else z) b else c");
 
         TokenList tokenList = new DefaultTokenList(characters);
         List<Token> tokens = tokenList.tokens();
