@@ -83,11 +83,11 @@ public class Experiment
         }
         else
         {
-            Optional<Number> first = element(list, sub(index, 1));
-            Optional<Number> second = element(list, sub(index, 2));
+            Optional<Number> first = element(sub(index, 1), list);
+            Optional<Number> second = element(sub(index, 2), list);
             Number sum = add(first.get(), second.get());
 
-            return fibo(add(index, 1), limit, appendLast(list, sum));
+            return fibo(add(index, 1), limit, appendLast(sum, list));
         }
     }
 

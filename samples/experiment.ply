@@ -43,6 +43,10 @@ fibo(index: Num, limit: Num, list: List<Num>): List<Num> =
 	}
 }
 
+\compose(f, g): Function<Function<B, C>, Function<A, B>, Function<A, C>> = \(x): Function<A, C> = f(g(x))
+
+compose(f: Function<B, C>, g: Function<A, B>): Function<A, C> = \(x: A): C -> f(g(x))
+
 concatLists(list1: List<Any>, list2: List<Any>): List<Any> = list1 ++ list2
 
 elementFromList(index: Num, List<Any>): Any = list !! index

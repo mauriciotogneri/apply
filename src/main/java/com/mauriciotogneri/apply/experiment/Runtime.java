@@ -239,7 +239,7 @@ public class Runtime
             return a.size();
         }
 
-        public static <T> Optional<T> element(List<T> list, Number index)
+        public static <T> Optional<T> element(Number index, List<T> list)
         {
             int position = index.intValue();
 
@@ -253,7 +253,7 @@ public class Runtime
             }
         }
 
-        public static <T> List<T> appendFirst(List<T> list, T element)
+        public static <T> List<T> appendFirst(T element, List<T> list)
         {
             List<T> result = listOf(element);
             result.addAll(list);
@@ -261,7 +261,7 @@ public class Runtime
             return result;
         }
 
-        public static <T> List<T> appendLast(List<T> list, T element)
+        public static <T> List<T> appendLast(T element, List<T> list)
         {
             List<T> result = listOf();
             result.addAll(list);
@@ -372,6 +372,19 @@ public class Runtime
             }
 
             return result;
+        }
+
+        public static <A> Boolean contains(A element, List<A> list)
+        {
+            for (A current : list)
+            {
+                if (AnyOperations.equal(current, element))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public static <A> Boolean any(Function1<A, Boolean> function, List<A> list)

@@ -76,7 +76,7 @@ public class ListTest
         Integer inputB = 1;
         List<Integer> output = listOf(1, 2);
 
-        assertEquals(appendFirst(inputA, inputB), output);
+        assertEquals(appendFirst(inputB, inputA), output);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class ListTest
         Integer inputB = 1;
         List<Integer> output = listOf(1, 2, 3, 4);
 
-        assertEquals(appendFirst(inputA, inputB), output);
+        assertEquals(appendFirst(inputB, inputA), output);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class ListTest
         Integer inputB = 1;
         List<Integer> output = listOf(1);
 
-        assertEquals(appendFirst(inputA, inputB), output);
+        assertEquals(appendFirst(inputB, inputA), output);
     }
 
     // ===================================== APPEND LAST ======================================== \\
@@ -108,7 +108,7 @@ public class ListTest
         Integer inputB = 2;
         List<Integer> output = listOf(1, 2);
 
-        assertEquals(appendLast(inputA, inputB), output);
+        assertEquals(appendLast(inputB, inputA), output);
     }
 
     @Test
@@ -118,7 +118,7 @@ public class ListTest
         Integer inputB = 4;
         List<Integer> output = listOf(1, 2, 3, 4);
 
-        assertEquals(appendLast(inputA, inputB), output);
+        assertEquals(appendLast(inputB, inputA), output);
     }
 
     @Test
@@ -128,7 +128,7 @@ public class ListTest
         Integer inputB = 1;
         List<Integer> output = listOf(1);
 
-        assertEquals(appendLast(inputA, inputB), output);
+        assertEquals(appendLast(inputB, inputA), output);
     }
 
     // ======================================== HEAD ============================================ \\
@@ -229,49 +229,49 @@ public class ListTest
     public void elementOfOneCorrect()
     {
         List input = listOf("X");
-        assertEquals(element(input, 0), Optional.of("X"));
+        assertEquals(element(0, input), Optional.of("X"));
     }
 
     @Test
     public void elementOfOneUnder()
     {
         List input = listOf("X");
-        assertEquals(element(input, -1), Optional.empty());
+        assertEquals(element(-1, input), Optional.empty());
     }
 
     @Test
     public void elementOfOneOver()
     {
         List input = listOf("X");
-        assertEquals(element(input, 1), Optional.empty());
+        assertEquals(element(1, input), Optional.empty());
     }
 
     @Test
     public void elementOfThreeCorrect()
     {
         List input = listOf(1, 2, 3);
-        assertEquals(element(input, 0), Optional.of(1));
+        assertEquals(element(0, input), Optional.of(1));
     }
 
     @Test
     public void elementOfThreeUnder()
     {
         List input = listOf(1, 2, 3);
-        assertEquals(element(input, -1), Optional.empty());
+        assertEquals(element(-1, input), Optional.empty());
     }
 
     @Test
     public void elementOfThreeOver()
     {
         List input = listOf(1, 2, 3);
-        assertEquals(element(input, 3), Optional.empty());
+        assertEquals(element(3, input), Optional.empty());
     }
 
     @Test
     public void elementOfZero()
     {
         List input = listOf();
-        assertEquals(element(input, 0), Optional.empty());
+        assertEquals(element(0, input), Optional.empty());
     }
 
     // ======================================= CONCAT =========================================== \\
