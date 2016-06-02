@@ -11,10 +11,16 @@ optionExample(n: Num): Option<Num> =
 		Option(n * 2)
 
 optionExample2(o: Option<Num>): Num =
-	if (o.isPresent)
+	if (o.exist)
 		o.get * 2
 	else
 		-1
+
+divide(a: Num, b: Num): Num =
+    if (b != 0)
+        a/b
+    else
+        Error("Cannot divide by zero")
 
 fibonacci(limit: Num): Option<List<Num>> =
 	if (limit < 0)
@@ -50,8 +56,6 @@ elementFromList(index: Num, List<Any>): Any = list !! index
 
 addElementToLast(elem: Any, list: List<Any>): List<Any> = list ++ [elem]
 addElementToLast(elem: Any, list: List<Any>): List<Any> = list # elem
-
-// TODO list.contains(3) => true if 3 is in the list
 
 factorial(n: Num): Num =
 	if (n = 0)

@@ -179,6 +179,21 @@ public class Runtime
             return a.doubleValue() >= b.doubleValue();
         }
 
+        public static Number max(Number a, Number b)
+        {
+            return normalize(Math.max(a.doubleValue(), b.doubleValue()));
+        }
+
+        public static Number min(Number a, Number b)
+        {
+            return normalize(Math.min(a.doubleValue(), b.doubleValue()));
+        }
+
+        public static Number abs(Number n)
+        {
+            return normalize(Math.abs(n.doubleValue()));
+        }
+
         public static Boolean equal(Number a, Number b)
         {
             return Double.compare(a.doubleValue(), b.doubleValue()) == 0;
