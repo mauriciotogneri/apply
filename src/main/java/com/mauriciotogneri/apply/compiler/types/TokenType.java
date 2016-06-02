@@ -9,8 +9,9 @@ public enum TokenType
     COMMA(","), //
 
     // literals
-    INTEGER("-?\\d{1,}"),
-    FLOAT("-?\\d{1,}\\.?\\d{0,}"), // TODO: fuse both into ^[-+]?\d*\.?\d+$
+    //INTEGER("-?\\d+"),
+    //FLOAT("\\d+\\.?\\d*"),
+    NUMBER("\\d*\\.?\\d+"),
     STRING("\"[^\"]*\""), // TODO
     BOOLEAN("true|false"), // TODO
 

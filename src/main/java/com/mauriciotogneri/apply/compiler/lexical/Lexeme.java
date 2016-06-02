@@ -1,24 +1,21 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
-import com.mauriciotogneri.apply.compiler.lexical.base.Character;
-import com.mauriciotogneri.apply.compiler.lexical.base.Lexeme;
 import com.mauriciotogneri.apply.compiler.lexical.base.Position;
 
-public class DefaultLexeme implements Lexeme
+public class Lexeme implements Position
 {
     private final String value;
     private final Position position;
 
-    public DefaultLexeme(String value, Position position)
+    public Lexeme(String value, Position position)
     {
         this.value = value;
         this.position = position;
     }
 
-    @Override
     public Lexeme appended(Character character)
     {
-        return new DefaultLexeme(value + character.toString(), position);
+        return new Lexeme(value + character.toString(), position);
     }
 
     @Override

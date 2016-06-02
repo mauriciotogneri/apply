@@ -1,7 +1,5 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
-import com.mauriciotogneri.apply.compiler.lexical.base.Character;
-import com.mauriciotogneri.apply.compiler.lexical.base.CharacterList;
 import com.mauriciotogneri.apply.compiler.lexical.base.Cursor;
 
 import java.io.File;
@@ -10,16 +8,15 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefaultCharacterList implements CharacterList
+public class CharacterList
 {
     private final InputStream inputStream;
 
-    public DefaultCharacterList(File file) throws Exception
+    public CharacterList(File file) throws Exception
     {
         this.inputStream = new FileInputStream(file);
     }
 
-    @Override
     public List<Character> characters() throws Exception
     {
         List<Character> characters = new ArrayList<>();
@@ -31,7 +28,7 @@ public class DefaultCharacterList implements CharacterList
         while ((content = inputStream.read()) != -1)
         {
             char character = (char) content;
-            characters.add(new DefaultCharacter(character, cursor));
+            characters.add(new Character(character, cursor));
 
             cursor = cursor.advance(character);
         }

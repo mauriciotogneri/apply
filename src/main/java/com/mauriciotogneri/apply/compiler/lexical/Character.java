@@ -1,11 +1,10 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
-import com.mauriciotogneri.apply.compiler.lexical.base.Character;
 import com.mauriciotogneri.apply.compiler.lexical.base.Position;
 import com.mauriciotogneri.apply.compiler.types.TokenType;
 import com.mauriciotogneri.apply.exceptions.lexical.InvalidCharacterException;
 
-public class DefaultCharacter implements Character
+public class Character implements Position
 {
     private final char character;
     private final Position position;
@@ -112,7 +111,7 @@ public class DefaultCharacter implements Character
     private static final char y = 'y'; // 121
     private static final char z = 'z'; // 122
 
-    public DefaultCharacter(char character, Position position)
+    public Character(char character, Position position)
     {
         this.character = character;
         this.position = position;
@@ -303,7 +302,6 @@ public class DefaultCharacter implements Character
         return position.column();
     }
 
-    @Override
     public char value()
     {
         return character;

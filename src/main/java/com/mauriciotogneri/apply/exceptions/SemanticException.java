@@ -1,6 +1,6 @@
 package com.mauriciotogneri.apply.exceptions;
 
-import com.mauriciotogneri.apply.compiler.lexical.base.Token;
+import com.mauriciotogneri.apply.compiler.lexical.Token;
 
 public class SemanticException extends CompilationException
 {

@@ -1,6 +1,6 @@
 package com.mauriciotogneri.apply.compiler.syntactic;
 
-import com.mauriciotogneri.apply.compiler.lexical.base.Token;
+import com.mauriciotogneri.apply.compiler.lexical.Token;
 
 import java.util.ArrayList;
 import java.util.Deque;

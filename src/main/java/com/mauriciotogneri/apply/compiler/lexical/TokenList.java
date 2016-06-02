@@ -1,9 +1,5 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
-import com.mauriciotogneri.apply.compiler.lexical.base.Character;
-import com.mauriciotogneri.apply.compiler.lexical.base.CharacterList;
-import com.mauriciotogneri.apply.compiler.lexical.base.Token;
-import com.mauriciotogneri.apply.compiler.lexical.base.TokenList;
 import com.mauriciotogneri.apply.compiler.types.TokenType;
 import com.mauriciotogneri.apply.exceptions.lexical.InvalidCharacterException;
 
@@ -11,16 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class DefaultTokenList implements TokenList
+public class TokenList
 {
     private final CharacterList characters;
 
-    public DefaultTokenList(CharacterList characters)
+    public TokenList(CharacterList characters)
     {
         this.characters = characters;
     }
 
-    @Override
     public List<Token> tokens() throws Exception
     {
         List<Token> tokens = new ArrayList<>();
@@ -53,9 +48,9 @@ public class DefaultTokenList implements TokenList
                 if (tokenType.isPresent())
                 {
                     tokens.add(
-                            new DefaultToken(
+                            new Token(
                                     tokenType.get(),
-                                    new DefaultLexeme(
+                                    new Lexeme(
                                             content(1),
                                             get(0)
                                     )
@@ -87,9 +82,9 @@ public class DefaultTokenList implements TokenList
                 if (tokenType.isPresent())
                 {
                     tokens.add(
-                            new DefaultToken(
+                            new Token(
                                     tokenType.get(),
-                                    new DefaultLexeme(content(0), get(0))
+                                    new Lexeme(content(0), get(0))
                             )
                     );
                 }

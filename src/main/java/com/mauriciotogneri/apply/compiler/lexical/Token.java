@@ -1,47 +1,40 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
-import com.mauriciotogneri.apply.compiler.lexical.base.Lexeme;
-import com.mauriciotogneri.apply.compiler.lexical.base.Token;
+import com.mauriciotogneri.apply.compiler.lexical.base.Position;
 import com.mauriciotogneri.apply.compiler.types.TokenType;
 
-public class DefaultToken implements Token
+public class Token implements Position
 {
     private final TokenType type;
     private final Lexeme lexeme;
 
-    public DefaultToken(TokenType type, Lexeme lexeme)
+    public Token(TokenType type, Lexeme lexeme)
     {
         this.lexeme = lexeme;
         this.type = type;
     }
 
-    @Override
     public boolean isSymbol()
     {
         return (type == TokenType.SYMBOL) ||
                 (type == TokenType.IF);
     }
 
-    @Override
     public boolean isOpenParenthesis()
     {
         return (type == TokenType.PARENTHESIS_OPEN);
     }
 
-    @Override
     public boolean isCloseParenthesis()
     {
         return (type == TokenType.PARENTHESIS_CLOSE);
     }
 
-    @Override
     public boolean isNumber()
     {
-        return (type == TokenType.INTEGER) ||
-                (type == TokenType.FLOAT);
+        return (type == TokenType.NUMBER);
     }
 
-    @Override
     public boolean isArithmetic()
     {
         return (type == TokenType.ARITHMETIC_ADDITION) ||
@@ -52,7 +45,6 @@ public class DefaultToken implements Token
                 (type == TokenType.ARITHMETIC_MODULE);
     }
 
-    @Override
     public boolean isOperator()
     {
         return isArithmetic() ||
@@ -60,19 +52,16 @@ public class DefaultToken implements Token
                 (type == TokenType.ELSE);
     }
 
-    @Override
     public boolean isComma()
     {
         return (type == TokenType.COMMA);
     }
 
-    @Override
     public String lexeme()
     {
         return lexeme.toString();
     }
 
-    @Override
     public boolean isSeparator()
     {
         return (type == TokenType.SPACE) || //
@@ -81,8 +70,7 @@ public class DefaultToken implements Token
 
     private boolean literal()
     {
-        return (type == TokenType.INTEGER) || //
-                (type == TokenType.FLOAT) || //
+        return (type == TokenType.NUMBER) || //
                 (type == TokenType.STRING) || //
                 (type == TokenType.BOOLEAN);
     }
