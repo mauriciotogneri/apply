@@ -1,7 +1,5 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
-import com.mauriciotogneri.apply.compiler.lexical.base.Cursor;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -21,7 +19,7 @@ public class CharacterList
     {
         List<Character> characters = new ArrayList<>();
 
-        Cursor cursor = new DefaultCursor(1, 1);
+        Cursor cursor = new Cursor(1, 1);
 
         int content;
 

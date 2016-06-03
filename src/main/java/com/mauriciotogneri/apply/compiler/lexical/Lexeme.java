@@ -18,6 +18,11 @@ public class Lexeme implements Position
         return new Lexeme(value + character.toString(), position);
     }
 
+    public boolean matches(String pattern)
+    {
+        return value.matches(pattern);
+    }
+
     @Override
     public int line()
     {

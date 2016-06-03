@@ -1,139 +1,126 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
 import com.mauriciotogneri.apply.compiler.lexical.base.Position;
-import com.mauriciotogneri.apply.compiler.types.TokenType;
 
-public class Token implements Position
+public abstract class Token implements Position
 {
-    private final TokenType type;
     private final Lexeme lexeme;
 
-    public Token(TokenType type, Lexeme lexeme)
+    public Token(Lexeme lexeme)
     {
         this.lexeme = lexeme;
-        this.type = type;
     }
 
     public boolean isSymbol()
     {
-        return (type == TokenType.SYMBOL) ||
-                (type == TokenType.IF);
+        return false;
+        //(type == TokenType.SYMBOL) ||
+        //(type == TokenType.IF);
     }
 
     public boolean isOpenParenthesis()
     {
-        return (type == TokenType.PARENTHESIS_OPEN);
+        return false;
     }
 
     public boolean isCloseParenthesis()
     {
-        return (type == TokenType.PARENTHESIS_CLOSE);
+        return false;
     }
 
     public boolean isNumber()
     {
-        return (type == TokenType.NUMBER);
+        return false;
+    }
+
+    public boolean isBoolean()
+    {
+        return false;
     }
 
     public boolean isArithmetic()
     {
-        return (type == TokenType.ARITHMETIC_ADDITION) ||
-                (type == TokenType.ARITHMETIC_SUBTRACTION) ||
-                (type == TokenType.ARITHMETIC_MULTIPLICATION) ||
-                (type == TokenType.ARITHMETIC_DIVISION) ||
-                (type == TokenType.ARITHMETIC_POWER) ||
-                (type == TokenType.ARITHMETIC_MODULE);
-    }
-
-    public boolean isOperator()
-    {
-        return isArithmetic() ||
-                (type == TokenType.MEMBER_ACCESS) ||
-                (type == TokenType.ELSE);
-    }
-
-    public boolean isComma()
-    {
-        return (type == TokenType.COMMA);
-    }
-
-    public String lexeme()
-    {
-        return lexeme.toString();
+        return false;
     }
 
     public boolean isSeparator()
     {
-        return (type == TokenType.SPACE) || //
-                (type == TokenType.TAB);
+        return false;
     }
 
-    private boolean literal()
+    public boolean isComma()
     {
-        return (type == TokenType.NUMBER) || //
-                (type == TokenType.STRING) || //
-                (type == TokenType.BOOLEAN);
+        return false;
     }
 
-    private boolean arithmetic()
+    public boolean isOperator()
     {
-        return (type == TokenType.ARITHMETIC_ADDITION) || //
-                (type == TokenType.ARITHMETIC_SUBTRACTION) || //
-                (type == TokenType.ARITHMETIC_MULTIPLICATION) || //
-                (type == TokenType.ARITHMETIC_DIVISION) || //
-                (type == TokenType.ARITHMETIC_POWER) || //
-                (type == TokenType.ARITHMETIC_MODULE);
+        return isArithmetic(); // ||
+        //(type == TokenType.MEMBER_ACCESS) ||
+        //(type == TokenType.ELSE);
     }
 
-    private boolean logic()
-    {
-        return (type == TokenType.LOGIC_EQUAL) || //
-                (type == TokenType.LOGIC_NOT_EQUAL) || //
-                (type == TokenType.LOGIC_GREATER) || //
-                (type == TokenType.LOGIC_GREATER_EQUAL) || //
-                (type == TokenType.LOGIC_LESS) || //
-                (type == TokenType.LOGIC_LESS_EQUAL) || //
-                (type == TokenType.LOGIC_AND) || //
-                (type == TokenType.LOGIC_OR) || //
-                (type == TokenType.LOGIC_NEGATION);
-    }
+    //    private boolean literal()
+    //    {
+    //        return isNumber() || //
+    //                (type == TokenType.STRING) || //
+    //                (type == TokenType.BOOLEAN);
+    //    }
 
-    private boolean conditional()
-    {
-        return (type == TokenType.IF);
-    }
+    //    private boolean logic()
+    //    {
+    //        return (type == TokenType.LOGIC_EQUAL) || //
+    //                (type == TokenType.LOGIC_NOT_EQUAL) || //
+    //                (type == TokenType.LOGIC_GREATER) || //
+    //                (type == TokenType.LOGIC_GREATER_EQUAL) || //
+    //                (type == TokenType.LOGIC_LESS) || //
+    //                (type == TokenType.LOGIC_LESS_EQUAL) || //
+    //                (type == TokenType.LOGIC_AND) || //
+    //                (type == TokenType.LOGIC_OR) || //
+    //                (type == TokenType.LOGIC_NEGATION);
+    //    }
 
-    private boolean array()
-    {
-        return (type == TokenType.ARRAY_INDEX) || //
-                (type == TokenType.ARRAY_REMOVE) || //
-                (type == TokenType.ARRAY_LENGTH);
-    }
+    //    private boolean conditional()
+    //    {
+    //        return (type == TokenType.IF);
+    //    }
 
-    private boolean list()
-    {
-        return (type == TokenType.LIST_OPEN) || //
-                (type == TokenType.LIST_CLOSE);
-    }
+    //    private boolean array()
+    //    {
+    //        return (type == TokenType.ARRAY_INDEX) || //
+    //                (type == TokenType.ARRAY_REMOVE) || //
+    //                (type == TokenType.ARRAY_LENGTH);
+    //    }
 
-    private boolean primitive()
-    {
-        return conditional() || //
-                arithmetic() || //
-                logic() || //
-                array() || //
-                list();
-    }
+    //    private boolean list()
+    //    {
+    //        return (type == TokenType.LIST_OPEN) || //
+    //                (type == TokenType.LIST_CLOSE);
+    //    }
 
-    private boolean expression()
+    //    private boolean primitive()
+    //    {
+    //        return conditional() || //
+    //                arithmetic() || //
+    //                logic() || //
+    //                array() || //
+    //                list();
+    //    }
+
+    //    private boolean expression()
+    //    {
+    //        return (type == TokenType.SYMBOL) || //
+    //                conditional() || //
+    //                literal() || //
+    //                arithmetic() || //
+    //                logic() || //
+    //                array() || //
+    //                list();
+    //    }
+
+    public String lexeme()
     {
-        return (type == TokenType.SYMBOL) || //
-                conditional() || //
-                literal() || //
-                arithmetic() || //
-                logic() || //
-                array() || //
-                list();
+        return lexeme.toString();
     }
 
     @Override

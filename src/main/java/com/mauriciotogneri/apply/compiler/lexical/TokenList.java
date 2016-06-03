@@ -43,19 +43,11 @@ public class TokenList
         {
             if (!matchesPattern() && (size() > 1))
             {
-                Optional<TokenType> tokenType = tokenType(1);
+                Optional<Token> token = token(1);
 
-                if (tokenType.isPresent())
+                if (token.isPresent())
                 {
-                    tokens.add(
-                            new Token(
-                                    tokenType.get(),
-                                    new Lexeme(
-                                            content(1),
-                                            get(0)
-                                    )
-                            )
-                    );
+                    tokens.add(token.get());
 
                     Character lastCharacter = get(size() - 1);
                     clear();
@@ -70,23 +62,18 @@ public class TokenList
 
         private boolean matchesPattern()
         {
-            return tokenType(0).isPresent();
+            return token(0).isPresent();
         }
 
         private void checkRemaining(List<Token> tokens)
         {
             if (matchesPattern())
             {
-                Optional<TokenType> tokenType = tokenType(0);
+                Optional<Token> token = token(0);
 
-                if (tokenType.isPresent())
+                if (token.isPresent())
                 {
-                    tokens.add(
-                            new Token(
-                                    tokenType.get(),
-                                    new Lexeme(content(0), get(0))
-                            )
-                    );
+                    tokens.add(token.get());
                 }
                 else
                 {
@@ -99,22 +86,14 @@ public class TokenList
             }
         }
 
-        private Optional<TokenType> tokenType(int remove)
+        private Optional<Token> token(int remove)
         {
-            String content = content(remove);
+            Lexeme lexeme = lexeme(remove);
 
-            for (TokenType tokenType : TokenType.values())
-            {
-                if (content.matches(tokenType.pattern()))
-                {
-                    return Optional.of(tokenType);
-                }
-            }
-
-            return Optional.empty();
+            return TokenType.ofLexeme(lexeme);
         }
 
-        private String content(int remove)
+        private Lexeme lexeme(int remove)
         {
             StringBuilder builder = new StringBuilder();
 
@@ -127,7 +106,7 @@ public class TokenList
                 builder.append(character.value());
             }
 
-            return builder.toString();
+            return new Lexeme(builder.toString(), get(0));
         }
     }
 }
