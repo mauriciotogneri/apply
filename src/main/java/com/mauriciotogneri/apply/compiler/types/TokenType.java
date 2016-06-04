@@ -2,19 +2,24 @@ package com.mauriciotogneri.apply.compiler.types;
 
 import com.mauriciotogneri.apply.compiler.lexical.Lexeme;
 import com.mauriciotogneri.apply.compiler.lexical.Token;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticAdditionToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticDivisionToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticModuleToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticMultiplicationToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticPowerToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticSubtractionToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.BooleanToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.CommaToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.NewLineToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.NumberToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ParenthesisCloseToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ParenthesisOpenToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.SeparatorToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.SpaceToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.SymbolToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticAdditionToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticDivisionToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticModuleToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticMultiplicationToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticPowerToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticSubtractionToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.blocks.ParenthesisCloseToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.blocks.ParenthesisOpenToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalElseIfToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalElseToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalEndIfToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalIfToken;
 
 import java.util.Optional;
 
@@ -28,8 +33,8 @@ public enum TokenType
 
     // literals
     NUMBER("\\d*\\.?\\d+"),
-    STRING("\"[^\"]*\""), // TODO
-    BOOLEAN("true|false"), // TODO
+    STRING("\"[^\"]*\""),
+    BOOLEAN("true|false"),
 
     // arithmetic
     ARITHMETIC_ADDITION("\\+"), //
@@ -56,11 +61,8 @@ public enum TokenType
     // conditional
     IF("if"), //
     ELSE("else"), //
-
-    // arrays (lists and strings)
-    ARRAY_INDEX(""), // TODO
-    ARRAY_REMOVE(""), // TODO
-    ARRAY_LENGTH(""), // TODO
+    ELSE_IF("elsif"), //
+    END_IF("end"), //
 
     // parenthesis
     PARENTHESIS_OPEN("\\("), //
@@ -69,6 +71,10 @@ public enum TokenType
     // lists
     LIST_OPEN("\\["), //
     LIST_CLOSE("\\]"), //
+
+    // brackets
+    BRACKETS_OPEN("\\{"), //
+    BRACKETS_CLOSE("\\}"), //
 
     // general
     SYMBOL("[a-zA-Z]\\w*"), //
@@ -130,10 +136,6 @@ public enum TokenType
             case ARITHMETIC_MODULE:
                 return new ArithmeticModuleToken(lexeme);
 
-            case TAB:
-            case SPACE:
-                return new SeparatorToken(lexeme);
-
             case SYMBOL:
                 return new SymbolToken(lexeme);
 
@@ -143,11 +145,28 @@ public enum TokenType
             case BOOLEAN:
                 return new BooleanToken(lexeme);
 
-            //--------------------
+            case IF:
+                return new ConditionalIfToken(lexeme);
+
+            case ELSE:
+                return new ConditionalElseToken(lexeme);
+
+            case ELSE_IF:
+                return new ConditionalElseIfToken(lexeme);
+
+            case END_IF:
+                return new ConditionalEndIfToken(lexeme);
 
             case NEW_LINE:
-                break;
-            case STRING:
+                return new NewLineToken(lexeme);
+
+            case SPACE:
+            case TAB:
+                return new SpaceToken(lexeme);
+
+            //--------------------
+
+            /*case STRING:
                 break;
             case MEMBER_ACCESS:
                 break;
@@ -169,24 +188,19 @@ public enum TokenType
                 break;
             case LOGIC_NEGATION:
                 break;
-            case IF:
-                break;
-            case ELSE:
-                break;
-            case ARRAY_INDEX:
-                break;
-            case ARRAY_REMOVE:
-                break;
-            case ARRAY_LENGTH:
-                break;
             case LIST_OPEN:
                 break;
             case LIST_CLOSE:
                 break;
-            case IMPORT:
+            case BRACKETS_OPEN:
                 break;
-        }
+            case BRACKETS_CLOSE:
+                break;
+            case IMPORT:
+                break;*/
 
-        throw new RuntimeException();
+            default:
+                throw new RuntimeException(lexeme.toString());
+        }
     }
 }

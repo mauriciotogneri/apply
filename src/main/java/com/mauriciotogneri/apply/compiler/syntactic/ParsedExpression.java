@@ -26,6 +26,16 @@ public class ParsedExpression
 
             if (token.isOperator())
             {
+                // TODO: handle associativity
+                //  CASE "+","-","*","/","^","%"
+                //  TOKEN_A = INPUT(TOKEN_NUMBER)
+                //  DO WHILE ISOPERATOR(PEEK(TOKEN_STACK))
+                //      TOKEN_B = PEEK(TOKEN_STACK)
+                //          IF (ASSOCIATIVITY(TOKEN_B) = "left" AND PRECEDENCE(TOKEN_A) = PRECEDENCE(TOKEN_B)) OR (PRECEDENCE(TOKEN_A) < PRECEDENCE(TOKEN_B)) THEN
+                //              CALL PUSH(POP(TOKEN_STACK), TOKEN_QUEUE)
+                //          ELSE
+                //  EXIT DO
+
                 operatorStack.dequeueLowerPreference(token, nodeStack);
                 operatorStack.push(token);
             }
@@ -42,6 +52,15 @@ public class ParsedExpression
                 {
                     nodeStack.addToken(operatorStack.pop());
                 }
+            }
+            else if (token.isConditional())
+            {
+                operatorStack.push(token);
+            }
+            else if (token.isEndIf())
+            {
+                operatorStack.dequeueLowerPreference(token, nodeStack);
+                operatorStack.dequeueConditional(nodeStack);
             }
             else if (token.isComma())
             {
@@ -65,9 +84,9 @@ public class ParsedExpression
                 //                    nodeStack.add(token);
                 //                }
             }
-            else if (token.isSeparator())
+            else if (token.isNewLine())
             {
-                // do nothing
+                // TODO
             }
             else
             {

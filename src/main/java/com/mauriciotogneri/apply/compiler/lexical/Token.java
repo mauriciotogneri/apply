@@ -1,6 +1,13 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
 import com.mauriciotogneri.apply.compiler.lexical.base.Position;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticAdditionToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticDivisionToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticModuleToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticMultiplicationToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticPowerToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticSubtractionToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalToken;
 
 public abstract class Token implements Position
 {
@@ -43,26 +50,102 @@ public abstract class Token implements Position
         return false;
     }
 
-    public boolean isSeparator()
+    public boolean isComma()
     {
         return false;
     }
 
-    public boolean isComma()
+    public boolean isIf()
+    {
+        return false;
+    }
+
+    public boolean isIfElse()
+    {
+        return false;
+    }
+
+    public boolean isElse()
+    {
+        return false;
+    }
+
+    public boolean isConditional()
+    {
+        return isIf() || isIfElse() || isElse();
+    }
+
+    public boolean isEndIf()
     {
         return false;
     }
 
     public boolean isOperator()
     {
-        return isArithmetic(); // ||
+        return isArithmetic() || isConditional(); // ||
         //(type == TokenType.MEMBER_ACCESS) ||
         //(type == TokenType.ELSE);
     }
 
-    public boolean hasHigherPreference(Token token)
+    public boolean isNewLine()
     {
         return false;
+    }
+
+    public boolean hasHigherPreference(Token token)
+    {
+        return precedence() < token.precedence();
+    }
+
+    //    1	    ()   []   ->   .   ::   Function call, scope, array/member access
+    //    2	    !   ~   -   +   *   &   (most) unary operators, sizeof and type casts (right to left)
+    //    3	    *   /   %    	        Multiplication, division, modulo
+    //    4	    +   -	                Addition and subtraction
+    //    5 	<<   >>	                Bitwise shift left and right
+    //    6	    <   <=   >   >=	        Comparisons: less-than, ...
+    //    7	    ==   !=	                Comparisons: equal and not equal
+    //    8	    &	                    Bitwise AND
+    //    9	    ^	                    Bitwise exclusive OR (XOR)
+    //    10	|	                    Bitwise inclusive (normal) OR
+    //    11	&&	                    Logical AND
+    //    12	||	                    Logical OR
+    //    13	 ? :	                Conditional expression (ternary)
+    //    14	=   +=   -=   *=   /=   %=   &=   |=   ^=   <<=   >>=	Assignment operators (right to left)
+    //    15	,	                    Comma operator
+    private int precedence()
+    {
+        if (this instanceof ArithmeticPowerToken) // right
+        {
+            return 2;
+        }
+        else if (this instanceof ArithmeticModuleToken) // left
+        {
+            return 3;
+        }
+        else if (this instanceof ArithmeticDivisionToken) // left
+        {
+            return 3;
+        }
+        else if (this instanceof ArithmeticMultiplicationToken) // left
+        {
+            return 3;
+        }
+        else if (this instanceof ArithmeticSubtractionToken) // left
+        {
+            return 4;
+        }
+        else if (this instanceof ArithmeticAdditionToken) // left
+        {
+            return 4;
+        }
+        else if (this instanceof ConditionalToken)
+        {
+            return 8;
+        }
+        else
+        {
+            throw new RuntimeException();
+        }
     }
 
     //    private boolean literal()

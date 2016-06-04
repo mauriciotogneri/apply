@@ -1,5 +1,6 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
+import com.mauriciotogneri.apply.compiler.lexical.tokens.SpaceToken;
 import com.mauriciotogneri.apply.compiler.types.TokenType;
 import com.mauriciotogneri.apply.exceptions.lexical.InvalidCharacterException;
 
@@ -45,7 +46,7 @@ public class TokenList
 
                 if (token.isPresent())
                 {
-                    tokens.add(token.get());
+                    addToken(tokens, token.get());
 
                     Character lastCharacter = get(size() - 1);
                     clear();
@@ -63,6 +64,14 @@ public class TokenList
             return token(0).isPresent();
         }
 
+        private void addToken(List<Token> tokens, Token token)
+        {
+            if (!(token instanceof SpaceToken))
+            {
+                tokens.add(token);
+            }
+        }
+
         private void checkRemaining(List<Token> tokens)
         {
             if (matchesPattern())
@@ -71,7 +80,7 @@ public class TokenList
 
                 if (token.isPresent())
                 {
-                    tokens.add(token.get());
+                    addToken(tokens, token.get());
                 }
                 else
                 {

@@ -1,4 +1,4 @@
-package com.mauriciotogneri.apply.compiler.syntactic.nodes;
+package com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic;
 
 import com.mauriciotogneri.apply.compiler.lexical.Token;
 import com.mauriciotogneri.apply.compiler.syntactic.TreeNode;

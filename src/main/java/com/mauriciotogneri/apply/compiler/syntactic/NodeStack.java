@@ -1,21 +1,22 @@
 package com.mauriciotogneri.apply.compiler.syntactic;
 
 import com.mauriciotogneri.apply.compiler.lexical.Token;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticAdditionToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticDivisionToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticModuleToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticMultiplicationToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticPowerToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticSubtractionToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticToken;
-import com.mauriciotogneri.apply.compiler.syntactic.nodes.ArithmeticAdditionNode;
-import com.mauriciotogneri.apply.compiler.syntactic.nodes.ArithmeticDivisionNode;
-import com.mauriciotogneri.apply.compiler.syntactic.nodes.ArithmeticModuleNode;
-import com.mauriciotogneri.apply.compiler.syntactic.nodes.ArithmeticMultiplicationNode;
-import com.mauriciotogneri.apply.compiler.syntactic.nodes.ArithmeticPowerNode;
-import com.mauriciotogneri.apply.compiler.syntactic.nodes.ArithmeticSubtractionNode;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticAdditionToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticDivisionToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticModuleToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticMultiplicationToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticPowerToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticSubtractionToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticToken;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticAdditionNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticDivisionNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticModuleNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticMultiplicationNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticPowerNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticSubtractionNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.NumberNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.OpenParenthesisNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.conditional.ConditionalIfNode;
 
 import java.util.ArrayDeque;
 
@@ -34,6 +35,10 @@ public class NodeStack extends ArrayDeque<TreeNode>
         else if (token.isOpenParenthesis())
         {
             push(new OpenParenthesisNode(token));
+        }
+        else if (token.isIfElse() || token.isIf())
+        {
+            addConditionalIf(token);
         }
         else
         {
@@ -78,6 +83,29 @@ public class NodeStack extends ArrayDeque<TreeNode>
                 {
                     throw new RuntimeException();
                 }
+            }
+            else
+            {
+                throw new RuntimeException();
+            }
+        }
+        else
+        {
+            throw new RuntimeException();
+        }
+    }
+
+    private void addConditionalIf(Token token)
+    {
+        if (size() >= 3)
+        {
+            TreeNode right = pop();
+            TreeNode left = pop();
+            TreeNode condition = pop();
+
+            if (right.isExpression() && left.isExpression() && condition.isExpression())
+            {
+                push(new ConditionalIfNode(token, left, right, condition));
             }
             else
             {

@@ -18,6 +18,9 @@ public class ParsingTest extends TestSuite
         CharacterList characters = new CharacterList(file("test3.ply"));
 
         TokenList tokenList = new TokenList(characters);
+
+        //tokenList.tokens().stream().forEach(System.out::println);
+
         ParsedExpression parsedExpression = new ParsedExpression(tokenList);
         NodeStack nodeStack = parsedExpression.parse();
 

@@ -9,43 +9,46 @@ optionExample(n: Num): Option<Num> =
 		Option()
 	else
 		Option(n * 2)
+	end
 
 optionExample2(o: Option<Num>): Num =
 	if (o.exist)
 		o.get * 2
 	else
 		-1
+	end
 
 divide(a: Num, b: Num): Num =
     if (b != 0)
         a/b
     else
         Error("Cannot divide by zero")
+    end
 
 fibonacci(limit: Num): Option<List<Num>> =
 	if (limit < 0)
 		Option()
-	else if (limit == 0)
+	elsif (limit == 0)
 		Option([])
-	else if (limit == 1)
+	elsif (limit == 1)
 		Option([1])
-	else if (limit == 2)
+	elsif (limit == 2)
 		Option([1, 1])
 	else
 		Option(fibo(3, limit, [1, 1]))
+	end
 
 fibo(index: Num, limit: Num, list: List<Num>): List<Num> =
 {
 	if (index > limit)
-	{
 		list
-	}
 	else
 	{
 		let first: Option<Num>  = list.element(index - 1)
 		let second: Option<Num> = list.element(index - 2)
 		fibo(index + 1, limit, list :: (first.get + second.get))
 	}
+	end
 }
 
 compose(f: Function<B, C>, g: Function<A, B>): Function<A, C> = \(x: A): C -> f(g(x))
@@ -62,6 +65,7 @@ factorial(n: Num): Num =
 		1
 	else
 		n * factorial(n - 1)
+	end
 
 letExample(n: Num) =
 {

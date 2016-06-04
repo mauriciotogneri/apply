@@ -1,4 +1,4 @@
-package com.mauriciotogneri.apply.compiler.lexical.tokens;
+package com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic;
 
 import com.mauriciotogneri.apply.compiler.lexical.Lexeme;
 import com.mauriciotogneri.apply.compiler.lexical.Token;
