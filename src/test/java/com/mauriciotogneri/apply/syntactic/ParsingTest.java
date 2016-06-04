@@ -15,7 +15,7 @@ public class ParsingTest extends TestSuite
     {
         //CharacterList characters = new FakeCharacters("m(3+4,a.b(1)-f(c,d*2))");
         //CharacterList characters = new CharacterList("if(if(x) y else z) b else c");
-        CharacterList characters = new CharacterList(file("test2.ply"));
+        CharacterList characters = new CharacterList(file("test3.ply"));
 
         TokenList tokenList = new TokenList(characters);
         ParsedExpression parsedExpression = new ParsedExpression(tokenList);

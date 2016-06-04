@@ -20,6 +20,12 @@ public class ArithmeticNode extends TreeNode
     }
 
     @Override
+    public boolean isExpression()
+    {
+        return true;
+    }
+
+    @Override
     public List<TreeNode> children()
     {
         return new ArrayList<TreeNode>()

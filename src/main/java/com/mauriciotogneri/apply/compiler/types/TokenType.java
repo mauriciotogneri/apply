@@ -11,7 +11,8 @@ import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticSubtractionTo
 import com.mauriciotogneri.apply.compiler.lexical.tokens.BooleanToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.CommaToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.NumberToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ParenthesisToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.ParenthesisCloseToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.ParenthesisOpenToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.SeparatorToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.SymbolToken;
 
@@ -20,9 +21,9 @@ import java.util.Optional;
 public enum TokenType
 {
     // delimiters
-    SPACE(" "), //
-    TAB("\\t"), //
-    NEW_LINE("\\n"), //
+    SPACE(" +"), //
+    TAB("\\t+"), //
+    NEW_LINE("\\n+"), //
     COMMA(","), //
 
     // literals
@@ -106,10 +107,10 @@ public enum TokenType
                 return new NumberToken(lexeme);
 
             case PARENTHESIS_OPEN:
-                return new ParenthesisToken(ParenthesisToken.Type.OPEN, lexeme);
+                return new ParenthesisOpenToken(lexeme);
 
             case PARENTHESIS_CLOSE:
-                return new ParenthesisToken(ParenthesisToken.Type.CLOSE, lexeme);
+                return new ParenthesisCloseToken(lexeme);
 
             case ARITHMETIC_ADDITION:
                 return new ArithmeticAdditionToken(lexeme);

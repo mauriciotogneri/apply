@@ -13,4 +13,17 @@ public class OperatorStack extends ArrayDeque<Token>
             nodeStack.addToken(pop());
         }
     }
+
+    public void dequeueUntilOpenParenthesis(NodeStack nodeStack)
+    {
+        while (!isEmpty() && !peek().isOpenParenthesis())
+        {
+            nodeStack.addToken(pop());
+        }
+    }
+
+    public boolean isTopSymbol()
+    {
+        return (!isEmpty() && peek().isSymbol());
+    }
 }

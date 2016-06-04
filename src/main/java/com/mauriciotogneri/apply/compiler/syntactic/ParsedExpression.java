@@ -3,9 +3,7 @@ package com.mauriciotogneri.apply.compiler.syntactic;
 import com.mauriciotogneri.apply.compiler.lexical.Token;
 import com.mauriciotogneri.apply.compiler.lexical.TokenList;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ParsedExpression
 {
@@ -15,16 +13,6 @@ public class ParsedExpression
     {
         this.tokenList = tokenList;
     }
-
-    private Map<String, Integer> ops = new HashMap<String, Integer>()
-    {{
-        put("+", 1);
-        put("-", 2);
-        put("*", 3);
-        put("/", 4);
-        put(".", 5);
-        put("e", 6);
-    }};
 
     public NodeStack parse() throws Exception
     {
@@ -47,17 +35,13 @@ public class ParsedExpression
             }
             else if (token.isCloseParenthesis())
             {
-                //                while (!operatorStack.peek().isOpenParenthesis())
-                //                {
-                //                    nodeStack.add(operatorStack.pop());
-                //                }
-                //
-                //                operatorStack.pop();
-                //
-                //                if (!operatorStack.isEmpty() && operatorStack.peek().isSymbol())
-                //                {
-                //                    nodeStack.add(operatorStack.pop());
-                //                }
+                operatorStack.dequeueUntilOpenParenthesis(nodeStack);
+                operatorStack.pop();
+
+                if (operatorStack.isTopSymbol())
+                {
+                    nodeStack.addToken(operatorStack.pop());
+                }
             }
             else if (token.isComma())
             {

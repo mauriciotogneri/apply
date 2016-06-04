@@ -19,6 +19,11 @@ public abstract class TreeNode
         return new ArrayList<>();
     }
 
+    public boolean isExpression()
+    {
+        return false;
+    }
+
     public String printPretty(String indent, boolean last)
     {
         String newIndent = indent;
@@ -37,7 +42,7 @@ public abstract class TreeNode
             newIndent += "│ ";
         }
 
-        builder.append(" ").append(token.toString()).append("\n");
+        builder.append(String.format(" %s\n", token));
 
         List<TreeNode> children = children();
 

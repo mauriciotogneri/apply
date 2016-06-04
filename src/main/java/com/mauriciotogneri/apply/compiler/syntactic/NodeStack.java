@@ -15,6 +15,7 @@ import com.mauriciotogneri.apply.compiler.syntactic.nodes.ArithmeticMultiplicati
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.ArithmeticPowerNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.ArithmeticSubtractionNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.NumberNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.OpenParenthesisNode;
 
 import java.util.ArrayDeque;
 
@@ -30,36 +31,9 @@ public class NodeStack extends ArrayDeque<TreeNode>
         {
             addArithmeticNode(token);
         }
-    }
-
-    private void addArithmeticNode(Token token)
-    {
-        TreeNode right = extractNode();
-        TreeNode left = extractNode();
-
-        if (token instanceof ArithmeticAdditionToken)
+        else if (token.isOpenParenthesis())
         {
-            push(new ArithmeticAdditionNode(token, left, right));
-        }
-        else if (token instanceof ArithmeticSubtractionToken)
-        {
-            push(new ArithmeticSubtractionNode(token, left, right));
-        }
-        else if (token instanceof ArithmeticMultiplicationToken)
-        {
-            push(new ArithmeticMultiplicationNode(token, left, right));
-        }
-        else if (token instanceof ArithmeticDivisionToken)
-        {
-            push(new ArithmeticDivisionNode(token, left, right));
-        }
-        else if (token instanceof ArithmeticPowerToken)
-        {
-            push(new ArithmeticPowerNode(token, left, right));
-        }
-        else if (token instanceof ArithmeticModuleToken)
-        {
-            push(new ArithmeticModuleNode(token, left, right));
+            push(new OpenParenthesisNode(token));
         }
         else
         {
@@ -67,13 +41,52 @@ public class NodeStack extends ArrayDeque<TreeNode>
         }
     }
 
-    private TreeNode extractNode()
+    private void addArithmeticNode(Token token)
     {
-        if (isEmpty())
+        if (size() >= 2)
+        {
+            TreeNode right = pop();
+            TreeNode left = pop();
+
+            if (right.isExpression() && left.isExpression())
+            {
+                if (token instanceof ArithmeticAdditionToken)
+                {
+                    push(new ArithmeticAdditionNode(token, left, right));
+                }
+                else if (token instanceof ArithmeticSubtractionToken)
+                {
+                    push(new ArithmeticSubtractionNode(token, left, right));
+                }
+                else if (token instanceof ArithmeticMultiplicationToken)
+                {
+                    push(new ArithmeticMultiplicationNode(token, left, right));
+                }
+                else if (token instanceof ArithmeticDivisionToken)
+                {
+                    push(new ArithmeticDivisionNode(token, left, right));
+                }
+                else if (token instanceof ArithmeticPowerToken)
+                {
+                    push(new ArithmeticPowerNode(token, left, right));
+                }
+                else if (token instanceof ArithmeticModuleToken)
+                {
+                    push(new ArithmeticModuleNode(token, left, right));
+                }
+                else
+                {
+                    throw new RuntimeException();
+                }
+            }
+            else
+            {
+                throw new RuntimeException();
+            }
+        }
+        else
         {
             throw new RuntimeException();
         }
-
-        return pop();
     }
 }
