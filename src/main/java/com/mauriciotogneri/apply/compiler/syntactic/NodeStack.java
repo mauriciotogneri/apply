@@ -8,14 +8,27 @@ import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticMu
 import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticPowerToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticSubtractionToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonEqualToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonGreaterEqualToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonGreaterToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonLessEqualToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonLessToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonNotEqualToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonToken;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.NumberNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.OpenParenthesisNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticAdditionNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticDivisionNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticModuleNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticMultiplicationNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticPowerNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticSubtractionNode;
-import com.mauriciotogneri.apply.compiler.syntactic.nodes.NumberNode;
-import com.mauriciotogneri.apply.compiler.syntactic.nodes.OpenParenthesisNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.comparison.ComparisonEqualNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.comparison.ComparisonGreaterEqualNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.comparison.ComparisonGreaterNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.comparison.ComparisonLessEqualNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.comparison.ComparisonLessNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.comparison.ComparisonNotEqualNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.conditional.ConditionalIfNode;
 
 import java.util.ArrayDeque;
@@ -31,6 +44,10 @@ public class NodeStack extends ArrayDeque<TreeNode>
         else if (token instanceof ArithmeticToken)
         {
             addArithmeticNode(token);
+        }
+        else if (token instanceof ComparisonToken)
+        {
+            addComparisonNode(token);
         }
         else if (token.isOpenParenthesis())
         {
@@ -95,17 +112,66 @@ public class NodeStack extends ArrayDeque<TreeNode>
         }
     }
 
+    private void addComparisonNode(Token token)
+    {
+        if (size() >= 2)
+        {
+            TreeNode right = pop();
+            TreeNode left = pop();
+
+            if (right.isExpression() && left.isExpression())
+            {
+                if (token instanceof ComparisonEqualToken)
+                {
+                    push(new ComparisonEqualNode(token, left, right));
+                }
+                else if (token instanceof ComparisonNotEqualToken)
+                {
+                    push(new ComparisonNotEqualNode(token, left, right));
+                }
+                else if (token instanceof ComparisonLessToken)
+                {
+                    push(new ComparisonLessNode(token, left, right));
+                }
+                else if (token instanceof ComparisonLessEqualToken)
+                {
+                    push(new ComparisonLessEqualNode(token, left, right));
+                }
+                else if (token instanceof ComparisonGreaterToken)
+                {
+                    push(new ComparisonGreaterNode(token, left, right));
+                }
+                else if (token instanceof ComparisonGreaterEqualToken)
+                {
+                    push(new ComparisonGreaterEqualNode(token, left, right));
+                }
+                else
+                {
+                    throw new RuntimeException();
+                }
+            }
+            else
+            {
+                throw new RuntimeException();
+            }
+        }
+        else
+        {
+            throw new RuntimeException();
+        }
+    }
+
     private void addConditionalIf(Token token)
     {
         if (size() >= 3)
         {
-            TreeNode right = pop();
-            TreeNode left = pop();
+            TreeNode ifFalse = pop();
+            TreeNode ifTrue = pop();
             TreeNode condition = pop();
 
-            if (right.isExpression() && left.isExpression() && condition.isExpression())
+            if (ifFalse.isExpression() && ifTrue.isExpression() && condition.isExpression())
             {
-                push(new ConditionalIfNode(token, left, right, condition));
+                push(new ConditionalIfNode(token, condition, ifTrue, ifFalse));
             }
             else
             {

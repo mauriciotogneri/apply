@@ -7,6 +7,12 @@ import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticMo
 import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticMultiplicationToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticPowerToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticSubtractionToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonEqualToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonGreaterEqualToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonGreaterToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonLessEqualToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonLessToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonNotEqualToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalToken;
 
 public abstract class Token implements Position
@@ -50,6 +56,11 @@ public abstract class Token implements Position
         return false;
     }
 
+    public boolean isComparison()
+    {
+        return false;
+    }
+
     public boolean isComma()
     {
         return false;
@@ -82,9 +93,7 @@ public abstract class Token implements Position
 
     public boolean isOperator()
     {
-        return isArithmetic() || isConditional(); // ||
-        //(type == TokenType.MEMBER_ACCESS) ||
-        //(type == TokenType.ELSE);
+        return isArithmetic() || isComparison() || isConditional();
     }
 
     public boolean isNewLine()
@@ -97,21 +106,17 @@ public abstract class Token implements Position
         return precedence() < token.precedence();
     }
 
-    //    1	    ()   []   ->   .   ::   Function call, scope, array/member access
-    //    2	    !   ~   -   +   *   &   (most) unary operators, sizeof and type casts (right to left)
+    //    1	    ()   []  {}  .          Function call, scope, array/member access
+    //    2	    !   ^                   Most unary operators, sizeof and type casts (right to left)
     //    3	    *   /   %    	        Multiplication, division, modulo
     //    4	    +   -	                Addition and subtraction
-    //    5 	<<   >>	                Bitwise shift left and right
-    //    6	    <   <=   >   >=	        Comparisons: less-than, ...
-    //    7	    ==   !=	                Comparisons: equal and not equal
-    //    8	    &	                    Bitwise AND
-    //    9	    ^	                    Bitwise exclusive OR (XOR)
-    //    10	|	                    Bitwise inclusive (normal) OR
-    //    11	&&	                    Logical AND
-    //    12	||	                    Logical OR
-    //    13	 ? :	                Conditional expression (ternary)
-    //    14	=   +=   -=   *=   /=   %=   &=   |=   ^=   <<=   >>=	Assignment operators (right to left)
-    //    15	,	                    Comma operator
+    //    5	    <   <=   >   >=	        Comparisons: less-than, ...
+    //    6	    ==   !=	                Comparisons: equal and not equal
+    //    7 	&	                    Logical AND
+    //    8	    |	                    Logical OR
+    //    9	    if elsif else end       Conditional expression (ternary)
+    //    10	=                      	Assignment operators (right to left)
+    //    11	,	                    Comma operator
     private int precedence()
     {
         if (this instanceof ArithmeticPowerToken) // right
@@ -138,6 +143,18 @@ public abstract class Token implements Position
         {
             return 4;
         }
+        else if ((this instanceof ComparisonLessToken) ||
+                (this instanceof ComparisonLessEqualToken) ||
+                (this instanceof ComparisonGreaterToken) ||
+                (this instanceof ComparisonGreaterEqualToken))
+        {
+            return 5;
+        }
+        else if ((this instanceof ComparisonEqualToken) ||
+                (this instanceof ComparisonNotEqualToken))
+        {
+            return 5;
+        }
         else if (this instanceof ConditionalToken)
         {
             return 8;
@@ -147,64 +164,6 @@ public abstract class Token implements Position
             throw new RuntimeException();
         }
     }
-
-    //    private boolean literal()
-    //    {
-    //        return isNumber() || //
-    //                (type == TokenType.STRING) || //
-    //                (type == TokenType.BOOLEAN);
-    //    }
-
-    //    private boolean logic()
-    //    {
-    //        return (type == TokenType.LOGIC_EQUAL) || //
-    //                (type == TokenType.LOGIC_NOT_EQUAL) || //
-    //                (type == TokenType.LOGIC_GREATER) || //
-    //                (type == TokenType.LOGIC_GREATER_EQUAL) || //
-    //                (type == TokenType.LOGIC_LESS) || //
-    //                (type == TokenType.LOGIC_LESS_EQUAL) || //
-    //                (type == TokenType.LOGIC_AND) || //
-    //                (type == TokenType.LOGIC_OR) || //
-    //                (type == TokenType.LOGIC_NEGATION);
-    //    }
-
-    //    private boolean conditional()
-    //    {
-    //        return (type == TokenType.IF);
-    //    }
-
-    //    private boolean array()
-    //    {
-    //        return (type == TokenType.ARRAY_INDEX) || //
-    //                (type == TokenType.ARRAY_REMOVE) || //
-    //                (type == TokenType.ARRAY_LENGTH);
-    //    }
-
-    //    private boolean list()
-    //    {
-    //        return (type == TokenType.LIST_OPEN) || //
-    //                (type == TokenType.LIST_CLOSE);
-    //    }
-
-    //    private boolean primitive()
-    //    {
-    //        return conditional() || //
-    //                arithmetic() || //
-    //                logic() || //
-    //                array() || //
-    //                list();
-    //    }
-
-    //    private boolean expression()
-    //    {
-    //        return (type == TokenType.SYMBOL) || //
-    //                conditional() || //
-    //                literal() || //
-    //                arithmetic() || //
-    //                logic() || //
-    //                array() || //
-    //                list();
-    //    }
 
     public String lexeme()
     {

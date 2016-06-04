@@ -16,6 +16,12 @@ import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticPo
 import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticSubtractionToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.blocks.ParenthesisCloseToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.blocks.ParenthesisOpenToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonEqualToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonGreaterEqualToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonGreaterToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonLessEqualToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonLessToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonNotEqualToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalElseIfToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalElseToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalEndIfToken;
@@ -164,23 +170,29 @@ public enum TokenType
             case TAB:
                 return new SpaceToken(lexeme);
 
+            case LOGIC_EQUAL:
+                return new ComparisonEqualToken(lexeme);
+
+            case LOGIC_NOT_EQUAL:
+                return new ComparisonNotEqualToken(lexeme);
+
+            case LOGIC_LESS:
+                return new ComparisonLessToken(lexeme);
+
+            case LOGIC_LESS_EQUAL:
+                return new ComparisonLessEqualToken(lexeme);
+
+            case LOGIC_GREATER:
+                return new ComparisonGreaterToken(lexeme);
+
+            case LOGIC_GREATER_EQUAL:
+                return new ComparisonGreaterEqualToken(lexeme);
+
             //--------------------
 
             /*case STRING:
                 break;
             case MEMBER_ACCESS:
-                break;
-            case LOGIC_EQUAL:
-                break;
-            case LOGIC_NOT_EQUAL:
-                break;
-            case LOGIC_GREATER:
-                break;
-            case LOGIC_GREATER_EQUAL:
-                break;
-            case LOGIC_LESS:
-                break;
-            case LOGIC_LESS_EQUAL:
                 break;
             case LOGIC_AND:
                 break;
