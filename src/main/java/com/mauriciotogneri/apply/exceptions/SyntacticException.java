@@ -6,16 +6,11 @@ public class SyntacticException extends CompilationException
 {
     public SyntacticException(String message, Token token)
     {
-        super(message + " '" + token + "' at: [" + token.line() + ", " + token.column() + "]");
-    }
-
-    public SyntacticException(String message, int line, int column)
-    {
-        super(message + " at: [" + line + ", " + column + "]");
+        super(String.format("%s '%s' at: [%d, %d]", message, token, token.line(), token.column()));
     }
 
     public SyntacticException(Token token)
     {
-        super("Invalid token '" + token + "' at: [" + token.line() + ", " + token.column() + "]");
+        this("Invalid token", token);
     }
 }

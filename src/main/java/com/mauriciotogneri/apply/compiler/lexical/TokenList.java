@@ -9,21 +9,19 @@ import java.util.Optional;
 
 public class TokenList
 {
-    private final CharacterList characters;
+    private final CharacterList characterList;
 
-    public TokenList(CharacterList characters)
+    public TokenList(CharacterList characterList)
     {
-        this.characters = characters;
+        this.characterList = characterList;
     }
 
     public List<Token> tokens() throws Exception
     {
         List<Token> tokens = new ArrayList<>();
-        List<Character> characters = this.characters.characters();
-
         CharacterBuffer characterBuffer = new CharacterBuffer();
 
-        for (Character character : characters)
+        for (Character character : characterList.characters())
         {
             characterBuffer.add(character);
             characterBuffer.check(tokens);

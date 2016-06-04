@@ -60,6 +60,11 @@ public abstract class Token implements Position
         //(type == TokenType.ELSE);
     }
 
+    public boolean hasHigherPreference(Token token)
+    {
+        return false;
+    }
+
     //    private boolean literal()
     //    {
     //        return isNumber() || //

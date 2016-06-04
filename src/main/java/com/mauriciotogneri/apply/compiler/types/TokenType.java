@@ -2,7 +2,12 @@ package com.mauriciotogneri.apply.compiler.types;
 
 import com.mauriciotogneri.apply.compiler.lexical.Lexeme;
 import com.mauriciotogneri.apply.compiler.lexical.Token;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticAdditionToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticDivisionToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticModuleToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticMultiplicationToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticPowerToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.ArithmeticSubtractionToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.BooleanToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.CommaToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.NumberToken;
@@ -107,22 +112,22 @@ public enum TokenType
                 return new ParenthesisToken(ParenthesisToken.Type.CLOSE, lexeme);
 
             case ARITHMETIC_ADDITION:
-                return new ArithmeticToken(ArithmeticToken.Type.ADDITION, lexeme);
+                return new ArithmeticAdditionToken(lexeme);
 
             case ARITHMETIC_SUBTRACTION:
-                return new ArithmeticToken(ArithmeticToken.Type.SUBTRACTION, lexeme);
+                return new ArithmeticSubtractionToken(lexeme);
 
             case ARITHMETIC_MULTIPLICATION:
-                return new ArithmeticToken(ArithmeticToken.Type.MULTIPLICATION, lexeme);
+                return new ArithmeticMultiplicationToken(lexeme);
 
             case ARITHMETIC_DIVISION:
-                return new ArithmeticToken(ArithmeticToken.Type.DIVISION, lexeme);
+                return new ArithmeticDivisionToken(lexeme);
 
             case ARITHMETIC_POWER:
-                return new ArithmeticToken(ArithmeticToken.Type.POWER, lexeme);
+                return new ArithmeticPowerToken(lexeme);
 
             case ARITHMETIC_MODULE:
-                return new ArithmeticToken(ArithmeticToken.Type.MODULE, lexeme);
+                return new ArithmeticModuleToken(lexeme);
 
             case TAB:
             case SPACE:

@@ -1,21 +1,19 @@
 package com.mauriciotogneri.apply.compiler.syntactic;
 
 import com.mauriciotogneri.apply.compiler.lexical.Token;
+import com.mauriciotogneri.apply.compiler.lexical.TokenList;
 
-import java.util.ArrayList;
-import java.util.Deque;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class ParsedExpression
 {
-    private final List<Token> expression;
+    private final TokenList tokenList;
 
-    public ParsedExpression(List<Token> expression)
+    public ParsedExpression(TokenList tokenList)
     {
-        this.expression = expression;
+        this.tokenList = tokenList;
     }
 
     private Map<String, Integer> ops = new HashMap<String, Integer>()
@@ -28,67 +26,60 @@ public class ParsedExpression
         put("e", 6);
     }};
 
-    private boolean isHigherPrecedence(String op, String sub)
+    public NodeStack parse() throws Exception
     {
-        return (ops.containsKey(sub) && ops.get(sub) >= ops.get(op));
-    }
+        List<Token> tokens = tokenList.tokens();
+        NodeStack nodeStack = new NodeStack();
+        OperatorStack operatorStack = new OperatorStack();
 
-    public List<Token> parse()
-    {
-        List<Token> output = new ArrayList<>();
-        Deque<Token> stack = new LinkedList<>();
-
-        for (int i = 0; i < expression.size(); i++)
+        for (int i = 0; i < tokens.size(); i++)
         {
-            Token token = expression.get(i);
+            Token token = tokens.get(i);
 
             if (token.isOperator())
             {
-                while (!stack.isEmpty() && isHigherPrecedence(token.lexeme(), stack.peek().lexeme()))
-                {
-                    output.add(stack.pop());
-                }
-                stack.push(token);
+                operatorStack.dequeueLowerPreference(token, nodeStack);
+                operatorStack.push(token);
             }
             else if (token.isOpenParenthesis())
             {
-                stack.push(token);
+                operatorStack.push(token);
             }
             else if (token.isCloseParenthesis())
             {
-                while (!stack.peek().isOpenParenthesis())
-                {
-                    output.add(stack.pop());
-                }
-
-                stack.pop();
-
-                if (!stack.isEmpty() && stack.peek().isSymbol())
-                {
-                    output.add(stack.pop());
-                }
+                //                while (!operatorStack.peek().isOpenParenthesis())
+                //                {
+                //                    nodeStack.add(operatorStack.pop());
+                //                }
+                //
+                //                operatorStack.pop();
+                //
+                //                if (!operatorStack.isEmpty() && operatorStack.peek().isSymbol())
+                //                {
+                //                    nodeStack.add(operatorStack.pop());
+                //                }
             }
             else if (token.isComma())
             {
-                while (!stack.isEmpty() && !stack.peek().isOpenParenthesis())
-                {
-                    output.add(stack.pop());
-                }
+                //                while (!operatorStack.isEmpty() && !operatorStack.peek().isOpenParenthesis())
+                //                {
+                //                    nodeStack.add(operatorStack.pop());
+                //                }
             }
             else if (token.isNumber())
             {
-                output.add(token);
+                nodeStack.addToken(token);
             }
             else if (token.isSymbol())
             {
-                if ((i < (expression.size() - 1)) && (expression.get(i + 1).isOpenParenthesis()))
-                {
-                    stack.push(token);
-                }
-                else
-                {
-                    output.add(token);
-                }
+                //                if ((i < (tokens.size() - 1)) && (tokens.get(i + 1).isOpenParenthesis()))
+                //                {
+                //                    operatorStack.push(token);
+                //                }
+                //                else
+                //                {
+                //                    nodeStack.add(token);
+                //                }
             }
             else if (token.isSeparator())
             {
@@ -100,11 +91,11 @@ public class ParsedExpression
             }
         }
 
-        while (!stack.isEmpty())
+        while (!operatorStack.isEmpty())
         {
-            output.add(stack.pop());
+            nodeStack.addToken(operatorStack.pop());
         }
 
-        return output;
+        return nodeStack;
     }
 }
