@@ -1,4 +1,4 @@
-package com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic;
+package com.mauriciotogneri.apply.compiler.syntactic.nodes;
 
 import com.mauriciotogneri.apply.compiler.lexical.Token;
 import com.mauriciotogneri.apply.compiler.syntactic.TreeNode;
@@ -6,23 +6,17 @@ import com.mauriciotogneri.apply.compiler.syntactic.TreeNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArithmeticNode extends TreeNode
+public class ExpressionBinaryNode extends ExpressionNode
 {
     private final TreeNode left;
     private final TreeNode right;
 
-    public ArithmeticNode(Token token, TreeNode left, TreeNode right)
+    public ExpressionBinaryNode(Token token, TreeNode left, TreeNode right)
     {
         super(token);
 
         this.left = left;
         this.right = right;
-    }
-
-    @Override
-    public boolean isExpression()
-    {
-        return true;
     }
 
     @Override

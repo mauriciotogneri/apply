@@ -48,7 +48,7 @@ public class ParsedExpression
                 operatorStack.dequeueUntilOpenParenthesis(nodeStack);
                 operatorStack.pop();
 
-                if (operatorStack.isTopSymbol())
+                if (operatorStack.isTopSymbol() || operatorStack.isNegation())
                 {
                     nodeStack.addToken(operatorStack.pop());
                 }

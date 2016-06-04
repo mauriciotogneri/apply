@@ -2,11 +2,12 @@ package com.mauriciotogneri.apply.compiler.syntactic.nodes.conditional;
 
 import com.mauriciotogneri.apply.compiler.lexical.Token;
 import com.mauriciotogneri.apply.compiler.syntactic.TreeNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.ExpressionNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConditionalIfNode extends TreeNode
+public class ConditionalIfNode extends ExpressionNode
 {
     private final TreeNode condition;
     private final TreeNode ifTrue;
@@ -18,12 +19,6 @@ public class ConditionalIfNode extends TreeNode
         this.condition = condition;
         this.ifTrue = ifTrue;
         this.ifFalse = ifFalse;
-    }
-
-    @Override
-    public boolean isExpression()
-    {
-        return true;
     }
 
     @Override

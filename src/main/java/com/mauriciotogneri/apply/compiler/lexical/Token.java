@@ -14,6 +14,9 @@ import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonLe
 import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonLessToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonNotEqualToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicAndToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicNotToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicOrToken;
 
 public abstract class Token implements Position
 {
@@ -27,8 +30,6 @@ public abstract class Token implements Position
     public boolean isSymbol()
     {
         return false;
-        //(type == TokenType.SYMBOL) ||
-        //(type == TokenType.IF);
     }
 
     public boolean isOpenParenthesis()
@@ -52,6 +53,11 @@ public abstract class Token implements Position
     }
 
     public boolean isArithmetic()
+    {
+        return false;
+    }
+
+    public boolean isLogic()
     {
         return false;
     }
@@ -86,6 +92,11 @@ public abstract class Token implements Position
         return isIf() || isIfElse() || isElse();
     }
 
+    public boolean isNegation()
+    {
+        return false;
+    }
+
     public boolean isEndIf()
     {
         return false;
@@ -93,7 +104,7 @@ public abstract class Token implements Position
 
     public boolean isOperator()
     {
-        return isArithmetic() || isComparison() || isConditional();
+        return isArithmetic() || isLogic() || isComparison() || isConditional();
     }
 
     public boolean isNewLine()
@@ -119,7 +130,8 @@ public abstract class Token implements Position
     //    11	,	                    Comma operator
     private int precedence()
     {
-        if (this instanceof ArithmeticPowerToken) // right
+        if ((this instanceof ArithmeticPowerToken) ||
+                (this instanceof LogicNotToken))
         {
             return 2;
         }
@@ -153,11 +165,19 @@ public abstract class Token implements Position
         else if ((this instanceof ComparisonEqualToken) ||
                 (this instanceof ComparisonNotEqualToken))
         {
-            return 5;
+            return 6;
+        }
+        else if (this instanceof LogicAndToken)
+        {
+            return 7;
+        }
+        else if (this instanceof LogicOrToken)
+        {
+            return 8;
         }
         else if (this instanceof ConditionalToken)
         {
-            return 8;
+            return 9;
         }
         else
         {

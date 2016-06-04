@@ -26,6 +26,9 @@ import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.Conditional
 import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalElseToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalEndIfToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalIfToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicAndToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicNotToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicOrToken;
 
 import java.util.Optional;
 
@@ -53,16 +56,18 @@ public enum TokenType
     // special
     MEMBER_ACCESS("\\."), //
 
-    // logic
+    // comparison
     LOGIC_EQUAL("="), //
     LOGIC_NOT_EQUAL("!="), //
     LOGIC_GREATER(">"), //
     LOGIC_GREATER_EQUAL(">="), //
     LOGIC_LESS("<"), //
     LOGIC_LESS_EQUAL("<="), //
+
+    // logic
+    LOGIC_NOT("!"), //
     LOGIC_AND("&"), //
     LOGIC_OR("|"), //
-    LOGIC_NEGATION("!"), //
 
     // conditional
     IF("if"), //
@@ -188,17 +193,20 @@ public enum TokenType
             case LOGIC_GREATER_EQUAL:
                 return new ComparisonGreaterEqualToken(lexeme);
 
+            case LOGIC_NOT:
+                return new LogicNotToken(lexeme);
+
+            case LOGIC_AND:
+                return new LogicAndToken(lexeme);
+
+            case LOGIC_OR:
+                return new LogicOrToken(lexeme);
+
             //--------------------
 
             /*case STRING:
                 break;
             case MEMBER_ACCESS:
-                break;
-            case LOGIC_AND:
-                break;
-            case LOGIC_OR:
-                break;
-            case LOGIC_NEGATION:
                 break;
             case LIST_OPEN:
                 break;

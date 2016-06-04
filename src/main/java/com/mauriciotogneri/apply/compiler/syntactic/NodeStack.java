@@ -15,6 +15,10 @@ import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonLe
 import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonLessToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonNotEqualToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.comparison.ComparisonToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicAndToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicNotToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicOrToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicToken;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.NumberNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.OpenParenthesisNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticAdditionNode;
@@ -30,6 +34,9 @@ import com.mauriciotogneri.apply.compiler.syntactic.nodes.comparison.ComparisonL
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.comparison.ComparisonLessNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.comparison.ComparisonNotEqualNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.conditional.ConditionalIfNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.logic.LogicAndNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.logic.LogicNotNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.logic.LogicOrNode;
 
 import java.util.ArrayDeque;
 
@@ -48,6 +55,10 @@ public class NodeStack extends ArrayDeque<TreeNode>
         else if (token instanceof ComparisonToken)
         {
             addComparisonNode(token);
+        }
+        else if (token instanceof LogicToken)
+        {
+            addLogicNode(token);
         }
         else if (token.isOpenParenthesis())
         {
@@ -144,6 +155,63 @@ public class NodeStack extends ArrayDeque<TreeNode>
                 else if (token instanceof ComparisonGreaterEqualToken)
                 {
                     push(new ComparisonGreaterEqualNode(token, left, right));
+                }
+                else
+                {
+                    throw new RuntimeException();
+                }
+            }
+            else
+            {
+                throw new RuntimeException();
+            }
+        }
+        else
+        {
+            throw new RuntimeException();
+        }
+    }
+
+    private void addLogicNode(Token token)
+    {
+        if (token instanceof LogicNotToken)
+        {
+            if (size() >= 1)
+            {
+                TreeNode expression = pop();
+
+                if (expression.isExpression())
+                {
+                    push(new LogicNotNode(token, expression));
+                }
+                else
+                {
+                    throw new RuntimeException();
+                }
+            }
+            else
+            {
+                throw new RuntimeException();
+            }
+        }
+        else if ((token instanceof LogicAndToken) ||
+                (token instanceof LogicOrToken))
+        {
+            if (size() >= 2)
+            {
+                TreeNode left = pop();
+                TreeNode right = pop();
+
+                if (left.isExpression() && right.isExpression())
+                {
+                    if (token instanceof LogicAndToken)
+                    {
+                        push(new LogicAndNode(token, left, right));
+                    }
+                    else
+                    {
+                        push(new LogicOrNode(token, left, right));
+                    }
                 }
                 else
                 {

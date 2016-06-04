@@ -52,4 +52,9 @@ public class OperatorStack extends ArrayDeque<Token>
     {
         return (!isEmpty() && peek().isSymbol());
     }
+
+    public boolean isNegation()
+    {
+        return (!isEmpty() && peek().isNegation());
+    }
 }
