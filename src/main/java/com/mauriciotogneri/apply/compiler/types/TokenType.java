@@ -2,14 +2,6 @@ package com.mauriciotogneri.apply.compiler.types;
 
 import com.mauriciotogneri.apply.compiler.lexical.Lexeme;
 import com.mauriciotogneri.apply.compiler.lexical.Token;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.special.AssignmentToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.types.BooleanToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.special.CommaToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.delimiters.NewLineToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.types.NumberToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.delimiters.SpaceToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.special.SymbolToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.special.TypeOfToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticAdditionToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticDivisionToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticModuleToken;
@@ -28,9 +20,19 @@ import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.Conditional
 import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalElseToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalEndIfToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.ConditionalIfToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.delimiters.NewLineToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.delimiters.SpaceToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicAndToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicNotToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicOrToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.AssignmentToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.CommaToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.FunctionDefToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.SymbolToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.TypeOfToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.TypeReturnToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.types.BooleanToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.types.NumberToken;
 
 import java.util.Optional;
 
@@ -58,7 +60,9 @@ public enum TokenType
     MEMBER_ACCESS("\\."), //
     COMMA(","), //
     TYPE_OF(":"), //
+    TYPE_RETURN("::"), //
     ASSIGNMENT("="), //
+    IMPORT("\\$"), //
 
     // comparison
     LOGIC_EQUAL("=="), //
@@ -91,9 +95,9 @@ public enum TokenType
     BRACKETS_OPEN("\\{"), //
     BRACKETS_CLOSE("\\}"), //
 
-    // general
-    SYMBOL("[a-zA-Z]\\w*"), //
-    IMPORT("\\$");
+    // symbols
+    FUNCTION_DEF("\\\\[a-zA-Z]\\w*"), //
+    SYMBOL("[a-zA-Z]\\w*");
 
     private final String pattern;
 
@@ -154,11 +158,17 @@ public enum TokenType
             case SYMBOL:
                 return new SymbolToken(lexeme);
 
+            case FUNCTION_DEF:
+                return new FunctionDefToken(lexeme);
+
             case COMMA:
                 return new CommaToken(lexeme);
 
             case TYPE_OF:
                 return new TypeOfToken(lexeme);
+
+            case TYPE_RETURN:
+                return new TypeReturnToken(lexeme);
 
             case ASSIGNMENT:
                 return new AssignmentToken(lexeme);

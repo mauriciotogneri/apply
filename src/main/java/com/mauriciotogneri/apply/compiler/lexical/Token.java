@@ -19,6 +19,7 @@ import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicNotToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicOrToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.special.AssignmentToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.special.TypeOfToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.TypeReturnToken;
 
 public abstract class Token implements Position
 {
@@ -30,6 +31,11 @@ public abstract class Token implements Position
     }
 
     public boolean isSymbol()
+    {
+        return false;
+    }
+
+    public boolean isFunctionDef()
     {
         return false;
     }
@@ -150,7 +156,7 @@ public abstract class Token implements Position
     //    11	,	                    Comma operator
     private int precedence()
     {
-        if (this instanceof TypeOfToken)
+        if ((this instanceof TypeOfToken) || (this instanceof TypeReturnToken))
         {
             return 1;
         }

@@ -22,7 +22,10 @@ import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.special.AssignmentToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.special.SymbolToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.special.TypeOfToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.TypeReturnToken;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.AssignmentNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.FunctionCallNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.FunctionDefNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.NumberNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.OpenParenthesisNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.SymbolNode;
@@ -45,6 +48,8 @@ import com.mauriciotogneri.apply.compiler.syntactic.nodes.logic.LogicNotNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.logic.LogicOrNode;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NodeStack extends ArrayDeque<TreeNode>
 {
@@ -82,6 +87,14 @@ public class NodeStack extends ArrayDeque<TreeNode>
         {
             push(new OpenParenthesisNode(token));
         }
+        else if (token.isFunctionDef())
+        {
+            push(new FunctionDefNode(token));
+        }
+        else if (token instanceof TypeReturnToken)
+        {
+            addFunctionDef();
+        }
         else if (token.isIfElse() || token.isIf())
         {
             addConditionalIf(token);
@@ -90,6 +103,46 @@ public class NodeStack extends ArrayDeque<TreeNode>
         {
             throw new RuntimeException(token.lexeme());
         }
+    }
+
+    public void addFunctionCall(Token token)
+    {
+        List<TreeNode> parameters = new ArrayList<>();
+
+        while (!isEmpty() && !peek().isOpenParenthesis())
+        {
+            parameters.add(pop());
+        }
+
+        pop();
+
+        push(new FunctionCallNode(token, parameters));
+    }
+
+    public void addFunctionDef()
+    {
+        List<TreeNode> parameters = new ArrayList<>();
+
+        TreeNode returnType = pop();
+
+        if (!returnType.isSymbol())
+        {
+            throw new RuntimeException();
+        }
+
+        while (!isEmpty() && peek().isTypeOf())
+        {
+            parameters.add(pop());
+        }
+
+        TreeNode functionDef = pop();
+
+        if (!functionDef.isFunctionDef())
+        {
+            throw new RuntimeException();
+        }
+
+        push(new FunctionDefNode(functionDef.token(), parameters, returnType));
     }
 
     private void addArithmeticNode(Token token)

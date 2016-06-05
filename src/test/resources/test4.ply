@@ -1,4 +1,4 @@
-factorial(n: Num): Num =
+\factorial(n: Num):: Num =
 	if (n == 0)
 		1
 	else

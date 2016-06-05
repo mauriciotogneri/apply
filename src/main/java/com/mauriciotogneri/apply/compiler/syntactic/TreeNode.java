@@ -14,6 +14,11 @@ public abstract class TreeNode
         this.token = token;
     }
 
+    public Token token()
+    {
+        return token;
+    }
+
     public List<TreeNode> children()
     {
         return new ArrayList<>();
@@ -25,6 +30,21 @@ public abstract class TreeNode
     }
 
     public boolean isSymbol()
+    {
+        return false;
+    }
+
+    public boolean isTypeOf()
+    {
+        return false;
+    }
+
+    public boolean isFunctionDef()
+    {
+        return false;
+    }
+
+    public boolean isOpenParenthesis()
     {
         return false;
     }

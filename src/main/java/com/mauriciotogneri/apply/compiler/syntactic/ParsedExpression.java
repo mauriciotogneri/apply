@@ -2,8 +2,10 @@ package com.mauriciotogneri.apply.compiler.syntactic;
 
 import com.mauriciotogneri.apply.compiler.lexical.Token;
 import com.mauriciotogneri.apply.compiler.lexical.TokenList;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.OpenParenthesisNode;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ParsedExpression
 {
@@ -40,7 +42,7 @@ public class ParsedExpression
 
                 if (operatorStack.isTopSymbol() || operatorStack.isNegation())
                 {
-                    nodeStack.addToken(operatorStack.pop());
+                    nodeStack.addFunctionCall(operatorStack.pop());
                 }
             }
             else if (token.isConditional())
@@ -62,14 +64,21 @@ public class ParsedExpression
             }
             else if (token.isSymbol())
             {
-                if ((i < (tokens.size() - 1)) && (tokens.get(i + 1).isOpenParenthesis()))
+                Optional<Token> nextToken = nextToken(tokens, i);
+
+                if (nextToken.isPresent() && nextToken.get().isOpenParenthesis())
                 {
+                    nodeStack.push(new OpenParenthesisNode(nextToken.get()));
                     operatorStack.push(token);
                 }
                 else
                 {
                     nodeStack.addToken(token);
                 }
+            }
+            else if (token.isFunctionDef())
+            {
+                nodeStack.addToken(token);
             }
             else if (token.isNewLine())
             {
@@ -87,5 +96,15 @@ public class ParsedExpression
         }
 
         return nodeStack;
+    }
+
+    private Optional<Token> nextToken(List<Token> tokens, int index)
+    {
+        if (index < (tokens.size() - 1))
+        {
+            return Optional.of(tokens.get(index + 1));
+        }
+
+        return Optional.empty();
     }
 }

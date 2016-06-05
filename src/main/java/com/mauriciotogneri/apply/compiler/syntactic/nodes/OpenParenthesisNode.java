@@ -9,4 +9,10 @@ public class OpenParenthesisNode extends TreeNode
     {
         super(token);
     }
+
+    @Override
+    public boolean isOpenParenthesis()
+    {
+        return true;
+    }
 }

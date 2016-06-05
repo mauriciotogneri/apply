@@ -9,4 +9,10 @@ public class TypeOfNode extends ExpressionBinaryNode
     {
         super(token, name, type);
     }
+
+    @Override
+    public boolean isTypeOf()
+    {
+        return true;
+    }
 }
