@@ -26,16 +26,6 @@ public class ParsedExpression
 
             if (token.isOperator())
             {
-                // TODO: handle associativity
-                //  CASE "+","-","*","/","^","%"
-                //  TOKEN_A = INPUT(TOKEN_NUMBER)
-                //  DO WHILE ISOPERATOR(PEEK(TOKEN_STACK))
-                //      TOKEN_B = PEEK(TOKEN_STACK)
-                //          IF (ASSOCIATIVITY(TOKEN_B) = "left" AND PRECEDENCE(TOKEN_A) = PRECEDENCE(TOKEN_B)) OR (PRECEDENCE(TOKEN_A) < PRECEDENCE(TOKEN_B)) THEN
-                //              CALL PUSH(POP(TOKEN_STACK), TOKEN_QUEUE)
-                //          ELSE
-                //  EXIT DO
-
                 operatorStack.dequeueLowerPreference(token, nodeStack);
                 operatorStack.push(token);
             }

@@ -114,7 +114,15 @@ public abstract class Token implements Position
 
     public boolean hasHigherPreference(Token token)
     {
-        return precedence() < token.precedence();
+        int thisPrecedence = precedence();
+        int tokenPrecedence = token.precedence();
+
+        return (thisPrecedence < tokenPrecedence) || ((thisPrecedence == tokenPrecedence) && (isLeftAssociative()));
+    }
+
+    private boolean isLeftAssociative()
+    {
+        return (this instanceof ArithmeticPowerToken) || (this instanceof LogicNotToken);
     }
 
     //    1	    ()   []  {}  .          Function call, scope, array/member access
@@ -135,23 +143,23 @@ public abstract class Token implements Position
         {
             return 2;
         }
-        else if (this instanceof ArithmeticModuleToken) // left
+        else if (this instanceof ArithmeticModuleToken)
         {
             return 3;
         }
-        else if (this instanceof ArithmeticDivisionToken) // left
+        else if (this instanceof ArithmeticDivisionToken)
         {
             return 3;
         }
-        else if (this instanceof ArithmeticMultiplicationToken) // left
+        else if (this instanceof ArithmeticMultiplicationToken)
         {
             return 3;
         }
-        else if (this instanceof ArithmeticSubtractionToken) // left
+        else if (this instanceof ArithmeticSubtractionToken)
         {
             return 4;
         }
-        else if (this instanceof ArithmeticAdditionToken) // left
+        else if (this instanceof ArithmeticAdditionToken)
         {
             return 4;
         }
