@@ -15,4 +15,10 @@ public class OpenParenthesisNode extends TreeNode
     {
         return true;
     }
+
+    @Override
+    public String sourceCode()
+    {
+        throw new RuntimeException();
+    }
 }

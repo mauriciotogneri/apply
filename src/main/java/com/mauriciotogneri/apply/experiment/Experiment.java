@@ -51,6 +51,18 @@ public class Experiment
         }
     }
 
+    public static Number factorial(Number n)
+    {
+        if (equal(n, 0))
+        {
+            return 1;
+        }
+        else
+        {
+            return mul(n, factorial(sub(n, 1)));
+        }
+    }
+
     public static Optional<List<Number>> fibonacci(Number limit)
     {
         if (less(limit, 0))

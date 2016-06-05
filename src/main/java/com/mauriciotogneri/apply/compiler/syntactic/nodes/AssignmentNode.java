@@ -9,4 +9,10 @@ public class AssignmentNode extends ExpressionBinaryNode
     {
         super(token, definition, expression);
     }
+
+    @Override
+    public String sourceCode()
+    {
+        return String.format("%s = %s", left.sourceCode(), right.sourceCode());
+    }
 }

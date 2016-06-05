@@ -10,4 +10,10 @@ public class LogicNotNode extends ExpressionUnaryNode
     {
         super(token, expression);
     }
+
+    @Override
+    public String sourceCode()
+    {
+        return String.format("!%s", expression.sourceCode());
+    }
 }

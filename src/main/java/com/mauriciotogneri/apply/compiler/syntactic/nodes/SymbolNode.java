@@ -14,4 +14,10 @@ public class SymbolNode extends ExpressionNode
     {
         return true;
     }
+
+    @Override
+    public String sourceCode()
+    {
+        return token.lexeme();
+    }
 }

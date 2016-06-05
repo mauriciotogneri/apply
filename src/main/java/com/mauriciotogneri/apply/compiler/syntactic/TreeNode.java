@@ -44,6 +44,8 @@ public abstract class TreeNode
         return false;
     }
 
+    public abstract String sourceCode();
+
     public String printPretty(String indent, boolean last)
     {
         String newIndent = indent;

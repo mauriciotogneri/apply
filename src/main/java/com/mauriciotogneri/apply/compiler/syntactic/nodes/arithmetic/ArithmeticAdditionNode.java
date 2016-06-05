@@ -10,4 +10,10 @@ public class ArithmeticAdditionNode extends ExpressionBinaryNode
     {
         super(token, left, right);
     }
+
+    @Override
+    public String sourceCode()
+    {
+        return String.format("add(%s, %s)", left.sourceCode(), right.sourceCode());
+    }
 }

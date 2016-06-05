@@ -1,5 +1,6 @@
 package com.mauriciotogneri.apply.test;
 
+import java.io.File;
 import java.util.Arrays;
 
 import javax.tools.Diagnostic;
@@ -22,6 +23,22 @@ public class CustomJavaCompiler
         StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null);
         Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjects(filePath);
         CompilationTask task = compiler.getTask(null, fileManager, diagnostics, Arrays.asList("-d", outputPath), null, compilationUnits);
+        task.call();
+        fileManager.close();
+
+        for (final Diagnostic<? extends JavaFileObject> diagnostic : diagnostics.getDiagnostics())
+        {
+            System.err.format("%s, line %d in %s", diagnostic.getMessage(null), diagnostic.getLineNumber(), diagnostic.getSource().getName());
+        }
+    }
+
+    public void compile(File input, File output) throws Exception
+    {
+        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
+        StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null);
+        Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjects(input);
+        CompilationTask task = compiler.getTask(null, fileManager, diagnostics, Arrays.asList("-d", output.getAbsolutePath()), null, compilationUnits);
         task.call();
         fileManager.close();
 

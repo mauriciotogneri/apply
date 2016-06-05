@@ -10,4 +10,10 @@ public class ComparisonEqualNode extends ExpressionBinaryNode
     {
         super(token, left, right);
     }
+
+    @Override
+    public String sourceCode()
+    {
+        return String.format("equal(%s, %s)", left.sourceCode(), right.sourceCode());
+    }
 }

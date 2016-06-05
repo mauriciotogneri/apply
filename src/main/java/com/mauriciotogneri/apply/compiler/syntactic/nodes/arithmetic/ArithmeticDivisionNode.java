@@ -10,4 +10,10 @@ public class ArithmeticDivisionNode extends ExpressionBinaryNode
     {
         super(token, left, right);
     }
+
+    @Override
+    public String sourceCode()
+    {
+        return String.format("div(%s, %s)", left.sourceCode(), right.sourceCode());
+    }
 }

@@ -31,4 +31,21 @@ public class ConditionalIfNode extends ExpressionNode
             add(ifFalse);
         }};
     }
+
+    @Override
+    public String sourceCode()
+    {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(String.format("if (%s)\n", condition.sourceCode()));
+        builder.append("{\n");
+        builder.append(String.format("return %s;\n", ifTrue.sourceCode()));
+        builder.append("}\n");
+        builder.append("else\n");
+        builder.append("{\n");
+        builder.append(String.format("return %s;\n", ifFalse.sourceCode()));
+        builder.append("}\n");
+
+        return builder.toString();
+    }
 }

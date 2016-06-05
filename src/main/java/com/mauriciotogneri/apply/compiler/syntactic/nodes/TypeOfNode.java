@@ -15,4 +15,10 @@ public class TypeOfNode extends ExpressionBinaryNode
     {
         return true;
     }
+
+    @Override
+    public String sourceCode()
+    {
+        return String.format("%s %s", right.sourceCode(), left.sourceCode());
+    }
 }

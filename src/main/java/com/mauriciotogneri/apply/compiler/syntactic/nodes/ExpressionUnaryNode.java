@@ -6,9 +6,9 @@ import com.mauriciotogneri.apply.compiler.syntactic.TreeNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpressionUnaryNode extends ExpressionNode
+public abstract class ExpressionUnaryNode extends ExpressionNode
 {
-    private final TreeNode expression;
+    protected final TreeNode expression;
 
     public ExpressionUnaryNode(Token token, TreeNode expression)
     {

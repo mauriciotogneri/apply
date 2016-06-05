@@ -6,10 +6,10 @@ import com.mauriciotogneri.apply.compiler.syntactic.TreeNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpressionBinaryNode extends ExpressionNode
+public abstract class ExpressionBinaryNode extends ExpressionNode
 {
-    private final TreeNode left;
-    private final TreeNode right;
+    protected final TreeNode left;
+    protected final TreeNode right;
 
     public ExpressionBinaryNode(Token token, TreeNode left, TreeNode right)
     {

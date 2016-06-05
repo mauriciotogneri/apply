@@ -10,4 +10,10 @@ public class LogicAndNode extends ExpressionBinaryNode
     {
         super(token, left, right);
     }
+
+    @Override
+    public String sourceCode()
+    {
+        return String.format("%s && %s", left.sourceCode(), right.sourceCode());
+    }
 }

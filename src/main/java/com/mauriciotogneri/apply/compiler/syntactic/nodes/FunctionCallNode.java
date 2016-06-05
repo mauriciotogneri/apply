@@ -21,4 +21,26 @@ public class FunctionCallNode extends ExpressionNode
     {
         return parameters;
     }
+
+    @Override
+    public String sourceCode()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append(token.lexeme());
+        builder.append("(");
+
+        for (int i = 0; i < parameters.size(); i++)
+        {
+            if (i != 0)
+            {
+                builder.append(", ");
+            }
+
+            builder.append(parameters.get(i).sourceCode());
+        }
+
+        builder.append(")");
+
+        return builder.toString();
+    }
 }

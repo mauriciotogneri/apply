@@ -8,4 +8,10 @@ public class NumberNode extends ExpressionNode
     {
         super(token);
     }
+
+    @Override
+    public String sourceCode()
+    {
+        return token.lexeme();
+    }
 }
