@@ -137,12 +137,16 @@ public class NodeStack extends ArrayDeque<TreeNode>
 
         TreeNode functionDef = pop();
 
-        if (!functionDef.isFunctionDef())
+        if (functionDef.isFunctionDef())
+        {
+            FunctionDefNode function = (FunctionDefNode) functionDef;
+
+            push(function.withTypes(parameters, returnType));
+        }
+        else
         {
             throw new RuntimeException();
         }
-
-        push(new FunctionDefNode(functionDef.token(), parameters, returnType));
     }
 
     private void addArithmeticNode(Token token)
@@ -354,7 +358,15 @@ public class NodeStack extends ArrayDeque<TreeNode>
 
             if (expression.isExpression())
             {
-                push(new AssignmentNode(token, definition, expression));
+                if (definition.isFunctionDef())
+                {
+                    FunctionDefNode function = (FunctionDefNode) definition;
+                    push(function.withBody(expression));
+                }
+                else
+                {
+                    push(new AssignmentNode(token, definition, expression));
+                }
             }
             else
             {

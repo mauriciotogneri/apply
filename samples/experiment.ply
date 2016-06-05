@@ -4,35 +4,28 @@ Children: List<Person>
 
 pi: Num = 3.14
 
-optionExample(n: Num): Option<Num> =
+\optionExample(n: Num): Option<Num> =
 	if (n == 0)
 		Option()
 	else
 		Option(n * 2)
 	end
 
-optionExample2(o: Option<Num>): Num =
+\optionExample2(o: Option<Num>): Num =
 	if (exist(o))
 		get(o) * 2
 	else
 		-1
 	end
 
-optionExample2(param: Option<Num>): Num =
-	if (?param)
-		@param * 2
-	else
-		-1
-	end
-
-divide(a: Num, b: Num): Num =
+\divide(a: Num, b: Num): Num =
     if (b != 0)
         a/b
     else
         Error("Cannot divide by zero")
     end
 
-fibonacci(limit: Num): Option<List<Num>> =
+\fibonacci(limit: Num): Option<List<Num>> =
 	if (limit < 0)
 		Option()
 	elsif (limit == 0)
@@ -45,7 +38,7 @@ fibonacci(limit: Num): Option<List<Num>> =
 		Option(fibo(3, limit, [1, 1]))
 	end
 
-fibo(index: Num, limit: Num, list: List<Num>): List<Num> =
+\fibo(index: Num, limit: Num, list: List<Num>): List<Num> =
 {
 	if (index > limit)
 		list
@@ -58,23 +51,23 @@ fibo(index: Num, limit: Num, list: List<Num>): List<Num> =
 	end
 }
 
-compose(f: Function<B, C>, g: Function<A, B>): Function<A, C> = \(x: A): C -> f(g(x))
+\compose(f: Function<B, C>, g: Function<A, B>): Function<A, C> = \(x: A): C -> f(g(x))
 
-concatLists(list1: List<A>, list2: List<A>): List<A> = list1 ++ list2
+\concatLists(list1: List<A>, list2: List<A>): List<A> = list1 ++ list2
 
-elementFromList(index: Num, List<Any>): Any = list !! index
+\elementFromList(index: Num, List<Any>): Any = list !! index
 
-addElementToLast(elem: Any, list: List<Any>): List<Any> = list ++ [elem]
-addElementToLast(elem: Any, list: List<Any>): List<Any> = list # elem
+\addElementToLast(elem: Any, list: List<Any>): List<Any> = list ++ [elem]
+\addElementToLast(elem: Any, list: List<Any>): List<Any> = list # elem
 
-factorial(n: Num): Num =
+\factorial(n: Num): Num =
 	if (n == 0)
 		1
 	else
 		n * factorial(n - 1)
 	end
 
-letExample(n: Num) =
+\letExample(n: Num) =
 {
 	let positive: Bool = n > 0
 	let prime: Bool = prime(n)
@@ -82,19 +75,19 @@ letExample(n: Num) =
 	positive & prime & even
 }
 
-apply(f: Function<Num, Bool>, a: Num, b: Num): Bool = f(a + b)
+\apply(f: Function<Num, Bool>, a: Num, b: Num): Bool = f(a + b)
 
-duplicate(n: Num): Num = n * 2
+\duplicate(n: Num): Num = n * 2
 
-even(n: Num): Bool = (n % 2) == 0
+\even(n: Num): Bool = (n % 2) == 0
 
-odd(n: Num): Bool = (n % 2) != 0
+\odd(n: Num): Bool = (n % 2) != 0
 
-mergePersons(p1: Person, p2: Person): Person = Person(p1.name + p2.name, p1.age + p2.age, p1.weight + p2.weight)
+\mergePersons(p1: Person, p2: Person): Person = Person(p1.name + p2.name, p1.age + p2.age, p1.weight + p2.weight)
 
-personId(p: Person): String = p.name + " " + p.age + " " + p.weight
+\personId(p: Person): String = p.name + " " + p.age + " " + p.weight
 
-mergeLists(l1: List<A>, l2: List<A>): List<A> = l1 + l2
+\mergeLists(l1: List<A>, l2: List<A>): List<A> = l1 + l2
 
 ----------------------------------------------------------------------------------------------------
 

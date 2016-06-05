@@ -7,16 +7,11 @@ import java.util.List;
 
 public abstract class TreeNode
 {
-    private final Token token;
+    protected final Token token;
 
     public TreeNode(Token token)
     {
         this.token = token;
-    }
-
-    public Token token()
-    {
-        return token;
     }
 
     public List<TreeNode> children()

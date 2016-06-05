@@ -10,18 +10,30 @@ public class FunctionDefNode extends TreeNode
 {
     private final List<TreeNode> parameters;
     private final TreeNode returnType;
+    private final TreeNode body;
 
-    public FunctionDefNode(Token token, List<TreeNode> parameters, TreeNode returnType)
+    private FunctionDefNode(Token token, List<TreeNode> parameters, TreeNode returnType, TreeNode body)
     {
         super(token);
 
         this.parameters = parameters;
         this.returnType = returnType;
+        this.body = body;
     }
 
     public FunctionDefNode(Token token)
     {
-        this(token, new ArrayList<>(), null);
+        this(token, new ArrayList<>(), null, null);
+    }
+
+    public FunctionDefNode withTypes(List<TreeNode> parameters, TreeNode returnType)
+    {
+        return new FunctionDefNode(token, parameters, returnType, body);
+    }
+
+    public FunctionDefNode withBody(TreeNode body)
+    {
+        return new FunctionDefNode(token, parameters, returnType, body);
     }
 
     @Override
@@ -33,6 +45,11 @@ public class FunctionDefNode extends TreeNode
     @Override
     public List<TreeNode> children()
     {
-        return parameters;
+        return new ArrayList<TreeNode>()
+        {{
+            addAll(parameters);
+            add(returnType);
+            add(body);
+        }};
     }
 }
