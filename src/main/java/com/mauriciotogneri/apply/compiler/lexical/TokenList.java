@@ -1,6 +1,6 @@
 package com.mauriciotogneri.apply.compiler.lexical;
 
-import com.mauriciotogneri.apply.compiler.lexical.tokens.SpaceToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.delimiters.SpaceToken;
 import com.mauriciotogneri.apply.compiler.types.TokenType;
 import com.mauriciotogneri.apply.exceptions.lexical.InvalidCharacterException;
 

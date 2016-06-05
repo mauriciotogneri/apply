@@ -17,6 +17,8 @@ import com.mauriciotogneri.apply.compiler.lexical.tokens.conditional.Conditional
 import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicAndToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicNotToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicOrToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.AssignmentToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.TypeOfToken;
 
 public abstract class Token implements Position
 {
@@ -102,9 +104,19 @@ public abstract class Token implements Position
         return false;
     }
 
+    public boolean isTypeOf()
+    {
+        return false;
+    }
+
+    public boolean isAssignment()
+    {
+        return false;
+    }
+
     public boolean isOperator()
     {
-        return isArithmetic() || isLogic() || isComparison() || isConditional();
+        return isArithmetic() || isLogic() || isComparison() || isConditional() || isTypeOf() || isAssignment();
     }
 
     public boolean isNewLine()
@@ -138,7 +150,11 @@ public abstract class Token implements Position
     //    11	,	                    Comma operator
     private int precedence()
     {
-        if ((this instanceof ArithmeticPowerToken) ||
+        if (this instanceof TypeOfToken)
+        {
+            return 1;
+        }
+        else if ((this instanceof ArithmeticPowerToken) ||
                 (this instanceof LogicNotToken))
         {
             return 2;
@@ -186,6 +202,10 @@ public abstract class Token implements Position
         else if (this instanceof ConditionalToken)
         {
             return 9;
+        }
+        else if (this instanceof AssignmentToken)
+        {
+            return 10;
         }
         else
         {

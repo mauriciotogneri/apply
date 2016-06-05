@@ -19,8 +19,14 @@ import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicAndToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicNotToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicOrToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.logic.LogicToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.AssignmentToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.SymbolToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.TypeOfToken;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.AssignmentNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.NumberNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.OpenParenthesisNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.SymbolNode;
+import com.mauriciotogneri.apply.compiler.syntactic.nodes.TypeOfNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticAdditionNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticDivisionNode;
 import com.mauriciotogneri.apply.compiler.syntactic.nodes.arithmetic.ArithmeticModuleNode;
@@ -60,6 +66,18 @@ public class NodeStack extends ArrayDeque<TreeNode>
         {
             addLogicNode(token);
         }
+        else if (token instanceof TypeOfToken)
+        {
+            addTypeOf(token);
+        }
+        else if (token instanceof SymbolToken)
+        {
+            push(new SymbolNode(token));
+        }
+        else if (token instanceof AssignmentToken)
+        {
+            addAssignment(token);
+        }
         else if (token.isOpenParenthesis())
         {
             push(new OpenParenthesisNode(token));
@@ -70,7 +88,7 @@ public class NodeStack extends ArrayDeque<TreeNode>
         }
         else
         {
-            throw new RuntimeException();
+            throw new RuntimeException(token.lexeme());
         }
     }
 
@@ -240,6 +258,50 @@ public class NodeStack extends ArrayDeque<TreeNode>
             if (ifFalse.isExpression() && ifTrue.isExpression() && condition.isExpression())
             {
                 push(new ConditionalIfNode(token, condition, ifTrue, ifFalse));
+            }
+            else
+            {
+                throw new RuntimeException();
+            }
+        }
+        else
+        {
+            throw new RuntimeException();
+        }
+    }
+
+    private void addTypeOf(Token token)
+    {
+        if (size() >= 2)
+        {
+            TreeNode type = pop();
+            TreeNode name = pop();
+
+            if (name.isSymbol() && type.isSymbol())
+            {
+                push(new TypeOfNode(token, name, type));
+            }
+            else
+            {
+                throw new RuntimeException();
+            }
+        }
+        else
+        {
+            throw new RuntimeException();
+        }
+    }
+
+    private void addAssignment(Token token)
+    {
+        if (size() >= 2)
+        {
+            TreeNode expression = pop();
+            TreeNode definition = pop();
+
+            if (expression.isExpression())
+            {
+                push(new AssignmentNode(token, definition, expression));
             }
             else
             {

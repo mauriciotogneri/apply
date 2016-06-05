@@ -12,8 +12,15 @@ optionExample(n: Num): Option<Num> =
 	end
 
 optionExample2(o: Option<Num>): Num =
-	if (o.exist)
-		o.get * 2
+	if (exist(o))
+		get(o) * 2
+	else
+		-1
+	end
+
+optionExample2(param: Option<Num>): Num =
+	if (?param)
+		@param * 2
 	else
 		-1
 	end
@@ -44,9 +51,9 @@ fibo(index: Num, limit: Num, list: List<Num>): List<Num> =
 		list
 	else
 	{
-		let first: Option<Num>  = list.element(index - 1)
-		let second: Option<Num> = list.element(index - 2)
-		fibo(index + 1, limit, list :: (first.get + second.get))
+		let first: Option<Num>  = element(index - 1, list)
+		let second: Option<Num> = element(index - 2, list)
+		fibo(index + 1, limit, list :: (get(first) + get(second)))
 	}
 	end
 }
@@ -61,7 +68,7 @@ addElementToLast(elem: Any, list: List<Any>): List<Any> = list ++ [elem]
 addElementToLast(elem: Any, list: List<Any>): List<Any> = list # elem
 
 factorial(n: Num): Num =
-	if (n = 0)
+	if (n == 0)
 		1
 	else
 		n * factorial(n - 1)
@@ -89,8 +96,6 @@ personId(p: Person): String = p.name + " " + p.age + " " + p.weight
 
 mergeLists(l1: List<A>, l2: List<A>): List<A> = l1 + l2
 
-pi: Num = 3.14
-
 ----------------------------------------------------------------------------------------------------
 
 apply('even', 3, 4)
@@ -99,4 +104,4 @@ factorial(5)
 
 fibo(0, 5, [])
 
-[1, 2, 3].map('duplicate')
+map('duplicate', [1, 2, 3])

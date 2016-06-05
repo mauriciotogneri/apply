@@ -1,17 +1,17 @@
-package com.mauriciotogneri.apply.compiler.lexical.tokens;
+package com.mauriciotogneri.apply.compiler.lexical.tokens.types;
 
 import com.mauriciotogneri.apply.compiler.lexical.Lexeme;
 import com.mauriciotogneri.apply.compiler.lexical.Token;
 
-public class SymbolToken extends Token
+public class NumberToken extends Token
 {
-    public SymbolToken(Lexeme lexeme)
+    public NumberToken(Lexeme lexeme)
     {
         super(lexeme);
     }
 
     @Override
-    public boolean isSymbol()
+    public boolean isNumber()
     {
         return true;
     }

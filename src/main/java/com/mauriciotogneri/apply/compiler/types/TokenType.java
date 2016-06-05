@@ -2,12 +2,14 @@ package com.mauriciotogneri.apply.compiler.types;
 
 import com.mauriciotogneri.apply.compiler.lexical.Lexeme;
 import com.mauriciotogneri.apply.compiler.lexical.Token;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.BooleanToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.CommaToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.NewLineToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.NumberToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.SpaceToken;
-import com.mauriciotogneri.apply.compiler.lexical.tokens.SymbolToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.AssignmentToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.types.BooleanToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.CommaToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.delimiters.NewLineToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.types.NumberToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.delimiters.SpaceToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.SymbolToken;
+import com.mauriciotogneri.apply.compiler.lexical.tokens.special.TypeOfToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticAdditionToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticDivisionToken;
 import com.mauriciotogneri.apply.compiler.lexical.tokens.arithmetic.ArithmeticModuleToken;
@@ -38,7 +40,6 @@ public enum TokenType
     SPACE(" +"), //
     TAB("\\t+"), //
     NEW_LINE("\\n+"), //
-    COMMA(","), //
 
     // literals
     NUMBER("\\d*\\.?\\d+"),
@@ -55,9 +56,12 @@ public enum TokenType
 
     // special
     MEMBER_ACCESS("\\."), //
+    COMMA(","), //
+    TYPE_OF(":"), //
+    ASSIGNMENT("="), //
 
     // comparison
-    LOGIC_EQUAL("="), //
+    LOGIC_EQUAL("=="), //
     LOGIC_NOT_EQUAL("!="), //
     LOGIC_GREATER(">"), //
     LOGIC_GREATER_EQUAL(">="), //
@@ -152,6 +156,12 @@ public enum TokenType
 
             case COMMA:
                 return new CommaToken(lexeme);
+
+            case TYPE_OF:
+                return new TypeOfToken(lexeme);
+
+            case ASSIGNMENT:
+                return new AssignmentToken(lexeme);
 
             case BOOLEAN:
                 return new BooleanToken(lexeme);

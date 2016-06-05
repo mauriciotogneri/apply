@@ -24,6 +24,11 @@ public abstract class TreeNode
         return false;
     }
 
+    public boolean isSymbol()
+    {
+        return false;
+    }
+
     public String printPretty(String indent, boolean last)
     {
         String newIndent = indent;

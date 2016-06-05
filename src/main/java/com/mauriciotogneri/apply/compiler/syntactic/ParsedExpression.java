@@ -54,10 +54,7 @@ public class ParsedExpression
             }
             else if (token.isComma())
             {
-                //                while (!operatorStack.isEmpty() && !operatorStack.peek().isOpenParenthesis())
-                //                {
-                //                    nodeStack.add(operatorStack.pop());
-                //                }
+                operatorStack.dequeueUntilOpenParenthesis(nodeStack);
             }
             else if (token.isNumber())
             {
@@ -65,14 +62,14 @@ public class ParsedExpression
             }
             else if (token.isSymbol())
             {
-                //                if ((i < (tokens.size() - 1)) && (tokens.get(i + 1).isOpenParenthesis()))
-                //                {
-                //                    operatorStack.push(token);
-                //                }
-                //                else
-                //                {
-                //                    nodeStack.add(token);
-                //                }
+                if ((i < (tokens.size() - 1)) && (tokens.get(i + 1).isOpenParenthesis()))
+                {
+                    operatorStack.push(token);
+                }
+                else
+                {
+                    nodeStack.addToken(token);
+                }
             }
             else if (token.isNewLine())
             {

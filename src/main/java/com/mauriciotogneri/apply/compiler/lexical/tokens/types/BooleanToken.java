@@ -1,17 +1,17 @@
-package com.mauriciotogneri.apply.compiler.lexical.tokens;
+package com.mauriciotogneri.apply.compiler.lexical.tokens.types;
 
 import com.mauriciotogneri.apply.compiler.lexical.Lexeme;
 import com.mauriciotogneri.apply.compiler.lexical.Token;
 
-public class CommaToken extends Token
+public class BooleanToken extends Token
 {
-    public CommaToken(Lexeme lexeme)
+    public BooleanToken(Lexeme lexeme)
     {
         super(lexeme);
     }
 
     @Override
-    public boolean isComma()
+    public boolean isBoolean()
     {
         return true;
     }
