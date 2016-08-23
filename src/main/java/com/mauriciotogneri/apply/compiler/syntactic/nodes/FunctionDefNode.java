@@ -2,13 +2,9 @@ package com.mauriciotogneri.apply.compiler.syntactic.nodes;
 
 import com.mauriciotogneri.apply.compiler.lexical.Token;
 import com.mauriciotogneri.apply.compiler.syntactic.TreeNode;
-import com.mauriciotogneri.apply.experiment.Runtime.AnyOperations;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.mul;
-import static com.mauriciotogneri.apply.experiment.Runtime.NumberOperations.sub;
 
 public class FunctionDefNode extends TreeNode
 {
@@ -55,18 +51,6 @@ public class FunctionDefNode extends TreeNode
             add(returnType);
             add(body);
         }};
-    }
-
-    public static Number factorial(Number n)
-    {
-        if (AnyOperations.equal(n, 0))
-        {
-            return 1;
-        }
-        else
-        {
-            return mul(n, factorial(sub(n, 1)));
-        }
     }
 
     @Override

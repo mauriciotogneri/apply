@@ -6,6 +6,6 @@ public class TestSuite
 {
     protected File file(String path)
     {
-        return new File("/home/max/github/apply/src/test/resources/" + path);
+        return new File("src/test/resources/" + path);
     }
 }
